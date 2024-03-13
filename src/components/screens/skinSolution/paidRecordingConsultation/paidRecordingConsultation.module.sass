@@ -1,0 +1,124 @@
+.titleMain
+  max-width: 1015px
+  margin-bottom: 32px
+  @media (min-width: 768px)
+    display: flex
+    align-items: center
+    justify-content: start
+    margin-bottom: 42px
+  @media (min-width: 1200px)
+    align-items: start
+
+.wrap
+  max-width: 1136px
+  margin: 0 auto
+  padding: 0 16px
+  box-sizing: content-box
+  @media ( min-width: 768px )
+    padding: 0 24px
+  @media ( min-width: 1200px )
+    padding: 0 40px
+
+.star
+  background: url("/paidRecording/star.png") center/contain no-repeat
+  margin: 0 auto
+  position: relative
+  width: 46px
+  height: 46px
+  @media (min-width: 768px)
+    margin: 0
+  @media (min-width: 1200px)
+    width: 82px
+    height: 82px
+    margin-top: -15px
+
+.title
+  color: var(--grey-900)
+  font-size: 26px
+  line-height: 26px
+  text-transform: uppercase
+  font-weight: 400
+  text-align: center
+  margin: 12px auto
+  @media (min-width: 768px)
+    font-size: 48px
+    line-height: 48px
+    text-align: start
+    margin: 0 0 0 24px
+  @media (min-width: 1200px)
+    text-align: start
+    margin-left: 26px
+    font-size: 56px
+    line-height: 64.96px
+
+
+.borders
+
+  @media (min-width: 768px)
+    display: flex
+    justify-content: center
+
+  @media (min-width: 1200px)
+    width: 1015px
+    margin-left: 108px
+  .border:nth-child(even)
+    background-color: var(--purple-50)
+
+  .border
+    background-color: var(--purple-100)
+    padding: 20px 24px 20px 24px
+    border: 1px solid
+    border-radius: 100px
+    display: flex
+    align-items: center
+    @media (min-width: 768px)
+      width: 100%
+      padding: 24px 36px 24px 36px
+    @media (min-width: 1200px)
+      width: 508px
+
+    &__number
+      border: 1px solid var(--grey-900)
+      transform: rotate(45deg) translateX(-10px) translateY(-8px)
+      box-shadow: none
+      width: 31px
+      height: 31px
+      background-color: var(--grey-25)
+      display: flex
+      justify-content: center
+      align-items: center
+      margin-top: 20px
+
+
+
+      span
+        transform: rotate(-45deg)
+        display: inline-block
+        color: var(--grey-900)
+
+    &__text
+      font-size: 12px
+      line-height: 16px
+      font-weight: 400
+      margin-left: 16px
+      width: 150px
+      @media (min-width: 360px)
+        width: 235px
+      @media (min-width: 450px)
+        width: 100%
+
+      @media (min-width: 768px)
+        max-width: 235px
+        font-size: 16px
+        line-height: 20px
+      @media (min-width: 1200px)
+        max-width: 376px
+
+.row
+  @media (min-width: 768px)
+    display: flex
+    flex-direction: column
+
+
+
+

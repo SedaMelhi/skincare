@@ -55,7 +55,6 @@ const Address: FC = () => {
   useEffect(() => {
     closeAside();
   }, [router]);
-  console.log(activeAddress);
 
   return (
     <CSSTransition

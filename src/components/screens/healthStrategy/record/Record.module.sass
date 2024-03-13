@@ -1,0 +1,112 @@
+.main
+  position: relative
+
+.img
+  position: relative
+  &__big
+    background: url("/paidRecording/bigImg.png") center/contain no-repeat
+    width: 239px
+    height: 239px
+    border-radius: 241px
+    margin: 0 auto
+    position: relative
+    @media (min-width: 768px)
+      width: 386px
+      height: 386px
+    @media (min-width: 1200px)
+      background: url("/paidRecording/bigImg.png") center/contain no-repeat
+      width: 386px
+      height: 461px
+
+
+  &__small
+    background: url("/paidRecording/imgSmallM.png") center/contain no-repeat
+    width: 112px
+    height: 89px
+    border-radius: 500px
+    rotation: -90
+    position: absolute
+    top: 170px
+    z-index: 1
+    right: 170px
+    @media (min-width: 768px)
+      width: 182px
+      height: 145px
+      rotation: -90
+      top: 250px
+      left: -60px
+    @media (min-width: 1200px)
+      width: 214px
+      height: 171px
+      top: 300px
+      left: -120px
+
+
+.lines
+  display: flex
+  justify-content: center
+  position: relative
+.line
+  background: url("/paidRecording/groupT.png") center/contain  no-repeat
+  min-width: 395.87px
+  height: 300px
+  position: absolute
+  top: -210px
+  @media (min-width: 768px)
+    background: url("/paidRecording/groupT.png") center/contain  no-repeat
+    height: 509.59px
+    width: 721px
+    top: -400px
+    @media (min-width: 1200px)
+      width: 1197px
+      height: 847px
+      z-index: -1
+      top: -450px
+
+
+
+.label
+  color: var(--grey-900)
+  font-size: 14px
+  line-height: 18.62px
+  margin: 102px auto 16px
+  text-align: center
+  font-weight: 400
+  max-width: 206px
+  @media (min-width: 768px)
+    font-size: 20px
+    line-height: 24px
+    max-width: 100%
+    margin-bottom: 24px
+  @media (min-width: 1200px)
+    margin: 53px auto 24px
+
+
+
+
+.btn
+  background-color: var(--indigo-900)
+  padding: 12px 24px 12px 24px
+  border-radius: 12px
+  color: var(--Primary-25)
+  font-size: 14px
+  font-style: italic
+  line-height: 18px
+  font-weight: 400
+  text-transform: uppercase
+  cursor: pointer
+  @media (min-width: 768px)
+    padding: 16px 24px 16px 24px
+
+  @media (min-width: 1200px)
+    font-size: 20px
+    line-height: 24px
+    padding: 16px 36px 16px 36px
+  &__main
+    display: flex
+    justify-content: center
+    
+
+
+
+

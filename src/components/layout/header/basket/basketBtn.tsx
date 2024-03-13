@@ -6,6 +6,7 @@ import { setIsAddNewItem, setIsBasketOpen } from '@/redux/basketSlice/basketSlic
 import Button from '@/components/other/button/button';
 
 import basket from './../../../../../public/basket.svg';
+import notphotoPng from './../../../../../public/notphoto.png';
 
 import style from './basket.module.sass';
 
@@ -35,6 +36,7 @@ const BasketBtn: FC = () => {
   useEffect(() => {
     setLastItem(basketArr && basketArr.length > 0 ? basketArr[basketArr.length - 1] : null);
   }, [basketArr]);
+
   return (
     <div className={style.relative}>
       <div className={style.basket__wrap}>
@@ -54,9 +56,10 @@ const BasketBtn: FC = () => {
           <div
             className={style.image}
             style={{
-              backgroundImage: lastItem
-                ? `url(https://b.skincareagents.com/${lastItem.parentItem.PREVIEW_PICTURE})`
-                : '',
+              backgroundImage:
+                lastItem !== null
+                  ? `url(https://b.skincareagents.com/${lastItem.parentItem.PREVIEW_PICTURE})`
+                  : notphotoPng.src,
             }}></div>
           <div className={style.text}>
             <div className={style.name}>

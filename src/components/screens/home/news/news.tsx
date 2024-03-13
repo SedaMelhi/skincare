@@ -11,7 +11,6 @@ import style from './News.module.sass';
 
 const News: FC<NewProducts | any> = ({ newProducts }) => {
   const products = Object.values(newProducts).splice(0, Object.values(newProducts).length - 1);
-  console.log(products);
 
   return (
     <section>

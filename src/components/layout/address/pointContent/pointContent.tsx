@@ -33,7 +33,6 @@ const PointContent: FC<ICloseAside> = ({ closeAside, activeAddress }) => {
   const [intercom, setIntercom] = useState(''); //домофон
   const [entrance, setEntrance] = useState(''); //подъезд
   const [floor, setFloor] = useState(''); //этаж
-  console.log(activeAddress);
   const days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
   return (
     <form className={style.form}>

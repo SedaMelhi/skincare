@@ -74,7 +74,7 @@ export const SetsService = {
 
 export const CatalogService = {
   async getCatalogService(): Promise<CatalogArray> {
-    const { data } = await axios.post('/catalog.php', { type: 'getCategoryList' });
+    const { data } = await axios.post('/catalogue.php', { type: 'getCategoryList' });
     return data;
   },
 };

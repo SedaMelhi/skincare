@@ -21,7 +21,7 @@ const DropDownMenu: FC<IMenuOpen> = ({ setMenuOpen, scroll }) => {
     let arr: CatalogItems = [];
 
     if (catalog.length === 0) {
-      fetch(' local/api/catalog.php', {
+      fetch(' local/api/catalogue.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
