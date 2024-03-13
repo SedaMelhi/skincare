@@ -1,0 +1,106 @@
+.modal
+  height: 100vh
+  width: 100vw
+  background: rgba(72, 59, 81, 0.4)
+  backdrop-filter: blur(8px)
+  position: fixed
+  top: 0
+  left: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  transform: scale(0)
+  z-index: 100
+  transition: 0.5s
+
+  &__content
+    padding: 34px 24px 75px 24px
+    border-radius: 8px
+    background-color:  var(--light-purple)
+    width: 375px
+    @media ( min-width: 768px )
+      padding: 34px 24px 80px 24px
+      width: 515px
+.modal.active
+  transform: scale(1)
+
+.close
+  display: flex
+  justify-content: end
+.title
+  margin-top: 32px
+  margin-bottom: 32px
+  color: var(--grey-900)
+  font-size: 32px
+  line-height: 38.4px
+  font-weight: 400
+  text-transform: uppercase
+  text-align: center
+.text
+  font-size: 14px
+  line-height: 18.62px
+  font-weight: 400
+  color: var(--grey-900)
+  text-transform: uppercase
+  text-align: center
+  margin-bottom: 16px
+
+.payMain
+  display: flex
+  justify-content: center
+  font-weight: 400
+  font-size: 14px
+  line-height: 18.62px
+  color: var(--grey-700)
+
+
+
+
+.payImg
+  margin-top: 8px
+.visa
+  width: 41.74px
+  height: 13.24px
+
+
+.pay
+  border-radius: 16px
+  border: 1px solid var(--grey-400)
+  width: 327px
+  height: 92px
+  padding: 24px
+  text-align: center
+  margin-bottom: 20px
+
+  &:hover
+    background-color: var(--Primary-100)
+    border: 1px solid var(--primary-600)
+  @media ( min-width: 768px )
+    width: 375px
+    margin-bottom: 20px
+  @media ( min-width: 1200px )
+    width: 324px
+
+
+.payBtnMain
+  display: flex
+  justify-content: center
+  margin-top: 12px
+
+
+
+.payBtn
+  border: 1px solid var(--grey-900)
+  width: 157px
+  height: 56px
+  border-radius: 16px
+  padding: 16px 32px
+  color: var(--grey-900)
+  text-transform: uppercase
+  font-size: 16px
+  line-height: 18px
+  @media ( min-width: 768px )
+    width: 176px
+
+
+

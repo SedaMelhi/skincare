@@ -5,7 +5,7 @@ import { PromoBlockArray } from '@/interfaces/promoBlocks.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
 import { CatalogArray } from '@/interfaces/catalog.interface';
 
-const API_URL = 'https://skincareagents.com/local/api/';
+const API_URL = 'https://b.skincareagents.com/local/api/';
 
 axios.defaults.baseURL = API_URL;
 
@@ -74,7 +74,7 @@ export const SetsService = {
 
 export const CatalogService = {
   async getCatalogService(): Promise<CatalogArray> {
-    const { data } = await axios.post('/catalog.php', { type: 'getCategoryList' });
+    const { data } = await axios.post('/catalogue.php', { type: 'getCategoryList' });
     return data;
   },
 };

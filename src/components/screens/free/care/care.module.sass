@@ -1,0 +1,129 @@
+.title
+  text-align: center
+  font-size: 26px
+  font-weight: 400
+  line-height: 31.2px
+  color: var(--grey-900)
+  margin-bottom: 24px
+  text-transform: uppercase
+  @media (min-width: 768px)
+    font-size: 56px
+    line-height: 64.96px
+    margin-bottom: 36px
+  @media (min-width: 1200px)
+    margin-bottom: 42px
+.borders
+  display: flex
+  flex-direction: column
+  gap: 24px
+  align-items: center
+  @media (min-width: 768px)
+    flex-direction: row
+    justify-content: center
+  @media (min-width: 1200px)
+    //justify-content: start
+    //margin-left: 102px
+
+.border
+  background-color: var(--grey-25)
+  width: 343px
+  height: 503px
+  padding: 32px 20px 32px 20px
+  border: 1px solid var(--purple-400)
+  border-radius: 22px
+  @media (min-width: 768px)
+    width: 349px
+  @media (min-width: 1200px)
+    width: 497px
+    height: 570px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+  &__img
+    display: flex
+    justify-content: center
+  &__title
+    color: var(--purple-400)
+    font-size: 24px
+    font-weight: 400
+    line-height: 31.92px
+    text-align: center
+    text-transform: uppercase
+    margin: 24px 21px
+    @media (min-width: 1200px)
+      margin: 42px 17px 42px 17px
+  &__titleMain
+    display: flex
+    justify-content: center
+    align-items: center
+  &__titleStar
+    width: 36px
+    height: 36px
+  &__list
+    list-style-size: 10px
+    width: 303px
+    @media (min-width: 768px)
+      width: 309px
+    @media (min-width: 1200px)
+      width: 421px
+
+  &__listItem
+    color: var(--grey-700)
+    font-size: 14px
+    font-weight: 400
+    line-height: 18.62px
+    margin-left: 38px
+.line
+  position: relative
+  &__one
+    background: url("/paidRecording/lineOneM.png") center/contain no-repeat
+    width: 887px
+    height: 543px
+    position: absolute
+    left: -260px
+    top: -130px
+    z-index: -1
+    @media (min-width: 768px)
+      background: url("/paidRecording/lineOneT.png") center/contain no-repeat
+      width: 512px
+      height: 549px
+      left: 0
+      top: -55px
+    @media (min-width: 1200px)
+      background: url("/paidRecording/lineOne.png") center/contain no-repeat
+      width: 887px
+      height: 543px
+      left: -18px
+
+  &__two
+    background: url("/paidRecording/lineTwoM.png") center/contain no-repeat
+    width: 350.26px
+    height: 203.86px
+    position: absolute
+    top: 938px
+    z-index: -2
+    right: -40px
+    @media (min-width: 768px)
+      background: url("/paidRecording/lineTwoT.png") center/contain no-repeat
+      width: 181.47px
+      height: 105.62px
+      top: 570px
+      right: 0
+    @media (min-width: 1200px)
+      background: url("/paidRecording/lineTwo.png") center/contain no-repeat
+      width: 350px
+      height: 204px
+      top: 620px
+      right: -70px
+
+
+
+
+
+
+
+
+
+
+

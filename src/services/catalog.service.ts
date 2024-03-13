@@ -13,7 +13,7 @@ export const CatalogService = {
           type: type,
           itemId: itemId,
         };
-    const { data } = await axios.post<any>('catalog.php', params);
+    const { data } = await axios.post<any>('catalogue.php', params);
     return data;
   },
 };

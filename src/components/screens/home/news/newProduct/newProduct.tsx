@@ -11,7 +11,7 @@ const NewProduct: FC<any> = ({ item }) => {
       <div
         className={style.img + ' img ' + style.img_one}
         style={{
-          backgroundImage: `url(https://skincareagents.com${item.smallPhoto})`,
+          backgroundImage: `url(https://b.skincareagents.com${item.smallPhoto})`,
         }}></div>
       <h3 className={style.subtitle}>SKIN&LAB</h3>
       <p className={style.description}>{item.name}</p>

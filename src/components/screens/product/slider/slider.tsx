@@ -43,7 +43,7 @@ const Slider: FC<{ detailPhoto?: string[] }> = ({ detailPhoto }) => {
                   style={
                     url
                       ? {
-                          backgroundImage: `url(https://skincareagents.com${url})`,
+                          backgroundImage: `url(https://b.skincareagents.com${url})`,
                         }
                       : {}
                   }></div>
@@ -86,7 +86,7 @@ const Slider: FC<{ detailPhoto?: string[] }> = ({ detailPhoto }) => {
                   style={
                     url
                       ? {
-                          backgroundImage: `url(https://skincareagents.com${url})`,
+                          backgroundImage: `url(https://b.skincareagents.com${url})`,
                         }
                       : {}
                   }></div>

@@ -23,13 +23,12 @@ import style from './Home.module.sass';
 const HomePage: FC<{
   slider: MainSliderArray;
   runningLine: RunningLineArray;
-  promoBlocks: PromoBlockArray;
   newProducts: NewProducts;
   runningVerticalLine: RunningLineArray;
   journal: any;
 
   hits: any;
-}> = ({ slider, runningLine, promoBlocks, newProducts, journal, hits, runningVerticalLine }) => {
+}> = ({ slider, runningLine, newProducts, journal, hits, runningVerticalLine }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleSticker, setIsVisibleSticker] = useState(false);
   const section = useRef<HTMLDivElement | null>(null);
@@ -90,7 +89,7 @@ const HomePage: FC<{
             <Sets isVisible={isVisible} runningLine={runningVerticalLine} />
             <Hits hits={hits} />
           </div>
-          <Experts promoBlocks={promoBlocks} />
+          <Experts />
           <Journal journal={journal} />
           <Present />
           <About />

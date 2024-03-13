@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'https://skincareagents.com/local/api/';
+const API_URL = 'https://b.skincareagents.com/local/api/';
 
 axios.defaults.baseURL = API_URL;
 interface IUserData {

@@ -54,7 +54,6 @@ interface IAddressObj {
 
 const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any }> = ({ data, cdekToken }) => {
   const dispatch = useDispatch();
-  console.log(data);
 
   useEffect(() => {
     const yandexMapData: any = data

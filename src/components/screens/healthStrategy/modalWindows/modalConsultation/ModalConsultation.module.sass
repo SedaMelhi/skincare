@@ -1,0 +1,125 @@
+
+.modal
+  height: 100vh
+  width: 100vw
+  background: rgba(72, 59, 81, 0.4)
+  backdrop-filter: blur(8px)
+  position: fixed
+  top: 0
+  left: 0
+  display: flex
+  align-items: center
+  justify-content: center
+  transform: scale(0)
+  z-index: 100
+  transition: 0.5s
+
+  &__content
+    padding: 24px 24px 127px 24px
+    border-radius: 8px
+    background-color:  var(--light-purple)
+    width: 375px
+    @media ( min-width: 768px )
+      padding: 34px 24px 72px 24px
+      width: 515px
+.modal.active
+  transform: scale(1)
+
+.close
+  display: flex
+  justify-content: end
+.title
+  margin-top: 32px
+  margin-bottom: 65px
+  color: var(--grey-900)
+  font-size: 32px
+  line-height: 38.4px
+  font-weight: 400
+  text-transform: uppercase
+  text-align: center
+.name, .tel
+  width: 100%
+  border: none
+  border-bottom:  0.5px solid var(--grey-900)
+  padding: 16px 4px 8px 16px
+  background-color: transparent
+  margin-bottom: 24px
+  @media ( min-width: 768px )
+    width: 339px
+
+
+
+
+  @media ( min-width: 768px )
+    padding: 16px 4px 8px 16px
+    max-width: 494px
+    height: 44px
+    margin-left: 71px
+  &::placeholder
+    color: var(--grey-500)
+    font-size: 14px
+    line-height: 14px
+    font-weight: 400
+.subtitle
+  font-size: 16px
+  color: var(--grey-700)
+  font-weight: 400
+  line-height: 20px
+  margin-top: 41px
+  text-align: center
+  margin-bottom: 24px
+
+.chackbox
+  accent-color: var(--grey-700)
+  width: 18px
+  height: 18px
+  &__main
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+    gap: 18px
+
+    @media ( min-width: 768px )
+      flex-direction: row
+      justify-content: space-around
+      width: 339px
+      margin-left: 70px
+
+
+  &__telegram,
+  &__whatsapp
+    display: flex
+    align-items: center
+    justify-content: center
+    gap: 8px
+  &__telegramText,
+  &__whatsappText
+    color: var(--grey-900)
+    font-weight: 400
+    font-size: 20px
+    line-height: 26.6px
+
+  &__telegramImg,
+  &__whatsappImg
+    width: 22px
+    height: 22px
+.button
+  border: 1px solid var(--grey-900)
+  padding: 16px 36px
+  border-radius: 16px
+  color: var(--grey-900)
+  margin-top: 65px
+  text-transform: uppercase
+  font-size: 20px
+  line-height: 24px
+  font-style: italic
+  font-weight: 400
+
+
+  &__main
+    display: flex
+    justify-content: center
+
+
+

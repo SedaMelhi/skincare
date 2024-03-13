@@ -146,7 +146,7 @@ const Text: FC<{ product: IProduct; scu: IScu[] | null; setActiveScu: any; activ
                 style={
                   image
                     ? {
-                        background: `url(https://skincareagents.com/${image})`,
+                        background: `url(https://b.skincareagents.com/${image})`,
                       }
                     : {}
                 }></div>

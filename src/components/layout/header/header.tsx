@@ -39,7 +39,7 @@ const Header: FC = () => {
   }, [menuOpen]);
 
   useEffect(() => {
-    // fetch('https://skincareagents.com/local/api/cart.php', {
+    // fetch('https://b.skincareagents.com/local/api/cart.php', {
     //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ const Header: FC = () => {
     // })
     //   .then((res) => res.json())
     //   .then((catalog) => console.log(catalog));
-    fetch('https://skincareagents.com/local/api/catalog.php', {
+    fetch('https://b.skincareagents.com/local/api/catalogue.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -21,7 +21,6 @@ import { ContactsService } from '@/services/contacts.service';
 import { ContactsArray } from '@/interfaces/contact.interface';
 import { MainSliderArray } from '@/interfaces/mainSlider.inerface';
 import { RunningLineArray } from '@/interfaces/runningLine.interface';
-import { PromoBlockArray } from '@/interfaces/promoBlocks.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
 import { CatalogArray } from '@/interfaces/catalog.interface';
 import { setHits } from '@/redux/hitsSlice/hitsSlice';
@@ -31,7 +30,6 @@ const Home: NextPage<{
   slider: MainSliderArray;
   runningLine: RunningLineArray;
   runningVerticalLine: RunningLineArray;
-  promoBlocks: PromoBlockArray;
   newProducts: NewProducts;
   journal: any;
   hits: any;
@@ -41,7 +39,6 @@ const Home: NextPage<{
   data,
   slider,
   runningLine,
-  promoBlocks,
   newProducts,
   journal,
   hits,
@@ -49,7 +46,6 @@ const Home: NextPage<{
   sets,
 }) => {
   const dispatch = useDispatch();
-  console.log('asdsad', sets);
 
   useEffect(() => {
     dispatch(setFooterData(data));
@@ -67,7 +63,7 @@ const Home: NextPage<{
           ? [...runningVerticalLine, ...runningVerticalLine, ...runningVerticalLine]
           : runningVerticalLine
       }
-      promoBlocks={promoBlocks}
+     
       newProducts={newProducts}
       journal={journal}
       hits={hits}
@@ -83,7 +79,6 @@ export const getServerSideProps: GetServerSideProps<{
   const slider = await MainSliderService.getMainSlider(); //данные главного слайдера
   const runningLine = await RunningLineService.getRunningLine(); //данные главного слайдера
   const runningVerticalLine = await RunningVerticalLineService.getRunningLine();
-  const promoBlocks = await PromoBlockService.getPromoBlock();
   const newProducts = await NewProductsService.getProductsService();
   const journal = await JournalService.getJournalService();
   const hits = await HitsService.getHitsService();
@@ -94,7 +89,6 @@ export const getServerSideProps: GetServerSideProps<{
       data,
       slider,
       runningLine,
-      promoBlocks,
       newProducts,
       journal,
       hits,

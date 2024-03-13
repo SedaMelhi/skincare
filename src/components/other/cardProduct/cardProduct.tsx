@@ -51,7 +51,7 @@ const CardProduct: FC<CardProductProps> = ({
         <div
           className={style.img + ' img ' + style.img_one}
           style={{
-            background: `url(https://skincareagents.com${smallPhoto}) center/contain no-repeat`,
+            background: `url(https://b.skincareagents.com${smallPhoto}) center/contain no-repeat`,
           }}></div>
         <h3 className={style.description}>{name}</h3>
         <div className={style.size}>{scu && Object.values(scu)[0].value}</div>

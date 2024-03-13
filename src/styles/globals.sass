@@ -202,10 +202,7 @@ input
 
 .reviews
   margin: 0 auto
-  @media (min-width: 768px)
-    width: 600px
-  @media (min-width: 1200px)
-    width: 1440px
+  max-width: 1600px
   .swiper-pagination
     position: relative
     margin-top: 29px
@@ -220,15 +217,32 @@ input
     opacity: 1
     &-active
       background-color: var(--grey-25)
-  .swiper-slide
-    transform: translateY(30px)!important
-  .swiper-slide-active
-     transform: translateZ(0)!important
-     @media (min-width: 1200px)
-        transform: translateY(40px)!important
-  .swiper-slide-active,.swiper-slide-prev,.swiper-slide-next
+  .swiper-slide-next + .swiper-slide + .swiper-slide + .swiper-slide
+    transform: translateY(0px) !important
+    transition: .2s
+    @media (min-width: 1600px)
+      transform: translateY(40px) !important
+  .swiper-slide-next + .swiper-slide + .swiper-slide
+    transform: translateY(0px) !important
+    transition: .2s
     @media (min-width: 1200px)
-      transform: translateZ(0)!important
+      transform: translateY(30px) !important
+    @media (min-width: 1600px)
+      transform: translateY(0px) !important
+  .swiper-slide-next + .swiper-slide
+    transform: translateY(30px) !important
+    transition: .2s
+    @media (min-width: 1200px)
+      transform: translateY(0px) !important
+  .swiper-slide-active
+    transform: translateY(0px) !important
+    transition: .2s
+    @media (min-width: 768px)
+      transform: translateY(30px) !important
+    @media (min-width: 1600px)
+      transform: translateY(40px) !important
+      
+
 
 .ourAgents
   .swiper-pagination-bullet
@@ -252,13 +266,7 @@ input
   .swiper-slide
     flex-shrink: 1
 
-.berofeAndAfter
-  margin: 0 auto
-  width: 345px
-  @media (min-width: 768px)
-    width: 660px
-  @media (min-width: 1200px)
-    width: 1203px
+.beforeAndAfter
   .swiper-pagination-bullet
     width: 8px
     height: 8px
@@ -268,14 +276,13 @@ input
     &-active
       background-color: var(--grey-800)
   .swiper-pagination
+    margin-top: 32px!important
     position: relative
-    margin-top: 32px
-  .swiper-slide
-    width: 325px!important
-    @media (min-width: 768px)
-      width: 620px!important
-    @media (min-width: 1200px)
-      width: 1015px!important
+    max-width: 927px!important
+    display: flex
+    justify-content: center
+
+
 
 .swiper-button-disabled
   opacity: 0

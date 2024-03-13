@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL = 'https://skincareagents.com/local/api/';
+const API_URL = 'https://b.skincareagents.com/local/api/';
 
 axios.defaults.baseURL = API_URL;
 
@@ -11,6 +11,8 @@ export const addSCUToCartService = {
       SCUId: SCUId,
       quantity: quantity,
     });
+    //console.log(data);
+
     return data;
   },
 };
@@ -23,6 +25,7 @@ export const removeSCUToCartService = {
       cartId: cartId,
       //quantity: 2,
     });
+    //console.log(data);
     return data;
   },
 };
@@ -33,6 +36,7 @@ export const getCartService = {
       type: 'getCart',
       saleUserId: localStorage.getItem('saleUserId'),
     });
+    //console.log(data);
     return data;
   },
 };

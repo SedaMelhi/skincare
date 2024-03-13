@@ -118,7 +118,7 @@ const BasketProduct: FC<IbasketData> = ({
             style={{
               backgroundImage: `url(${
                 parentItem.PREVIEW_PICTURE
-                  ? 'https://skincareagents.com' + parentItem.PREVIEW_PICTURE
+                  ? 'https://b.skincareagents.com' + parentItem.PREVIEW_PICTURE
                   : notphotoPng.src
               })`,
             }}></div>
@@ -149,7 +149,7 @@ const BasketProduct: FC<IbasketData> = ({
                             className={style.color__image}
                             style={{
                               background: item.PREVIEW_PICTURE
-                                ? `url(https://skincareagents.com/${item.PREVIEW_PICTURE})`
+                                ? `url(https://b.skincareagents.com/${item.PREVIEW_PICTURE})`
                                 : '',
                             }}></div>
                         </div>

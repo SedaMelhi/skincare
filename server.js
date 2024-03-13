@@ -20,7 +20,7 @@ app.prepare().then(() => {
   // server.use(
   //   '/api',
   //   createProxyMiddleware({
-  //     target: 'https://skincareagents.com', // URL вашего API
+  //     target: 'https://b.skincareagents.com', // URL вашего API
   //     changeOrigin: true,
   //     pathRewrite: { '^/api': '' },
   //     secure: false, // Важно при использовании самоподписанных сертификатов

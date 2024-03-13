@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { ContactsArray } from '@/interfaces/contact.interface';
 
-const API_URL = 'https://skincareagents.com/local/api/';
+const API_URL = 'https://b.skincareagents.com/local/api/';
 
 axios.defaults.baseURL = API_URL;
 
