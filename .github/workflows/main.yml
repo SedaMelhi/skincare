@@ -12,6 +12,6 @@ jobs:
       - name: build
         run: docker compose build
       - name: npm build
-        run: docker compose run -it --entrypoint="" frontend npm run build
+        run: docker compose run --entrypoint="" frontend npm run build
       - name: Deploy compose
         run: docker compose up -d
