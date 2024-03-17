@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+    - master
+jobs:
+  my_job:
+    name: deploy to staging
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: build
+        run: docker compose build
+      - name: npm build
+        run: docker compose run frontend
+      - name: Deploy compose
+        run: docker compose up -d
