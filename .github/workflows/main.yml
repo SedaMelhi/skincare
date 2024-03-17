@@ -4,7 +4,7 @@ on:
     - master
 jobs:
   my_job:
-    name: deploy to staging
+    name: deploy to prod
     runs-on: self-hosted
     steps:
       - name: Checkout
@@ -12,6 +12,6 @@ jobs:
       - name: build
         run: docker compose build
       - name: npm build
-        run: docker compose run frontend
+        run: docker compose run --entrypoint="" frontend npm run build
       - name: Deploy compose
         run: docker compose up -d
