@@ -16,18 +16,18 @@ const ModalConsultation: FC<ModalConsultationProps> = ({
   buttonText,
 }) => {
   const [isModalPayOpen, setIsModalPayOpen] = React.useState(false);
-  const [isModalSuccessfulRegistrationOpen, setIsModalSuccessfulRegistrationOpen] =
-    React.useState(false);
+  // const [isModalSuccessfulRegistrationOpen, setIsModalSuccessfulRegistrationOpen] =
+  //   React.useState(false);
 
-  const handleButtonClick = () => {
-    setActive(false);
-    setModalPayActive(true);
-  };
+  // const handleButtonClick = () => {
+  //   setActive(false);
+  //   setModalPayActive(true);
+  // };
 
-  const handleRegistrationButtonClick = () => {
-    setActive(false);
-    setIsModalPayOpen(true);
-  };
+  // const handleRegistrationButtonClick = () => {
+  //   setActive(false);
+  //   setIsModalPayOpen(true);
+  // };
 
   return (
     <div

@@ -4,7 +4,7 @@ import Load from '../load/load';
 import style from './bitrixForm.module.sass';
 
 interface Props {
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsVisible?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BitrixForm: FC<Props> = ({ setIsVisible }) => {
@@ -24,7 +24,9 @@ const BitrixForm: FC<Props> = ({ setIsVisible }) => {
       script.onload = () => {
         setLoading(false);
         setTimeout(() => {
-          setIsVisible(true);
+          if (setIsVisible) {
+            setIsVisible(true);
+          }
         }, 1000);
       };
     }
