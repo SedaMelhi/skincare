@@ -139,12 +139,15 @@ const Header: FC<{ slider: MainSliderArray; runningLine: RunningLineArray }> = (
 
       <Marquee className={style.marquee__wrap} speed={100}>
         <div className={style.marquee}>
-          {runningLine.map(({ mainText, url }, i) => (
-            <span key={i}>
-              <img src="./star.svg" alt="" />
-              <span>{mainText}</span>
-            </span>
-          ))}
+          {runningLine.map(
+            ({ mainText, url }, i) =>
+              mainText && (
+                <span key={i}>
+                  <img src="./star.svg" alt="" />
+                  <span>{mainText}</span>
+                </span>
+              ),
+          )}
         </div>
       </Marquee>
     </div>

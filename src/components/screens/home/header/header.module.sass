@@ -232,12 +232,14 @@
     height: 72px
     display: flex
     align-items: center
-    gap: 16px
     color: var(--grey-800)
     font-size: 20px
     line-height: 24px
     text-transform: uppercase
-    padding-right: 16px
+    > span
+        margin-right: 16px
+    img
+        margin-right: 16px
     &__wrap
         background: linear-gradient(90deg, #DAD8E4 0%, #D1CFD7 8.77%, #F4F4FC 26.31%, #ECECF1 52.26%, #EBEBF2 73.02%, #D2D2DD 92.16%)
         position: absolute!important
@@ -247,15 +249,18 @@
         height: 126px
         font-size: 48px
         line-height: 104%
-        gap: 51px
-        padding-right: 51px
+        
+        > span
+            margin-right: 51px
+        img
+            margin-right: 51px
     img
         width: 24px
-        margin: 0 20px 0 0 
+       
         position: relative
         top: 3px
         @media ( min-width: 768px )
             width: 40px
-            margin: 0 45px 0 0 
+            
             top: 0
             
