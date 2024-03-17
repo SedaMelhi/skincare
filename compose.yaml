@@ -26,3 +26,5 @@ services:
       # - API_DOMAIN=127.0.0.1
     # depends_on:
     #   - nginx
+    volumes:
+      - /etc/ssl/out/skincareagents.com_ecc:cert

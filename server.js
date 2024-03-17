@@ -9,8 +9,8 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const httpsOptions = {
-  key: fs.readFileSync('/etc/ssl/out/skincareagents.com_ecc/skincareagents.com.key'), // Путь к ключу
-  cert: fs.readFileSync('/etc/ssl/out/skincareagents.com_ecc/fullchain.cer'), // Путь к сертификату
+  key: fs.readFileSync('cert/skincareagents.com.key'), // Путь к ключу
+  cert: fs.readFileSync('cert/fullchain.cer'), // Путь к сертификату
 };
 
 app.prepare().then(() => {
