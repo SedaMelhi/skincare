@@ -79,7 +79,7 @@ const HomePage: FC<{
           <Categories />
           <div className="wrap">
             {isVisibleSticker && (
-              <Link href="/" className={style.sticker__wrap}>
+              <Link href="/free" className={style.sticker__wrap}>
                 <img src="./sticker.png" alt="" className={style.sticker} ref={img} />
               </Link>
             )}

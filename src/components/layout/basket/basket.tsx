@@ -42,6 +42,7 @@ const Basket: FC = () => {
         setPricesObj(res.basket);
         setBasketArr(Object.values(res.cartItems));
       });
+      data.catch((error) => console.error('Error fetching cart:', error));
     }
   }, [isBasketOpen]);
   useEffect(() => {

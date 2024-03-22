@@ -1,7 +1,7 @@
 import { IProduct } from '@/interfaces/products.interface';
 import Link from 'next/link';
 import { FC } from 'react';
-
+import notPhoto from './../../../../../../public/notphoto.png';
 import style from './NewProduct.module.sass';
 
 const NewProduct: FC<any> = ({ item }) => {
@@ -11,7 +11,9 @@ const NewProduct: FC<any> = ({ item }) => {
       <div
         className={style.img + ' img ' + style.img_one}
         style={{
-          backgroundImage: `url(https://b.skincareagents.com${item.smallPhoto})`,
+          backgroundImage: item.smallPhoto
+            ? `url(https://b.skincareagents.com${item.smallPhoto ? item.smallPhoto : notPhoto.src})`
+            : `url(${notPhoto.src})`,
         }}></div>
       <h3 className={style.subtitle}>SKIN&LAB</h3>
       <p className={style.description}>{item.name}</p>

@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const CatalogService = {
-  async getCatalog({ type, sectionId, count, itemId, numPage }: any): Promise<any> {
+  async getCatalog({ type, sectionId, limit, itemId, offset }: any): Promise<any> {
     const params = sectionId
       ? {
           type: type,
           sectionId: sectionId,
-          count: count,
-          numPage: numPage,
+          limit: limit,
+          offset: offset,
         }
       : {
           type: type,

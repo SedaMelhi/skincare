@@ -1,0 +1,86 @@
+.circle
+    &__violet
+        position: absolute
+        top: 80px
+        right: 0
+        z-index: 0
+        filter: blur(10px)
+    &__orange
+        position: absolute
+        bottom: -160px
+        left: 0
+        z-index: -1
+
+.wrap
+    position: relative   
+    padding: 100px 0 
+.content
+    max-width: 967px
+    display: flex
+    justify-content: space-between
+    gap: 40px
+    margin-top: 104px
+    @media (min-width: 1200px)
+        max-width: 100%
+
+.number
+    font-size: 32px
+    @media (min-width: 768px)
+        font-size: 56px
+    @media (min-width: 1200px)
+        font-size: 80px
+
+.title
+    font-size: 32px
+    margin-bottom: 64px
+    text-transform: uppercase
+    @media (min-width: 768px)
+        font-size: 56px
+        margin-bottom: 40px
+    @media (min-width: 1200px)
+        font-size: 80px
+        
+
+.description
+    max-width: 652px
+    font-size: 16px
+    line-height: 1.16
+    margin-bottom: 64px
+    @media (min-width: 768px)
+        font-size: 20px
+    @media (min-width: 1200px)
+        font-size: 24px
+
+.btn
+    width: 173px
+
+
+.text
+    width: 100%
+    @media (min-width: 1200px)
+        width: 1015px
+    
+    
+.container
+    max-width: var(--max-width)
+    padding: 0 0 0 16px
+    box-sizing: content-box
+    margin: 0 auto
+    @media ( min-width: 768px )
+        padding: 0 24px
+    @media ( min-width: 1200px )
+        padding: 0 40px
+
+.image
+    display: flex
+    margin-top: 50px
+    justify-content: center
+    @media ( min-width: 1200px )
+        margin-top: -100px
+        justify-content: flex-end
+    img
+        width: 283px
+        @media ( min-width: 768px )
+            width: 392px
+        @media ( min-width: 1200px )
+            width: 443px

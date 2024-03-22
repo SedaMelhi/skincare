@@ -39,15 +39,7 @@ const Header: FC = () => {
   }, [menuOpen]);
 
   useEffect(() => {
-    // fetch('https://b.skincareagents.com/local/api/cart.php', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    //   .then((res) => res.json())
-    //   .then((catalog) => console.log(catalog));
-    fetch('https://b.skincareagents.com/local/api/catalogue.php', {
+    fetch('https://b.skincareagents.com/local/api/catalog.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

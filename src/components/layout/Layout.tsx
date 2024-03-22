@@ -44,7 +44,7 @@ const Layout: FC<PropsWithChildren<IMeta>> = ({ children, title, description, na
       {nav !== false && <Header />}
       {nav !== false && <div className={style.empty}></div>}
 
-      <Basket />
+      {/* <Basket /> */}
       <Notifications />
       <Address />
       <div className={style.container}>{children}</div>

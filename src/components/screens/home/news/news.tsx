@@ -9,13 +9,13 @@ import { NewProducts } from '@/interfaces/newProducts.interface';
 import 'swiper/css';
 import style from './News.module.sass';
 
-const News: FC<NewProducts | any> = ({ newProducts }) => {
+const News: FC<NewProducts | any> = ({ newProducts, title = true }) => {
   const products = Object.values(newProducts).splice(0, Object.values(newProducts).length - 1);
 
   return (
     <section>
-      <div className={style.news}>
-        <h2 className={style.title}>новинки</h2>
+      <div className={style.news} style={title ? {} : { margin: 0 }}>
+        {title && <h2 className={style.title}>новинки</h2>}
         <div className={style.products}>
           <Swiper
             slidesPerView={3}
@@ -56,9 +56,13 @@ const News: FC<NewProducts | any> = ({ newProducts }) => {
           </Swiper>
         </div>
       </div>
-      <div className={style.arrows}>
-        <Arrows next="next" prev="prev" />
-      </div>
+      {title ? (
+        <div className={style.arrows}>
+          <Arrows next="next" prev="prev" />
+        </div>
+      ) : (
+        ''
+      )}
     </section>
   );
 };

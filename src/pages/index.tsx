@@ -35,16 +35,7 @@ const Home: NextPage<{
   hits: any;
   catalog: CatalogArray;
   sets: any;
-}> = ({
-  data,
-  slider,
-  runningLine,
-  newProducts,
-  journal,
-  hits,
-  runningVerticalLine,
-  sets,
-}) => {
+}> = ({ data, slider, runningLine, newProducts, journal, hits, runningVerticalLine, sets }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -63,7 +54,6 @@ const Home: NextPage<{
           ? [...runningVerticalLine, ...runningVerticalLine, ...runningVerticalLine]
           : runningVerticalLine
       }
-     
       newProducts={newProducts}
       journal={journal}
       hits={hits}
