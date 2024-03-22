@@ -16,7 +16,7 @@ import { CatalogMenu } from '@/components/layout/header/dropDownMenu/interface';
 import style from './catalog.module.sass';
 import { useRouter } from 'next/router';
 
-const CatalogPage: FC<{ products: IProductArr }> = ({ products }) => {
+const CatalogPage: FC<{ products: IProductArr; count: number }> = ({ products, count }) => {
   const [name, setName] = useState<string>('');
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
 
@@ -39,9 +39,7 @@ const CatalogPage: FC<{ products: IProductArr }> = ({ products }) => {
                     { text: name, link: 'catalog/1' },
                   ]}
                 />
-                <CountProducts
-                  count={products.length === 1 ? products.length - 1 : products.length - 2}
-                />
+                <CountProducts count={count} />
               </div>
             </div>
             <div className={style.top}>

@@ -12,6 +12,8 @@ const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue 
   const sizes: string[] = [];
   const prices: { new: number; old: number }[] = [];
   const scu = item.scu ? Object.values(item.scu) : null;
+  console.log(item);
+
   if (scu) {
     scu.forEach((item) => {
       item && !sizes.includes(item.value) && sizes.push(item.value);
@@ -35,16 +37,16 @@ const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue 
         <div
           className={style.image}
           style={
-            item.smallPhoto
-              ? { backgroundImage: `url(https://b.skincareagents.com/${item.smallPhoto})` }
+            item.picture
+              ? { backgroundImage: `url(https://b.skincareagents.com/${item.picture})` }
               : {}
           }></div>
         <div className={style.name}>{item.name}</div>
       </Link>
 
       <div className={style.sizes}>
-        {sizes &&
-          sizes.map(
+        {item.volumes &&
+          item.volumes.map(
             (item, i) =>
               item && (
                 <span className={style.size} key={i}>

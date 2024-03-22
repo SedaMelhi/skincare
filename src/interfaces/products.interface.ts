@@ -23,7 +23,8 @@ export interface IScu {
 export interface IProduct {
   id: string;
   name: string;
-  smallPhoto: string | null;
+  picture: string | null;
+  volumes: string[];
   sectionCode: string;
   sectionName: string;
   pin: string[];

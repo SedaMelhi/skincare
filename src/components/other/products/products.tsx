@@ -10,8 +10,6 @@ import infoSvg from './../../../../public/info.svg';
 import style from './products.module.sass';
 
 const Products: FC<{ products: IProductArr }> = ({ products }) => {
-  //const scu = products ? (products.scu ? Object.values(products.scu) : '') : '';
-
   return (
     <div className={style.products}>
       {products.length > 1
