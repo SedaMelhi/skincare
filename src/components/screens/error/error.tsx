@@ -18,7 +18,7 @@ const ErrorPage: FC = () => {
   }, []);
 
   return (
-    <Layout title="404" description="">
+    <Layout title="500" description="">
       <div className={style.circle__violet}>
         <img src="/violet.svg" alt="" />
       </div>

@@ -12,7 +12,6 @@ const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue 
   const sizes: string[] = [];
   const prices: { new: number; old: number }[] = [];
   const scu = item.scu ? Object.values(item.scu) : null;
-  console.log(item);
 
   if (scu) {
     scu.forEach((item) => {

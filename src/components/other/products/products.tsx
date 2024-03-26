@@ -12,7 +12,7 @@ import style from './products.module.sass';
 const Products: FC<{ products: IProductArr }> = ({ products }) => {
   return (
     <div className={style.products}>
-      {products.length > 1
+      {products.length > 0
         ? products.map((item, i) =>
             item.id ? (
               i % 6 === 0 ? (

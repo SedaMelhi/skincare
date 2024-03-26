@@ -10,7 +10,7 @@ import Sets from './sets/sets';
 import Hits from './hits/Hits';
 import Experts from './experts/experts';
 import Journal from './jourmal/journal';
-import Present from './present/presemt';
+import Present from './present/present';
 import About from './about/about';
 
 import { MainSliderArray } from '@/interfaces/mainSlider.inerface';

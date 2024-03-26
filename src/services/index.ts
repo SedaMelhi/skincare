@@ -32,7 +32,7 @@ export const RunningVerticalLineService = {
 
 export const PromoBlockService = {
   async getPromoBlock(): Promise<PromoBlockArray> {
-    const { data } = await axios.post('/main.php', { type: 'mainPromo' });
+    const { data } = await axios.post('/v1/main.php', { type: 'mainPromo' });
     return data;
   },
 };
@@ -43,7 +43,12 @@ export const NewProductsService = {
     return data;
   },
 };
-
+export const GiftsService = {
+  async getGiftsService(): Promise<NewProducts> {
+    const { data } = await axios.post('/v1/main.php', { type: 'getGifts' });
+    return data;
+  },
+};
 // export const JournalService = {
 //   async getJournalService(): Promise<any> {
 //     const { data } = await axios.post('/main.php', { type: 'getJournal' });
@@ -67,14 +72,14 @@ export const HitsService = {
 
 export const SetsService = {
   async getSetsService(): Promise<any> {
-    const { data } = await axios.post('/main.php', { type: 'getSets' });
+    const { data } = await axios.post('/v1/main.php', { type: 'getSets' });
     return data;
   },
 };
 
 export const CatalogService = {
   async getCatalogService(): Promise<CatalogArray> {
-    const { data } = await axios.post('/catalogue.php', { type: 'getCategoryList' });
+    const { data } = await axios.post('/v1/main.php', { type: 'getCategoryList' });
     return data;
   },
 };

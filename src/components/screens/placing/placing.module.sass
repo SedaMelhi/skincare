@@ -19,9 +19,12 @@
 
 .container
     display: flex
+    flex-direction: column-reverse
     gap: 45px
     justify-content: space-between
     color: var(--Grey-900)
+    @media (min-width: 1200px)
+        flex-direction: row
 
 .left
     width: 670px

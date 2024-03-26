@@ -14,6 +14,7 @@ import {
   HitsService,
   RunningVerticalLineService,
   SetsService,
+  GiftsService,
 } from '@/services';
 
 import { ContactsService } from '@/services/contacts.service';
@@ -35,13 +36,27 @@ const Home: NextPage<{
   hits: any;
   catalog: CatalogArray;
   sets: any;
-}> = ({ data, slider, runningLine, newProducts, journal, hits, runningVerticalLine, sets }) => {
+  gifts: any;
+  promo: any;
+}> = ({
+  data,
+  slider,
+  runningLine,
+  newProducts,
+  journal,
+  hits,
+  runningVerticalLine,
+  sets,
+  gifts,
+  promo,
+}) => {
   const dispatch = useDispatch();
-
+  console.log();
   useEffect(() => {
     dispatch(setFooterData(data));
     dispatch(setHits(hits));
   }, [data]);
+  console.log(promo);
 
   return (
     <HomePage
@@ -73,6 +88,8 @@ export const getServerSideProps: GetServerSideProps<{
   const journal = await JournalService.getJournalService();
   const hits = await HitsService.getHitsService();
   const sets = await SetsService.getSetsService();
+  const gifts = await GiftsService.getGiftsService();
+  const promo = await PromoBlockService.getPromoBlock();
 
   return {
     props: {
@@ -84,6 +101,8 @@ export const getServerSideProps: GetServerSideProps<{
       hits,
       sets,
       runningVerticalLine,
+      gifts,
+      promo,
     },
   };
 };

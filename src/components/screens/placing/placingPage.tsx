@@ -18,7 +18,6 @@ import plusSvg from './../../../../public/plusSimple.svg';
 import arrowViolet from './../../../../public/arrowViolet.svg';
 
 import style from './placing.module.sass';
-
 const PlacingPage: FC = () => {
   const router = useRouter();
 
@@ -76,6 +75,7 @@ const PlacingPage: FC = () => {
                 </div>
               </div>
             </Link>
+
             <BasketRight />
             <div className={style.promocode__wrap + ' ' + style.promocode__first}>
               <input type="text" className={style.promocode} placeholder="Промокод" />
