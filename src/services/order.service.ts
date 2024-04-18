@@ -22,3 +22,14 @@ export const getOrderInfoService = {
     return data;
   },
 };
+
+export const getBasketService = {
+  async getBasket(): Promise<any> {
+    const { data } = await axios.post('/v1/sale.php', {
+      type: 'getOrderParams',
+      saleUserId: 396,
+      token: '',
+    });
+    return data;
+  },
+};

@@ -62,7 +62,7 @@ const MobileBasket: FC<{ arr: BasketItem[] }> = ({ arr }) => {
               <div className={style.header}>
                 <div className={style.header__left}>
                   <div className={style.basketLogo}>
-                    <img src={basketLogo.src} alt="" />
+                    <img src={basketLogo.src} alt="" className={style.bag} />
                   </div>
                   <div className={style.header__text}>Ваш заказ ({arr.length} товаров)</div>
                   <div className={style.arrowDown}>

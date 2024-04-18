@@ -12,15 +12,14 @@ import { IProductArr } from '@/interfaces/products.interface';
 import filtersSvg from './../../../../public/catalog/filters.svg';
 import { useSelector } from 'react-redux';
 import { CatalogMenu } from '@/components/layout/header/dropDownMenu/interface';
-
-import style from './catalog.module.sass';
 import { useRouter } from 'next/router';
+import style from './catalog.module.sass';
 
 const CatalogPage: FC<{ products: IProductArr; count: number }> = ({ products, count }) => {
   const [name, setName] = useState<string>('');
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
-
   const router = useRouter();
+
   useEffect(() => {
     setName(catalog ? catalog.filter(({ ID }) => ID == router.query.id)[0]?.NAME : '');
   }, [catalog, router, products]);
@@ -30,7 +29,7 @@ const CatalogPage: FC<{ products: IProductArr; count: number }> = ({ products, c
       <div className={`wrap ${style.catalog}`}>
         <div className={style.top__wrap}>
           <div className={style.empty}></div>
-          <div>
+          <div className={style.width}>
             <div className={style.top}>
               <div className={style.flex}>
                 <Breadcrumbs

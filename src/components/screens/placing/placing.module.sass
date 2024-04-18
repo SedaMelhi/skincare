@@ -12,39 +12,50 @@
 
 .title
     color: var(--Grey-700)
-    font-size: 24px
+    font-size: 20px
     line-height: 130%
     letter-spacing: 0.48px
     text-transform: uppercase
+    @media (min-width: 768px)
+        font-size: 24px
 
 .container
     display: flex
     flex-direction: column-reverse
-    gap: 45px
+    gap: 21px
     justify-content: space-between
     color: var(--Grey-900)
     @media (min-width: 1200px)
         flex-direction: row
+    @media (min-width: 768px)
+        gap: 45px
 
 .left
-    width: 670px
+    max-width: 670px
 
 .slider
-    margin-top: 129px
-
+    margin-top: 30px
+    @media (min-width: 768px)
+        margin-top: 129px
 .subtitle
-    font-size: 32px
+    font-size: 24px
     font-weight: 400
     line-height: 120%
     letter-spacing: 0.64px
     text-transform: uppercase
-    margin-top: 37px
+    margin-top: 10px
+    @media (min-width: 768px)
+        font-size: 32px
+        margin-top: 37px
 
 .method
     margin-top: 48px
     display: flex
     justify-content: space-between
     gap: 25px
+    flex-direction: column
+    @media (min-width: 768px)
+        flex-direction: row
     &__title
         font-size: 14px
         text-transform: uppercase
@@ -59,7 +70,9 @@
 
 .flex_start
     justify-content: flex-start
-    gap: 43px
+    gap: 16px
+    @media (min-width: 768px)
+        gap: 43px
 
 .btn
     display: flex
@@ -91,6 +104,9 @@
     &__wrap
         position: relative
         margin-bottom: 8px
+        display: none
+        @media (min-width: 1200px)
+            display: block
         img
             position: absolute
             top: 13px
@@ -119,6 +135,20 @@
     margin-bottom: 16px
     cursor: pointer
     &__text
-        width: 328px
+        width: 100%
         color: var(--Primary-600)
         font-size: 14px
+        margin-top: 16px
+        @media (min-width: 1200px)
+            width: 328px
+            margin-top: 0px
+
+.pc
+    display: none
+    @media (min-width: 1200px)
+        display: flex
+
+.mobile
+    display: block
+    @media (min-width: 1200px)
+        display: none

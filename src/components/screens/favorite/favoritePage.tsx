@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import Layout from '@/components/layout/Layout';
 import ProfileTitle from '../profile/profileTitle/Title';
@@ -7,8 +7,13 @@ import CardProduct from '@/components/other/cardProduct/cardProduct';
 import Tab from '@/components/other/tab/tab';
 
 import style from './favorite.module.sass';
+import { favoriteService } from '@/services/profile.service';
 
 const FavoritePage: FC = () => {
+  useEffect(() => {
+    const res = favoriteService.getFavorite();
+    res.then((data) => console.log(data));
+  }, []);
   return (
     <Layout title={'Фавориты'}>
       <section className={style.wrap}>

@@ -9,44 +9,55 @@
     opacity: 1
 
 .mark
-    width: 24px
-    height: 24px
+    width: 16px
+    height: 16px
     background: var(--Grey-25)
     border: 1px solid var(--Grey-500)
     border-radius: 50%
     opacity: 1
+    @media (min-width: 768px)
+        width: 24px
+        height: 24px
 
 .thumb
-    width: 24px
-    height: 24px
+    width: 16px
+    height: 16px
     background: var(--Grey-25)
     border: 1px solid var(--Grey-900)
     border-radius: 50%
     opacity: 0
-
+    @media (min-width: 768px)
+        width: 24px
+        height: 24px
 .mark_active
-    width: 24px
-    height: 24px
+    width: 16px
+    height: 16px
     background: var(--Grey-25)
     border: 1px solid var(--Grey-900)
     border-radius: 50%
     opacity: 1
+    @media (min-width: 768px)
+        width: 24px
+        height: 24px
 
 .mark_label
     color: var(--Grey-500)
     text-align: left
     font-family: Evolventa
-    font-size: 20px
+    font-size: 14px
     font-style: normal
     font-weight: 400
     line-height: normal
     transform: none
-    top: -51px
+    top: -20px
     &:nth-child(6)
         left: 43%!important
     &:nth-child(8)
         right: -4%!important
         left: auto!important
+    @media (min-width: 768px)
+        font-size: 20px
+        top: -51px
 
 .mark_label_active
     color: var(--Grey-900)

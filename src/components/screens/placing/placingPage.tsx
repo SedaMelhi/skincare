@@ -18,7 +18,9 @@ import plusSvg from './../../../../public/plusSimple.svg';
 import arrowViolet from './../../../../public/arrowViolet.svg';
 
 import style from './placing.module.sass';
-const PlacingPage: FC = () => {
+import { IbasketData } from '@/interfaces/basket.interface';
+import { IOrder } from '@/interfaces/order.interface';
+const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -66,7 +68,7 @@ const PlacingPage: FC = () => {
           </div>
           <div className={style.right}>
             <Link href={'/authorization'}>
-              <div className={style.message}>
+              <div className={style.message + ' ' + style.pc}>
                 <div className={style.message__text}>
                   Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих покупок
                 </div>
@@ -76,7 +78,11 @@ const PlacingPage: FC = () => {
               </div>
             </Link>
 
-            <BasketRight />
+            <BasketRight basket={basket} />
+            <div className={style.message__text + ' ' + style.mobile}>
+              Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих покупок и применять
+              сертификат.
+            </div>
             <div className={style.promocode__wrap + ' ' + style.promocode__first}>
               <input type="text" className={style.promocode} placeholder="Промокод" />
               <img src={plusSvg.src} alt="" />

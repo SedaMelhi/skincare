@@ -1,14 +1,16 @@
 import { GetServerSideProps, NextPage } from 'next';
-import { CatalogService } from '@/services/catalog.service';
+import { CardService } from '@/services/catalog.service';
 
-import ProductPage from '@/components/screens/product/[id]';
+import ProductPage from '@/components/screens/product/ProductPage';
 
 const Product: NextPage<any> = ({ data }) => {
+  
+
   return <ProductPage data={data} key={data && Object.keys(data)[0]} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await CatalogService.getCatalog({
+  const data = await CardService.getCard({
     type: 'getItem',
     itemId: context.params && context.params.id,
   });

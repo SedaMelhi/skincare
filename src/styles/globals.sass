@@ -84,9 +84,15 @@ h1, h2, h3, h4, h5, h6, p, input, li, ul, body, button
   
 html
   font-size: 16px
+  &::-webkit-scrollbar-track
+    background-color: var(--Primary-100)
+    //border: 1px solid var(--Grey-500)
+  &::-webkit-scrollbar-thumb
+    background-color: var(--Primary-300)
+    //border: 1px solid var(--Grey-500)
+    border-radius: 10px
   &::-webkit-scrollbar 
-    width: 0px 
-   
+    width: 14px 
   
 body 
   overflow-x: hidden
@@ -95,6 +101,7 @@ body
   font-size: 16px
   line-height: normal
   padding-right: 0!important
+  
  
 
 a 

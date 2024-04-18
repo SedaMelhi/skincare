@@ -9,18 +9,20 @@ import actionSvg2 from './../../../../../public/action2.svg';
 import actionSvg3 from './../../../../../public/action3.svg';
 import infoSvg from './../../../../../public/info.svg';
 import saveSvg from './../../../../../public/save.svg';
+import hurtSvg from './../../../../../public/hurt.svg';
 import checkSvg from './../../../../../public/check.svg';
 
 import style from './text.module.sass';
 import { setIsAddNewItem, setReduxBasketArr } from '@/redux/basketSlice/basketSlice';
 import { useDispatch } from 'react-redux';
+import { favoriteService } from '@/services/profile.service';
 
-const Text: FC<{ product: IProduct; scu: IScu[] | null; setActiveScu: any; activeScu: any }> = ({
-  product,
-  scu,
-  setActiveScu,
-  activeScu,
-}) => {
+const Text: FC<{
+  product: IProduct;
+  scu: IScu[] | null;
+  setActiveScu: any;
+  activeScu: any;
+}> = ({ product, scu, setActiveScu, activeScu }) => {
   const sizes: string[] = [];
   const [colors, setColors] = useState<{ name: string; image: string; id: string }[]>([]);
   const icons = [actionSvg1.src, actionSvg2.src, actionSvg3.src];
@@ -29,6 +31,7 @@ const Text: FC<{ product: IProduct; scu: IScu[] | null; setActiveScu: any; activ
   scu?.forEach((item) => {
     !sizes.includes(item.value) && sizes.push(item.value);
   });
+  console.log(activeScu);
 
   const [activeSize, setActiveSize] = useState(sizes[0]);
 
@@ -48,7 +51,10 @@ const Text: FC<{ product: IProduct; scu: IScu[] | null; setActiveScu: any; activ
         },
       ]);
   });
-
+  const addFavorite = () => {
+    const res = favoriteService.addFavorite(activeScu.id);
+    res.then((data) => console.log(data));
+  };
   const [activeColor, setActiveColor] = useState<string>(colors[0] ? colors[0].id : '0');
 
   useEffect(() => {
@@ -154,7 +160,7 @@ const Text: FC<{ product: IProduct; scu: IScu[] | null; setActiveScu: any; activ
           </div>
         ))}
       </div>
-      {sizes && sizes.length > 0 && (
+      {activeScu && activeScu.value && sizes && sizes.length > 0 && (
         <>
           <div className={style.subtitle}>Объеm</div>
           <div className={style.sizes}>
@@ -191,7 +197,7 @@ const Text: FC<{ product: IProduct; scu: IScu[] | null; setActiveScu: any; activ
         <button className={style.btn} onClick={addProductInCart}>
           {btnText} {btnText === 'добавлен' ? <img src={checkSvg.src} alt="" /> : ''}
         </button>
-        <img src={saveSvg.src} alt="" className={style.save} />
+        <img src={saveSvg.src} alt="" className={style.save} onClick={addFavorite} />
       </div>
 
       {/* <div className={style.select__wrap}>

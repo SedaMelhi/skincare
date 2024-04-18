@@ -20,14 +20,21 @@ export interface IScu {
   shade?: IShade;
 }
 
+export type Color = {
+  name: string;
+  value: string;
+};
+
 export interface IProduct {
   id: string;
   name: string;
+  colors: Color[] | null;
   picture: string | null;
   volumes: string[];
   sectionCode: string;
   sectionName: string;
-  pin: string[];
+  pins: string[];
+  minPrice: number;
   addPhotos?: string[] | null;
   brand?: {
     ID: string;

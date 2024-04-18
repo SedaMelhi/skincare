@@ -1,49 +1,58 @@
 .products
-    width: 1015px
     margin-top: 16px
     display: grid
-    grid-template-columns: repeat(1, 1fr)
+    grid-template-columns: repeat(2, 1fr)
     gap: 32px 16px
+    width: 100%
     @media (min-width: 768px)
-        grid-template-columns: repeat(2, 1fr)
-    @media (min-width: 1200px)
         gap: 64px 20px 
         grid-template-columns: repeat(3, 1fr)
 
+
+.colors
+    position: absolute
+    bottom: 16px
+    left: 16px
+    font-size: 12px
+    display: flex
+    align-items: center
+    gap: 4px
+    img
+        width: 16px
+        height: 16px
+        border-radius: 50%
+        &:not(.colors > img:first-child)
+            margin-left: -4px
 .card_big
     width: 100%
     position: relative
-    grid-column: span 1
-    @media (min-width: 768px)
-        grid-column: span 2 
+    grid-column: span 2
     .image
-        height: 247px
+        padding-bottom: 72%         
         background: url(/notphoto.png) #ffffff center/contain no-repeat
         &_big
             background-size: contain
         @media (min-width: 768px)
-            height: 320px
+            padding-bottom: 67%    
         @media (min-width: 1200px)
-            height: 466px
+            padding-bottom: 70%    
 
 .card
+    word-break: break-all
     position: relative
     .image
-        height: 164px
-        background: url(/notphoto.png) #ffffff center/contain no-repeat
-        @media (min-width: 768px)
-            height: 229px
-        @media (min-width: 1200px)
-            height: 325px
+        padding-bottom: 100%
+        background: url(/notphoto.png) #ffffff center/cover no-repeat
     .name
         font-size: 16px
         line-height: 120%
         @media (min-width: 1200px)
             font-size: 20px
 .image
-    border: 1px solid var(--grey-300)
     background:  url(/notphoto.png) #ffffff center/cover no-repeat
+    border: 1px solid #DBD5DE
     margin-bottom: 20px
+    position: relative
     
 .name
     color: var(--grey-800)
@@ -96,7 +105,24 @@
     left: 16px
     display: flex
     gap: 4px
+    z-index: 1
 
 .card_big
     .pin
         left: 24px
+
+.wrap
+    @media (min-width: 768px)  
+        width: 100%
+    @media (min-width: 1200px)
+        width: 1015px 
+.pc
+    display: none
+    @media (min-width: 768px)
+        display: block
+
+.mobile
+    display: block
+    @media (min-width: 768px)
+        display: none
+       

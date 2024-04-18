@@ -45,3 +45,29 @@ export const userUpdateService = {
     return data;
   },
 };
+
+export const favoriteService = {
+  async getFavorite(): Promise<any> {
+    const { data } = await axios.post('/v1/user.php', {
+      type: 'getFavorite',
+      saleUserId: localStorage.getItem('saleUserId'),
+    });
+    return data;
+  },
+  async addFavorite(id: number): Promise<any> {
+    const { data } = await axios.post('/v1/cart.php', {
+      type: 'addDelay',
+      SCUId: id,
+      saleUserId: localStorage.getItem('saleUserId'),
+    });
+    return data;
+  },
+  async removeFavorite(id: number): Promise<any> {
+    const { data } = await axios.post('/v1/cart.php', {
+      type: 'removeDelay',
+      SCUId: id,
+      saleUserId: localStorage.getItem('saleUserId'),
+    });
+    return data;
+  },
+};
