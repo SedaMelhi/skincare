@@ -15,3 +15,5 @@ jobs:
         run: docker compose run --entrypoint="" frontend npm run build
       - name: Deploy compose
         run: docker compose up -d
+      - name: Docker prune to clear storage
+        run: docker system prune -a -f
