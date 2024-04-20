@@ -56,7 +56,6 @@ const Home: NextPage<{
     dispatch(setFooterData(data));
     dispatch(setHits(hits));
   }, [data]);
-  console.log(promo);
 
   return (
     <HomePage

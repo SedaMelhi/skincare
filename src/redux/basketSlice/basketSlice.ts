@@ -6,6 +6,7 @@ export const basketSlice = createSlice({
     isBasketOpen: false,
     isNotifications: false,
     isAddNewItem: false,
+    isScroll: false,
     basketArr: [],
   },
   reducers: {
@@ -18,12 +19,20 @@ export const basketSlice = createSlice({
     setReduxBasketArr: (state, { payload }) => {
       state.basketArr = payload;
     },
+    setIsScroll: (state, { payload }) => {
+      state.isScroll = payload;
+    },
     setIsAddNewItem: (state, { payload }) => {
       state.isAddNewItem = payload;
     },
   },
 });
 
-export const { setIsBasketOpen, setIsNotifications, setReduxBasketArr, setIsAddNewItem } =
-  basketSlice.actions;
+export const {
+  setIsBasketOpen,
+  setIsNotifications,
+  setReduxBasketArr,
+  setIsAddNewItem,
+  setIsScroll,
+} = basketSlice.actions;
 export default basketSlice.reducer;

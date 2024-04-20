@@ -2,13 +2,15 @@ import { FC } from 'react';
 import MobileBasket from './mobileBasket/mobileBasket';
 import CircleArrow from '@/components/other/circleArrow/circleArrow';
 
-import style from './basketRight.module.sass';
 import { IbasketData } from '@/interfaces/basket.interface';
 import { IOrder, IOrderBasket } from '@/interfaces/order.interface';
 
+import style from './basketRight.module.sass';
+import Link from 'next/link';
+
 const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
   const arr: IOrderBasket[] = Object.values(basket.cartItems);
-  console.log(JSON.stringify(basket));
+  console.log(basket);
 
   return (
     <div>
@@ -41,9 +43,17 @@ const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
                     </div>
                   </>
                 ) : (
-                  arr.map(({ name, cartId, price, value }) => (
-                    <div key={cartId} className={style.product}>
-                      <div className={style.image}></div>
+                  arr.map(({ name, cartId, price, value, picture, parentId }) => (
+                    <Link href={`product/${parentId}`} key={cartId} className={style.product}>
+                      <div
+                        className={style.image}
+                        style={
+                          picture
+                            ? {
+                                backgroundImage: `url(https://b.skincareagents.com${picture})`,
+                              }
+                            : {}
+                        }></div>
                       <div className={style.info}>
                         <div className={style.name}>{name}</div>
                         <div className={style.bottom}>
@@ -51,7 +61,7 @@ const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
                           <div className={style.size}>{value}</div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))
                 )}
               </div>

@@ -22,14 +22,8 @@ import { IbasketData } from '@/interfaces/basket.interface';
 import { IOrder } from '@/interfaces/order.interface';
 const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
   const router = useRouter();
-
   const dispatch = useDispatch();
   const address = useSelector((state: any) => state.address.isAddressOpen);
-
-  useEffect(() => {
-    // const data = getOrderInfoService.getOrderInfo();
-    // data.then((res) => console.log(res));
-  }, []);
 
   return (
     <Layout title="Оформление заказа" nav={false}>

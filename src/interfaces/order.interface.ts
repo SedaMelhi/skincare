@@ -5,6 +5,7 @@ export interface IOrderBasket {
   name: string;
   quantity: number;
   value: string;
+  picture: string;
   price: {
     basePrice: number;
     discountPrice: number;

@@ -1,7 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import Input from '@/components/other/input/input';
-
 import style from './courierContent.module.sass';
 
 interface ICloseAside {
@@ -16,6 +15,18 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   const [entrance, setEntrance] = useState(''); //подъезд
   const [floor, setFloor] = useState(''); //этаж
 
+  useEffect(() => {
+    fetch('https://b.skincareagents.com/local/api/v1/user.php', {
+      method: 'POST',
+      body: JSON.stringify({
+        type: 'searchCity',
+        typeId: '3',
+        city: city,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  }, [city]);
   return (
     <form className={style.form}>
       <div className={style.content}>

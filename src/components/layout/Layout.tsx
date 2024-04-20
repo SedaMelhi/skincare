@@ -21,6 +21,11 @@ interface IRootNotifications {
     isNotifications: boolean;
   };
 }
+interface IsScroll {
+  basket: {
+    isScroll: boolean;
+  };
+}
 interface IMenuOpen {
   menu: {
     isMenuOpen: boolean;
@@ -31,11 +36,13 @@ const Layout: FC<PropsWithChildren<IMeta>> = ({ children, title, description, na
   const isBasketOpen = useSelector((state: IRootState) => state.basket.isBasketOpen);
   const isNotifications = useSelector((state: IRootNotifications) => state.basket.isNotifications);
   const isMenuOpen = useSelector((state: IMenuOpen) => state.menu.isMenuOpen);
-
+  const isScroll = useSelector((state: IsScroll) => state.basket.isScroll);
   return (
     <div
       className={
-        isBasketOpen || isNotifications || isMenuOpen ? style.stopScrollStyle : style.scroll
+        isBasketOpen || isNotifications || isMenuOpen || isScroll
+          ? style.stopScrollStyle
+          : style.scroll
       }>
       <Meta
         title={title && title.length > 15 ? title.substring(0, 15) + '...' : title}
