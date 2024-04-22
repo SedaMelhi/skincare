@@ -10,7 +10,6 @@ import Link from 'next/link';
 
 const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
   const arr: IOrderBasket[] = Object.values(basket.cartItems);
-  console.log(basket);
 
   return (
     <div>

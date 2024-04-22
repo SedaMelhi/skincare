@@ -1,7 +1,6 @@
 import { FC } from 'react';
-
-import style from './header.module.sass';
 import CircleArrow from '@/components/other/circleArrow/circleArrow';
+import style from './header.module.sass';
 
 const Header: FC = () => {
   return (

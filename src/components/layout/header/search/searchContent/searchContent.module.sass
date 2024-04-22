@@ -1,0 +1,120 @@
+.tabs
+    display: flex
+    gap: 4px
+    margin-top: 24px
+    @media (min-width: 768px)
+        margin-top: 28px
+.tab
+    cursor: pointer
+    padding: 10.5px 20px
+    font-size: 14px
+    text-transform: uppercase
+   
+
+.active
+    transition: .2s
+    border-radius: 35px
+    background: var(--Primary-200)
+
+.popular_wrap
+    margin-top: 48px
+    padding-bottom: 250px
+    @media (min-width: 768px)
+        margin-top: 64px
+
+.popular
+    display: grid
+    grid-template-columns: 1fr 1fr
+    gap: 16px
+    margin-top: 16px
+    @media (min-width: 768px)
+        grid-template-columns: 1fr 1fr 1fr 1fr
+        gap: 20px
+.name
+    font-size: 14px
+
+
+.btn
+    width: 241px
+    margin: 30px auto 0 
+    
+.journal
+    margin-top: 17px
+
+.header
+    display: flex
+    flex-direction: column
+    align-items: center
+    border-bottom: 1px solid var(--Primary-200)
+    border-top: 1px solid var(--Primary-200)
+    padding: 8px 0
+    flex-direction: row
+    margin-top: -1px
+    @media( min-width:  768px) 
+        justify-content: space-between
+    &__text
+        display: flex
+        flex-direction: column
+        padding: 0
+        margin: 0
+        @media( min-width:  768px)
+            width: 100%
+
+.image
+    width: 108px
+    height: 82px
+    background: url(/journal/1.png) no-repeat center/cover  
+    margin-right: 12px
+    @media( min-width:  768px) 
+        width: 153px
+        height: 96px
+        margin-right: 16px
+    // @media( min-width:  1200px) 
+    //     width: 325px
+    //     height: 199px
+
+.title
+    color: var(--grey-800)
+    font-weight: 400
+    text-transform: uppercase
+    display: flex
+    align-items: center
+    justify-content: space-between
+    flex-direction: column
+    gap: 56px
+    font-size: 16px
+    letter-spacing: 0.48px
+    transition: .1s
+    cursor: pointer
+    &:hover
+        color: #C077ED
+        .arrow
+            opacity: 1
+    @media( min-width:  768px) 
+        font-size: 24px
+        flex-direction: row
+  
+
+.subtitle
+    color: var(--primary-500)
+    font-size: 12px
+    line-height: 133.333%
+    text-transform: uppercase
+    margin-bottom: 8px
+    order: -1
+    @media( min-width:  768px) 
+        order: 0
+
+.description
+    color: var(--grey-600)
+    font-size: 16px
+    line-height: 137.5% 
+    @media( min-width:  768px) 
+        width: 402px
+.arrow
+    transition: .1s
+    opacity: 0
+    display: none
+    @media( min-width:  768px) 
+        display: block
+

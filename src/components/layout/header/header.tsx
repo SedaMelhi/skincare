@@ -7,15 +7,18 @@ import Logo from './logo/logo';
 import ProfileLogo from './profileLogo/profileLogo';
 import Save from './save/save';
 import Basket from './basket/basketBtn';
-import { setIsBasketOpen, setIsNotifications } from '@/redux/basketSlice/basketSlice';
+import { setIsBasketOpen, setIsNotifications, setIsScroll } from '@/redux/basketSlice/basketSlice';
 import DropDownMenu from './dropDownMenu/dropDownMenu';
 import { setIsMenuOpen } from '@/redux/menuSlice/menuSlice';
 import { setMenu } from '@/redux/menuSlice/menuSlice';
 
 import { CatalogService } from '@/services';
-import style from './header.module.sass';
+
 import axios from 'axios';
 import { saleUserIdService } from '@/services/noauth.service';
+import Accordion from './search/accordion/accordion';
+
+import style from './header.module.sass';
 interface RootState {
   basket: {
     isBasketOpen: boolean;
@@ -27,6 +30,11 @@ const Header: FC = () => {
   const [scroll, setScroll] = useState('');
   const isBasketOpen = useSelector((state: RootState) => state.basket.isBasketOpen);
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(setIsScroll(isOpen));
+  }, [isOpen]);
   useEffect(() => {
     dispatch(setIsMenuOpen(menuOpen));
     window.addEventListener('scroll', () => {
@@ -62,11 +70,12 @@ const Header: FC = () => {
 
   return (
     <div className={style.header__wrap + ' ' + style[scroll]}>
+      <Accordion isOpen={isOpen} setIsOpen={setIsOpen} />
       <div className="wrap">
         <header className={style.header}>
           <nav className={style.group + ' ' + style.nav}>
             <Catalog menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-            <Search />
+            <Search setIsOpen={setIsOpen} />
           </nav>
           <div className={style.logo}>
             <Logo />

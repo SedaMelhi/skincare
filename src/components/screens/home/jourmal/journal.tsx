@@ -1,11 +1,11 @@
 import { FC } from 'react';
+import Link from 'next/link';
 
 import Title from '@/components/other/title/title';
 import Header from './header/header';
 import Accordion from './accordion/accordion';
 
 import style from './journal.module.sass';
-import Link from 'next/link';
 
 const Journal: FC<any> = ({ journal }) => {
   return (

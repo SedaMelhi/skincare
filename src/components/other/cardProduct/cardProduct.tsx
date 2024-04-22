@@ -5,8 +5,9 @@ import img1 from './../../../../public/bonus/1.png';
 import img2 from './../../../../public/bonus/new.png';
 import img3 from './../../../../public/bonus/hit.svg';
 
-import style from './cardProduct.module.sass';
 import { IScu } from '@/interfaces/products.interface';
+
+import style from './cardProduct.module.sass';
 
 interface CardProductProps {
   available?: boolean;
@@ -31,22 +32,14 @@ const CardProduct: FC<CardProductProps> = ({
 }) => {
   const sizes: string[] = [];
   const prices: number[] = [];
-  // const scu = item.scu ? Object.values(item.scu) : null;
-  // if (scu) {
-  //   scu.forEach((item) => {
-  //     !sizes.includes(item[0].value) && sizes.push(item[0].value);
-  //     item[0].price && !prices.includes(+item[0].price) && prices.push(+item[0].price);
-  //   });
-  // }
-  //console.log(prices);
 
   return (
     <Link href={`/product/${id}`} className={style.card}>
       <div style={available ? {} : { opacity: '.5' }} className={style.padding}>
         <div className={style.bonus}>
-          <img src={img1.src} alt="" />
-          <img src={img2.src} alt="" />
-          <img src={img3.src} alt="" />
+          {pin && pin.includes('Скидка') && <img src={img1.src} alt="" />}
+          {pin && pin.includes('Новинка') && <img src={img2.src} alt="" />}
+          {pin && pin.includes('Хит') && <img src={img3.src} alt="" />}
         </div>
         <div
           className={style.img + ' img ' + style.img_one}

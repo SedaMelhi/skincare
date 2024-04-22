@@ -5,6 +5,7 @@ import CatalogPage from '@/components/screens/catalog/CatalogPage';
 
 const Catalog: NextPage<{ data: any }> = ({ data }) => {
   const products: IProductArr = data && data.items ? data.items : [];
+  console.log(products);
 
   return <CatalogPage products={products} count={data.count} />;
 };

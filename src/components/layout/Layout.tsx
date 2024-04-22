@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Meta from '../seo/Meta';
 import { IMeta } from '../seo/meta.interface';
@@ -37,6 +37,13 @@ const Layout: FC<PropsWithChildren<IMeta>> = ({ children, title, description, na
   const isNotifications = useSelector((state: IRootNotifications) => state.basket.isNotifications);
   const isMenuOpen = useSelector((state: IMenuOpen) => state.menu.isMenuOpen);
   const isScroll = useSelector((state: IsScroll) => state.basket.isScroll);
+  useEffect(() => {
+    if (isScroll || isBasketOpen || isNotifications || isMenuOpen) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  }, [isBasketOpen, isNotifications, isScroll, isMenuOpen]);
   return (
     <div
       className={

@@ -23,7 +23,7 @@ const CircleArrow: FC<CircleArrowProps> = ({ sizeCircle, sizeImg, color, colorIm
           xmlns="http://www.w3.org/2000/svg">
           <path
             d="M32.0988 1L40 9M32.0988 17L40 9M40 9H32.0988L0 9"
-            stroke="#19171A"
+            stroke={colorImg || '#19171A'}
             strokeWidth="2"
           />
         </svg>

@@ -51,7 +51,7 @@ const Home: NextPage<{
   promo,
 }) => {
   const dispatch = useDispatch();
-  console.log();
+
   useEffect(() => {
     dispatch(setFooterData(data));
     dispatch(setHits(hits));
