@@ -17,12 +17,26 @@ import plusSvg from './../../../../public/certificate/plus.svg';
 
 import style from './maps.module.sass';
 import { API_URL } from '@/services';
+import { IUserData } from '../profile/profilePage';
+import { userInfoService } from '@/services/profile.service';
 
 const MapsPage: FC = () => {
   const [activeEl, setActiveEl] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
   const dispatch = useDispatch();
   const [address, setAddress] = useState<{ id: number; addressDetail: any }[]>([]);
+  const [userDataServer, setUserDataServer] = useState<IUserData>({
+    birthday: '',
+    email: '',
+    lastName: '',
+    loginPhone: '',
+    name: '',
+    secondName: '',
+    userId: 0,
+  });
+  useEffect(() => {
+    userInfoService.getUserInfo().then(setUserDataServer);
+  }, []);
   const getNewAddress = () => {
     fetch(API_URL + 'v1/user.php', {
       method: 'POST',
@@ -44,7 +58,11 @@ const MapsPage: FC = () => {
       <section className={style.wrap}>
         <div className={'wrap ' + style.content}>
           <div className={style.aside}>
-            <ProfileAside activeMenu={3} setActiveProfileData={null} />
+            <ProfileAside
+              activeMenu={3}
+              setActiveProfileData={null}
+              userDataServer={userDataServer}
+            />
           </div>
           <div className={style.width}>
             <div className={style.title}>

@@ -8,7 +8,7 @@ import ProfileData from './profileData/profileData';
 
 import style from './profile.module.sass';
 
-interface IUserData {
+export interface IUserData {
   birthday: string;
   email: string;
   lastName: string;
