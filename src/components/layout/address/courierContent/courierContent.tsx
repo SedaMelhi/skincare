@@ -111,7 +111,8 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
         <div className={style.margin}>
           <Select value={city} setValue={setCity} getData={getCityData} placeholder="Город" />
         </div>
-        <div className={style.input + ' ' + (city.id ? '' : style.input_none)}>
+        {/* + ' ' + (city.id ? '' : style.input_none) */}
+        <div className={style.input}>
           <Select
             value={street}
             setValue={setStreet}
@@ -120,7 +121,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
           />
         </div>
         <div className={style.input__line}>
-          <div className={style.input + ' ' + (street.id ? '' : style.input_none)}>
+          <div className={style.input}>
             <Input
               placeholder="кв./офис"
               value={apartment}
@@ -129,7 +130,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
               onChange={(e) => setApartment(e.target.value)}
             />
           </div>
-          <div className={style.input + ' ' + (street.id ? '' : style.input_none)}>
+          <div className={style.input}>
             <Input
               placeholder="домофон"
               value={intercom}
@@ -140,7 +141,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
           </div>
         </div>
         <div className={style.input__line}>
-          <div className={style.input + ' ' + (street.id ? '' : style.input_none)}>
+          <div className={style.input}>
             <Input
               placeholder="подъезд"
               value={entrance}
@@ -149,7 +150,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
               onChange={(e) => setEntrance(e.target.value)}
             />
           </div>
-          <div className={style.input + ' ' + (street.id ? '' : style.input_none)}>
+          <div className={style.input}>
             <Input
               placeholder="этаж"
               value={floor}
