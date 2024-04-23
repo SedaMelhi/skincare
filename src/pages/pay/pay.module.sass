@@ -28,7 +28,7 @@
     @media (min-width: 1200px)
         flex-direction: row
     @media (min-width: 768px)
-        gap: 45px
+        gap: 193px
 
 .left
     max-width: 670px
@@ -49,41 +49,48 @@
         margin-top: 37px
 
 .method
+    width: 670px
     margin-top: 48px
     display: flex
     justify-content: space-between
-    gap: 25px
     flex-direction: column
     @media (min-width: 768px)
         flex-direction: row
     &__title
         font-size: 14px
+        width: 140px
         text-transform: uppercase
         flex-shrink: 0
 
-.items
-    position: relative
-    display: flex
-    justify-content: space-between
-    gap: 44px
-    padding: 16px 24px
 
 .flex_start
-    justify-content: flex-start
     gap: 16px
-    @media (min-width: 768px)
-        gap: 43px
-
-.btn
+  
+.label
     display: flex
-    padding: 8px 16px
-    justify-content: center
     align-items: center
-    border-radius: 70px
-    border: 1px solid var(--Grey-900)
-    margin-top: 16px
-    cursor: pointer
+    gap: 10px
+    line-height: 1
+    margin-bottom: 5px
+    
+  
 
+.radio
+    background-color: var(--Grey-900)
+    width: 20px
+    height: 20px
+    position: relative
+    z-index: 1
+    &:checked
+        &::before
+            width: 20px
+            height: 20px
+            background: url('/circleCheckBlack.svg') center/cover
+            content: '1'
+            position: absolute
+            z-index: 2
+            top: 0px
+            
 .button
     display: flex
     align-items: center
@@ -124,25 +131,22 @@
     &::placeholder
         color: var(--Grey-800)
         font-size: 14px
-        
-.message
+
+
+.box
+    width: 497px
     display: flex
-    justify-content: space-between
-    align-items: center
+    flex-direction: column
+    gap: 20px 
+
+.input
     width: 100%
-    padding: 8px 12px 8px 16px
-    border-radius: 8px
-    border: 1px solid var(--Primary-600)
-    margin-bottom: 16px
-    cursor: pointer
-    &__text
-        width: 100%
-        color: var(--Primary-600)
-        font-size: 14px
-        margin-top: 16px
-        @media (min-width: 1200px)
-            width: 328px
-            margin-top: 0px
+
+.text
+    color: var(--Grey-500)
+    font-size: 14px
+    margin-top: 8px
+    padding-left: 18px
 
 .pc
     display: none
@@ -153,3 +157,29 @@
     display: block
     @media (min-width: 1200px)
         display: none
+
+
+.input_field
+  font-size: 1rem
+  width: 100%
+  border: none
+  border-bottom: 0.5px solid #8A7E8F
+  padding: 16px 15px 8px
+  background-color: transparent
+  &__label_text
+    color: #8A7E8F
+    font-size: 0.75rem
+    padding-left: 15px
+  &_visibility_on
+    background: url('/images/visibility-on.svg') no-repeat
+    background-size: 25px 25px
+    background-position: right center
+  &_visibility_off
+    background: url('/images/visibility-off.svg') no-repeat
+    background-size: 25px 25px
+    background-position: right center
+  &::placeholder
+    color: #8A7E8F
+  &:focus
+    outline: none
+  

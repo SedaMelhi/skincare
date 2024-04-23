@@ -5,6 +5,8 @@ import basketLogo from './../../../../../../public/basket.svg';
 import arrowDown from './../../../../../../public/certificate/arrow.svg';
 import plusSvg from './../../../../../../public/plusSimple.svg';
 import style from './../basketRight.module.sass';
+import { IOrder, IOrderBasket } from '@/interfaces/order.interface';
+import Link from 'next/link';
 
 interface BasketItem {
   name: string;
@@ -13,7 +15,8 @@ interface BasketItem {
   id: number;
 }
 
-const MobileBasket: FC<{ arr: BasketItem[] }> = ({ arr }) => {
+const MobileBasket: FC<{ basket: IOrder | null }> = ({ basket }) => {
+  const arr: IOrderBasket[] | [] = basket ? Object.values(basket.cartItems) : [];
   return (
     <div className={style.basket_mobile}>
       <div className={style.basket__wrap} style={arr.length === 0 ? { height: '310px' } : {}}>
@@ -96,17 +99,25 @@ const MobileBasket: FC<{ arr: BasketItem[] }> = ({ arr }) => {
                       </div>
                     </>
                   ) : (
-                    arr.map(({ name, id, price, size }) => (
-                      <div key={id} className={style.product}>
-                        <div className={style.image}></div>
+                    arr.map(({ name, cartId, price, value, picture, parentId }) => (
+                      <Link href={`product/${parentId}`} key={cartId} className={style.product}>
+                        <div
+                          className={style.image}
+                          style={
+                            picture
+                              ? {
+                                  backgroundImage: `url(https://b.skincareagents.com${picture})`,
+                                }
+                              : {}
+                          }></div>
                         <div className={style.info}>
                           <div className={style.name}>{name}</div>
                           <div className={style.bottom}>
-                            <div className={style.price}>{price}</div>
-                            <div className={style.size}>{size}</div>
+                            <div className={style.price}>{price.discountPrice}</div>
+                            <div className={style.size}>{value}</div>
                           </div>
                         </div>
-                      </div>
+                      </Link>
                     ))
                   )}
                 </div>
@@ -116,17 +127,17 @@ const MobileBasket: FC<{ arr: BasketItem[] }> = ({ arr }) => {
                   <div className={style.line}>
                     <div className={style.line__text}>Сумма заказа</div>
                     <div className={style.border}></div>
-                    <div className={style.sum}>5 000 ₽</div>
+                    <div className={style.sum}>{basket && basket.basket.price} ₽</div>
                   </div>
-                  <div className={style.line}>
+                  {/* <div className={style.line}>
                     <div className={style.line__text}>Доставка</div>
                     <div className={style.border}></div>
                     <div className={style.sum}>500 ₽</div>
-                  </div>
+                  </div> */}
                   <div className={style.line}>
                     <div className={style.line__text}>Итого</div>
                     <div className={style.border}></div>
-                    <div className={style.all__price}>5 500 ₽</div>
+                    <div className={style.all__price}>{basket && basket.basket.price} ₽</div>
                   </div>
                   <div className={style.promocodes}>
                     <div className={style.promocode__wrap + ' ' + style.promocode__first}>

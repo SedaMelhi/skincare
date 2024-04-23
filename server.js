@@ -12,7 +12,7 @@ const httpsOptions = {
   cert: fs.readFileSync('cert/fullchain.cer'), // Путь к сертификату
 };
 
-//для локалки
+// //для локалки
 // const httpsOptions = {
 //   key: fs.readFileSync('./localhost.key'), // Путь к ключу
 //   cert: fs.readFileSync('./localhost.crt'), // Путь к сертификату

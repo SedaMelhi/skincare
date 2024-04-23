@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { Box, Slider } from '@mui/material';
+
+import circle from './../../../../../public/circleCheckBlack.svg';
 
 import style from './rangeSlider.module.sass';
 
-const RangeSlider: FC = () => {
+const RangeSlider: FC<{ range: number }> = ({ range }) => {
   const marks = [
     {
       value: 1,
@@ -19,26 +20,38 @@ const RangeSlider: FC = () => {
     },
   ];
   return (
-    <Box sx={{ width: 'calc(100% - 24px)' }}>
-      <Slider
-        disabled
-        defaultValue={2}
-        min={1}
-        max={3}
-        step={1}
-        marks={marks}
-        classes={{
-          rail: style.rail, //цвет линии
-          track: style.track, //активная линия
-          thumb: style.thumb, //активная точка ползунка
-          mark: style.mark, //точки
-          markActive: style.mark_active,
-          markLabel: style.mark_label,
-          markLabelActive: style.mark_label_active,
-          valueLabel: style.label,
-        }}
-      />
-    </Box>
+    <div className={style.line}>
+      <div className={style.texts}>
+        {marks.map(({ value, label }) => (
+          <div className={style.text + ' ' + (value < range ? style.text_active : '')} key={value}>
+            {label}
+          </div>
+        ))}
+      </div>
+      <div className={style.border}>
+        <div
+          className={
+            style.border_line + ' ' + (range === 2 || range === 3 ? style.border_line_active : '')
+          }></div>
+        <div
+          className={style.border_line + ' ' + (range === 3 ? style.border_line_active : '')}></div>
+        <div className={style.thumbs}>
+          {marks.map(({ value }) => (
+            <div
+              key={value}
+              className={
+                style.thumb +
+                ' ' +
+                (value < range ? style.thumb_active : '') +
+                ' ' +
+                (value === range ? style.thumb_grey : '')
+              }>
+              <img src={circle.src} alt="" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 

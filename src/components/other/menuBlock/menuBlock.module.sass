@@ -2,20 +2,26 @@
     border-radius: 16px
     border: 1px solid var(--Grey-200)
     background: var(--Grey-25)
-    box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2)
+    box-shadow: none!important
+    border-radius: 16px!important
+    background-color: var(--Grey-25)!important
+    li 
+        padding: 4px 8px
+    button
+        padding: 0
    
 .root
-    padding: 8px
+    padding: 8px!important
+    
     
 .btnStyle
     width: 100%
     justify-content: start
     padding: 0
-    text-transform: none
-    color: #504655
+    text-transform: none!important
+    color: #504655!important
+    display: block
     &:hover
-        color: blue
-        background-color: #F0EAF2
         border-radius: 8px
         
 .selected
@@ -29,7 +35,4 @@
     background: #fff0
     transition: .2s
     opacity: 1!important
-    &:hover
-        padding: 4px 8px
-        border-radius: 8px
-        background: var(--Grey-200)!important
+    

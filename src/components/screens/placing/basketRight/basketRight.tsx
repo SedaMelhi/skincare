@@ -5,11 +5,12 @@ import CircleArrow from '@/components/other/circleArrow/circleArrow';
 import { IbasketData } from '@/interfaces/basket.interface';
 import { IOrder, IOrderBasket } from '@/interfaces/order.interface';
 
-import style from './basketRight.module.sass';
 import Link from 'next/link';
 
-const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
-  const arr: IOrderBasket[] = Object.values(basket.cartItems);
+import style from './basketRight.module.sass';
+
+const BasketRight: FC<{ basket: IOrder | null }> = ({ basket }) => {
+  const arr: IOrderBasket[] | [] = basket ? Object.values(basket.cartItems) : [];
 
   return (
     <div>
@@ -70,7 +71,8 @@ const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
                 <div className={style.line}>
                   <div className={style.line__text}>Сумма заказа</div>
                   <div className={style.border}></div>
-                  <div className={style.sum}>{basket.basket.price} ₽</div>
+
+                  <div className={style.sum}>{basket && basket.basket.price} ₽</div>
                 </div>
                 {/* <div className={style.line}>
                   <div className={style.line__text}>Доставка</div>
@@ -79,14 +81,14 @@ const BasketRight: FC<{ basket: IOrder }> = ({ basket }) => {
                 </div> */}
                 <div className={style.line}>
                   <div className={style.line__text}>Итого</div>
-                  <div className={style.all__price}>{basket.basket.price} ₽</div>
+                  <div className={style.all__price}>{basket && basket.basket.price} ₽</div>
                 </div>
               </div>
             )}
           </div>
         </div>
       </div>
-      {/* <MobileBasket arr={arr} /> */}
+      <MobileBasket basket={basket} />
     </div>
   );
 };

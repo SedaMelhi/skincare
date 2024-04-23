@@ -2,14 +2,26 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-
+import { API_URL } from '@/services';
 import style from './basicModal.module.sass';
 
-const BasicModal: React.FC<React.PropsWithChildren> = ({ children }) => {
+const BasicModal = ({ children, id, getNewAddress }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const deleteAddress = () => {
+    fetch(API_URL + 'v1/user.php', {
+      method: 'POST',
+      body: JSON.stringify({ type: 'removeAddress', token: localStorage.getItem('token'), id }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 'ok') {
+          getNewAddress();
+        }
+      });
+    setOpen(false);
+  };
   return (
     <div>
       <div onClick={handleOpen}>{children}</div>
@@ -27,7 +39,7 @@ const BasicModal: React.FC<React.PropsWithChildren> = ({ children }) => {
               <div className={style.btn + ' ' + style.btn_white} onClick={handleClose}>
                 Отменить
               </div>
-              <div className={style.btn} onClick={handleClose}>
+              <div className={style.btn} onClick={deleteAddress}>
                 Удалить
               </div>
             </div>

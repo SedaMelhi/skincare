@@ -1,63 +1,125 @@
-.rail
-    background: var(--Grey-400)
-    height: 1px
-    opacity: 1
+.line
+    width: 100%
 
-.track
-    color: var(--Grey-900)
-    height: 1px
-    opacity: 1
 
-.mark
+.texts
+    display: flex
+    justify-content: space-between
+
+.text
+    color: var(--Grey-500)
+    font-size: 14px
+    &_active
+        color: var(--Grey-900)
+    @media (min-width: 768px)
+        font-size: 20px
+       
+.thumbs
+    display: flex
+    justify-content: space-between
+
+.border
+    position: relative
+
+.border_line
+    border: 1px solid var(--Grey-400)
+    width: 50%
+    position: absolute
+    margin-top: 32px
+    z-index: 0
+    @media(min-width: 1200px) 
+        margin-top: 36px
+    &_active
+        border-color: var(--Grey-900)
+    &:nth-child(1)
+        left: 0
+    &:nth-child(2)
+        right: 0    
+
+.thumb
+    position: relative
+    z-index: 1
     width: 16px
     height: 16px
     background: var(--Grey-25)
     border: 1px solid var(--Grey-500)
     border-radius: 50%
     opacity: 1
+    margin-top: 24px
+    img
+        display: none
+    &_grey
+        border: 1px solid var(--Grey-900)
+    &_active
+        img
+            display: block
+            position: relative
+            top: -1px
+            left: -1px
     @media (min-width: 768px)
         width: 24px
         height: 24px
 
-.thumb
-    width: 16px
-    height: 16px
-    background: var(--Grey-25)
-    border: 1px solid var(--Grey-900)
-    border-radius: 50%
-    opacity: 0
-    @media (min-width: 768px)
-        width: 24px
-        height: 24px
-.mark_active
-    width: 16px
-    height: 16px
-    background: var(--Grey-25)
-    border: 1px solid var(--Grey-900)
-    border-radius: 50%
-    opacity: 1
-    @media (min-width: 768px)
-        width: 24px
-        height: 24px
+// .rail
+//     background: var(--Grey-400)
+//     height: 1px
+//     opacity: 1
 
-.mark_label
-    color: var(--Grey-500)
-    text-align: left
-    font-family: Evolventa
-    font-size: 14px
-    font-style: normal
-    font-weight: 400
-    line-height: normal
-    transform: none
-    top: -20px
-    &:nth-child(6)
-        left: 43%!important
-    &:nth-child(8)
-        right: -4%!important
-        left: auto!important
-    @media (min-width: 768px)
-        font-size: 20px
-        top: -51px
+// .track
+//     color: var(--Grey-900)
+//     height: 1px
+//     opacity: 1
 
-.mark_label_active
-    color: var(--Grey-900)
+// .mark
+//     width: 16px
+//     height: 16px
+//     background: var(--Grey-25)
+//     border: 1px solid var(--Grey-500)
+//     border-radius: 50%
+//     opacity: 1
+//     @media (min-width: 768px)
+//         width: 24px
+//         height: 24px
+
+// .thumb
+//     width: 16px
+//     height: 16px
+//     background: var(--Grey-25)
+//     border: 1px solid var(--Grey-900)
+//     border-radius: 50%
+//     opacity: 0
+//     @media (min-width: 768px)
+//         width: 24px
+//         height: 24px
+// .mark_active
+//     width: 16px
+//     height: 16px
+//     background: var(--Grey-25)
+//     border: 1px solid var(--Grey-900)
+//     border-radius: 50%
+//     opacity: 1
+//     @media (min-width: 768px)
+//         width: 24px
+//         height: 24px
+
+// .mark_label
+//     color: var(--Grey-500)
+//     text-align: left
+//     font-family: Evolventa
+//     font-size: 14px
+//     font-style: normal
+//     font-weight: 400
+//     line-height: normal
+//     transform: none
+//     top: -20px
+//     &:nth-child(6)
+//         left: 43%!important
+//     &:nth-child(8)
+//         right: -4%!important
+//         left: auto!important
+//     @media (min-width: 768px)
+//         font-size: 20px
+//         top: -51px
+
+// .mark_label_active
+//     color: var(--Grey-900)

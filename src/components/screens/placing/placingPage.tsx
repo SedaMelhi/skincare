@@ -1,5 +1,7 @@
 import Layout from '@/components/layout/Layout';
-
+import { IbasketData } from '@/interfaces/basket.interface';
+import { IOrder } from '@/interfaces/order.interface';
+import { API_URL } from '@/services';
 import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -18,13 +20,30 @@ import plusSvg from './../../../../public/plusSimple.svg';
 import arrowViolet from './../../../../public/arrowViolet.svg';
 
 import style from './placing.module.sass';
-import { IbasketData } from '@/interfaces/basket.interface';
-import { IOrder } from '@/interfaces/order.interface';
+
 const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const address = useSelector((state: any) => state.address.isAddressOpen);
-
+  const [saveAddress, setSaveAddress] = useState<any>();
+  const [isAuth, setIsAuth] = useState<any>();
+  useEffect(() => {
+    fetch(API_URL + 'v1/user.php', {
+      method: 'POST',
+      body: JSON.stringify({ type: 'getAddress', token: localStorage.getItem('token') }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res['3']) {
+          setSaveAddress(res['3'][res['3'].length - 1]);
+        }
+      });
+  }, [address]);
+  useEffect(() => {
+    setIsAuth(localStorage.getItem('token'));
+  }, []);
+  const changeAddress = () => {};
+  console.log(saveAddress);
   return (
     <Layout title="Оформление заказа" nav={false}>
       <div className="wrap">
@@ -40,37 +59,48 @@ const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
         <div className={style.container}>
           <div className={style.left}>
             <div className={style.slider}>
-              <RangeSlider />
+              <RangeSlider range={1} />
             </div>
             <div className={style.subtitle}>Доставка</div>
             <Methods />
             <div className={style.method + ' ' + style.flex_start}>
               <div className={style.method__title}>адрес доставки</div>
               <div className={style.box}>
-                <div className={style.address}>г. Грозный, пр Мухаммеда Али, д 2</div>
-                <button className={style.btn} onClick={() => dispatch(setIsAddressOpen(true))}>
+                <div className={style.address}>
+                  {saveAddress && saveAddress.addressDetail.city
+                    ? `г. ${saveAddress.addressDetail.city}, ${saveAddress.addressDetail.street}, д ${saveAddress.addressDetail.entrance}, кв./офис ${saveAddress.addressDetail.apartment}`
+                    : 'не указан'}
+                </div>
+                <button
+                  className={style.btn}
+                  onClick={() => {
+                    dispatch(setIsAddressOpen(true));
+                    changeAddress();
+                  }}>
                   изменить адрес
                 </button>
               </div>
             </div>
-            <div className={style.button}>
+            <Link href={'/recipient'} className={style.button}>
               продолжить
               <div>
                 <img src={whiteArrow.src} alt="" />
               </div>
-            </div>
+            </Link>
           </div>
           <div className={style.right}>
-            <Link href={'/authorization'}>
-              <div className={style.message + ' ' + style.pc}>
-                <div className={style.message__text}>
-                  Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих покупок
+            {!isAuth && (
+              <Link href={'/authorization'}>
+                <div className={style.message + ' ' + style.pc}>
+                  <div className={style.message__text}>
+                    Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих покупок
+                  </div>
+                  <div>
+                    <img src={arrowViolet.src} alt="" />
+                  </div>
                 </div>
-                <div>
-                  <img src={arrowViolet.src} alt="" />
-                </div>
-              </div>
-            </Link>
+              </Link>
+            )}
 
             <BasketRight basket={basket} />
             <div className={style.message__text + ' ' + style.mobile}>

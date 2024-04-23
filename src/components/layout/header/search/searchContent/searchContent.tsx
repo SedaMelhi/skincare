@@ -30,7 +30,6 @@ const SearchContent: FC<{
       return `${n} результатов`;
     }
   }, []);
-  console.log(journalItems);
 
   return (
     <div>
@@ -53,9 +52,9 @@ const SearchContent: FC<{
           <div className={style.popular}>
             {products &&
               products.map((item, i) => (
-                <div onClick={() => setIsOpen(false)}>
+                <div onClick={() => setIsOpen(false)} key={i}>
                   {count === 0 ? (
-                    <div key={item.id}>
+                    <div>
                       <CardProduct
                         available={true}
                         id={item.id}
@@ -68,7 +67,7 @@ const SearchContent: FC<{
                       />
                     </div>
                   ) : (
-                    <div key={item.id}>
+                    <div>
                       <Product item={item} classValue="card" />
                     </div>
                   )}

@@ -46,7 +46,6 @@ const Methods: FC = () => {
                 </div>
                 <div className={style.desc}>Курьер по г. Грозный</div>
               </div>
-              <div className={style.price}>200 ₽</div>
             </label>
             <div className={style.arrow__wrap}>
               <img

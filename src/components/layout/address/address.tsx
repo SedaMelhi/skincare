@@ -13,7 +13,7 @@ import style from './address.module.sass';
 import PickupMap from './pickupMap/PickupMap';
 import PointContent from './pointContent/pointContent';
 
-interface IAddressState {
+export interface IAddressState {
   address: {
     isAddressOpen: boolean;
   };

@@ -9,10 +9,11 @@ interface InputProps {
   value?: any;
   type?: string;
   isNecessary?: boolean;
+  onBlur?: (event: ChangeEvent<HTMLInputElement>) => void;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void; // Добавлено свойство onChange
 }
 
-const Input: FC<InputProps> = ({ placeholder, value, type, onChange, isNecessary }) => {
+const Input: FC<InputProps> = ({ placeholder, value, type, onChange, isNecessary, onBlur }) => {
   return (
     <div className={style.input__wrap}>
       <input
@@ -21,6 +22,7 @@ const Input: FC<InputProps> = ({ placeholder, value, type, onChange, isNecessary
         type={type || 'text'}
         value={value || ''}
         onChange={onChange || ((event) => {})} // Используйте переданный обработчик onChange
+        onBlur={onBlur || ((event) => {})}
       />
       {!value && (
         <div className={style.text}>

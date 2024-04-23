@@ -8,23 +8,32 @@ import BasicModal from '../basicModal/basicModal';
 import { Button } from '@mui/material';
 
 import style from './menuBlock.module.sass';
+import { API_URL } from '@/services';
 
 const options = ['Удалить', 'Показать на карте'];
 
 const ITEM_HEIGHT = 48;
 
-const MenuBlock: FC = () => {
+const MenuBlock: FC<{ id: number; getNewAddress: any }> = ({ id, getNewAddress }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    // fetch(API_URL + 'v1/user.php', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ type: 'removeAddress', token: localStorage.getItem('token'), id }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log(res);
+    //   });
+    //setAnchorEl(null);
   };
 
   return (
-    <div>
+    <div className="address_del">
       <IconButton
         aria-label="more"
         id="long-button"
@@ -52,12 +61,11 @@ const MenuBlock: FC = () => {
             width: '180px',
           },
         }}>
-        <BasicModal>
+        <BasicModal id={id} getNewAddress={getNewAddress}>
           <Button className={style.btnStyle}>
             <MenuItem
               onClick={handleClose}
-              classes={{ gutters: style.selected, disabled: style.selected }}
-              disabled>
+              classes={{ gutters: style.selected, disabled: style.selected }}>
               Удалить
             </MenuItem>
           </Button>

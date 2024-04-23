@@ -7,7 +7,7 @@ import Header from './header/header';
 import Basket from './basket/basket';
 import Notifications from './notifications/notifications';
 import Footer from './footer/footer';
-import Address from './address/address';
+import Address, { IAddressState } from './address/address';
 
 import style from './layout.module.sass';
 
@@ -35,15 +35,16 @@ interface IMenuOpen {
 const Layout: FC<PropsWithChildren<IMeta>> = ({ children, title, description, nav }) => {
   const isBasketOpen = useSelector((state: IRootState) => state.basket.isBasketOpen);
   const isNotifications = useSelector((state: IRootNotifications) => state.basket.isNotifications);
+  const isAddressOpen = useSelector((state: IAddressState) => state.address.isAddressOpen);
   const isMenuOpen = useSelector((state: IMenuOpen) => state.menu.isMenuOpen);
   const isScroll = useSelector((state: IsScroll) => state.basket.isScroll);
   useEffect(() => {
-    if (isScroll || isBasketOpen || isNotifications || isMenuOpen) {
+    if (isScroll || isBasketOpen || isNotifications || isMenuOpen || isAddressOpen) {
       document.body.classList.add('no-scroll');
     } else {
       document.body.classList.remove('no-scroll');
     }
-  }, [isBasketOpen, isNotifications, isScroll, isMenuOpen]);
+  }, [isBasketOpen, isNotifications, isScroll, isMenuOpen, isAddressOpen]);
   return (
     <div
       className={

@@ -6,6 +6,14 @@ export const addressSlice = createSlice({
     isAddressOpen: false,
     type: 'courier',
     mapData: [],
+    address: {
+      city: { id: false, name: '' },
+      street: { id: false, name: '' },
+      apartment: '',
+      intercom: '',
+      entrance: '',
+      floor: '',
+    },
   },
   reducers: {
     setIsAddressOpen: (state, { payload }) => {
@@ -17,8 +25,11 @@ export const addressSlice = createSlice({
     setMapData: (state, { payload }) => {
       state.mapData = payload;
     },
+    setAddress: (state, { payload }) => {
+      state.address = payload;
+    },
   },
 });
 
-export const { setIsAddressOpen, setType, setMapData } = addressSlice.actions;
+export const { setIsAddressOpen, setType, setMapData, setAddress } = addressSlice.actions;
 export default addressSlice.reducer;

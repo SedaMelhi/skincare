@@ -80,11 +80,10 @@ const BasketProduct: FC<IbasketData> = ({
     handleRemoveScuToCart(cartId);
   };
   const handlePlusScu = () => {
-    const data = addSCUToCartService.addSCUToCart(scuId, 1);
+    const data = addSCUToCartService.addSCUToCart(scuId, quantity + 1);
     data.then((res) => {
       if (res.status === 'ok') {
         const data = getCartService.getCart();
-
         data.then((res) => {
           setPricesObj && setPricesObj(res.basket);
           setBasketArr && setBasketArr(Object.values(res.cartItems));
@@ -93,21 +92,18 @@ const BasketProduct: FC<IbasketData> = ({
     });
   };
   const handleMinusScu = () => {
-    // if (quantity > 1) {
-    //   handleRemoveScuToCart(cartId);
-    //   console.log('quantity', quantity);
-    //   const data = addSCUToCartService.addSCUToCart(scuId, quantity - 1);
-    //   data.then((res) => {
-    //     if (res.status === 'ok') {
-    //       const data = getCartService.getCart();
-    //       console.log('sdfdsf');
-    //       data.then((res) => {
-    //         setPricesObj && setPricesObj(res.basket);
-    //         setBasketArr && setBasketArr(Object.values(res.cartItems));
-    //       });
-    //     }
-    //   });
-    // }
+    if (quantity > 1) {
+      const data = addSCUToCartService.addSCUToCart(scuId, quantity - 1);
+      data.then((res) => {
+        if (res.status === 'ok') {
+          const data = getCartService.getCart();
+          data.then((res) => {
+            setPricesObj && setPricesObj(res.basket);
+            setBasketArr && setBasketArr(Object.values(res.cartItems));
+          });
+        }
+      });
+    }
   };
   return (
     <div className={style.row} key={scuId}>
