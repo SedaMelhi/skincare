@@ -46,7 +46,7 @@ const Home: NextPage<{
   journal,
   hits,
   runningVerticalLine,
-  sets,
+  //sets,
   gifts,
   promo,
 }) => {
@@ -86,7 +86,7 @@ export const getServerSideProps: GetServerSideProps<{
   const newProducts = await NewProductsService.getProductsService();
   const journal = await JournalService.getJournalService();
   const hits = await HitsService.getHitsService();
-  const sets = await SetsService.getSetsService();
+  //const sets = await SetsService.getSetsService();
   const gifts = await GiftsService.getGiftsService();
   const promo = await PromoBlockService.getPromoBlock();
 
@@ -95,11 +95,11 @@ export const getServerSideProps: GetServerSideProps<{
       data,
       slider,
       runningLine,
+      runningVerticalLine,
       newProducts,
       journal,
       hits,
-      sets,
-      runningVerticalLine,
+      //sets,
       gifts,
       promo,
     },
