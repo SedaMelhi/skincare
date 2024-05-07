@@ -26,7 +26,7 @@ export const getCdekTokenService = {
 export const getAddressesService = {
   async getAddresses(token: any): Promise<any> {
     //?region_code=71
-    const { data } = await axios.get('https://api.cdek.ru/v2/deliverypoints', {
+    const { data } = await axios.get('https://api.cdek.ru/v2/deliverypoints?region_code=71', {
       headers: { Authorization: 'Bearer ' + token },
     });
     return data;
