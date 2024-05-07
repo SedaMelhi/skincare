@@ -1,4 +1,7 @@
 import { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { CatalogMenu } from '@/components/layout/header/dropDownMenu/interface';
+import { useRouter } from 'next/router';
 
 import Layout from '@/components/layout/Layout';
 import Breadcrumbs from '@/components/other/breadcrumbs/breadcrumbs';
@@ -10,9 +13,7 @@ import Products from '@/components/other/products/products';
 import { IProductArr } from '@/interfaces/products.interface';
 
 import filtersSvg from './../../../../public/catalog/filters.svg';
-import { useSelector } from 'react-redux';
-import { CatalogMenu } from '@/components/layout/header/dropDownMenu/interface';
-import { useRouter } from 'next/router';
+
 import style from './catalog.module.sass';
 
 const CatalogPage: FC<{ products: IProductArr; count: number }> = ({ products, count }) => {

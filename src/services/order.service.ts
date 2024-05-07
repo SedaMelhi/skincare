@@ -24,11 +24,24 @@ export const getOrderInfoService = {
 };
 
 export const getBasketService = {
-  async getBasket(): Promise<any> {
+  async getBasket(id: any): Promise<any> {
     const { data } = await axios.post('/v1/sale.php', {
       type: 'getOrderParams',
-      saleUserId: 396,
+      saleUserId: id,
       token: '',
+    });
+    return data;
+  },
+};
+
+export const getCertificate = {
+  async getBasket(): Promise<any> {
+    const { data } = await axios.post('/v1/sale.php', {
+      type: 'createDiscount',
+      typeDiscount: 'certificate',
+      token: localStorage.getItem('saleUserId'),
+      value: 1,
+      number: '0075-3708-8806-6848',
     });
     return data;
   },

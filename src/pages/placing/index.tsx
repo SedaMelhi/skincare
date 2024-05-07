@@ -55,13 +55,28 @@ interface IAddressObj {
   weight_max: number;
 }
 
-const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any; basket: IOrder }> = ({
-  data,
-  cdekToken,
-  basket,
-}) => {
+const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any }> = ({ data, cdekToken }) => {
   const dispatch = useDispatch();
-
+  console.log(
+    JSON.stringify(
+      data.map((item) => {
+        return {
+          type: 'Feature',
+          id: item.uuid,
+          geometry: {
+            type: 'Point',
+            coordinates: [item.location?.latitude, item.location?.longitude],
+          },
+          properties: {
+            balloonContentHeader: item.name,
+            balloonContentBody: item.location.address_full,
+            balloonContentFooter: item.work_time,
+          },
+          work_time_list: item.work_time_list,
+        };
+      }),
+    ),
+  );
   useEffect(() => {
     const yandexMapData: any = data
       ? data.map((item) => {
@@ -84,15 +99,15 @@ const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any; basket: IOrder }>
     dispatch(setMapData(yandexMapData));
   }, []);
 
-  return <PlacingPage basket={basket} />;
+  return <PlacingPage />;
 };
 
 export const getServerSideProps: GetStaticProps = async (context) => {
   const cdekToken = await getCdekTokenService.getCdekToken();
   const data = await getAddressesService.getAddresses(cdekToken.access_token);
-  const basket = await getBasketService.getBasket();
+
   return {
-    props: { data, cdekToken, basket },
+    props: { data, cdekToken },
   };
 };
 

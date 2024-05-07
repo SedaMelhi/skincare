@@ -43,7 +43,7 @@ const Pay: NextPage = ({}) => {
   const order = useSelector((state: any) => state.order.order);
 
   useEffect(() => {
-    getBasketService.getBasket().then((res) => setBasket(res));
+    getBasketService.getBasket(localStorage.getItem('saleUserId')).then((res) => setBasket(res));
     setIsAuth(localStorage.getItem('token'));
   }, []);
 

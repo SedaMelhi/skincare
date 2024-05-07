@@ -20,10 +20,7 @@ interface IProps {
 const Select: FC<IProps> = ({ value, setValue, getData, placeholder }) => {
   const [listOpen, setListOpen] = useState(false);
   const [list, setList] = useState<{ id: number; name: string }[] | null>(null);
-  useEffect(
-    debounce(() => getData(setList), 150),
-    [value],
-  );
+  useEffect(() => getData(setList), [value]);
 
   return (
     <div>

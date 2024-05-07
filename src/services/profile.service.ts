@@ -20,6 +20,13 @@ export const userInfoService = {
     });
     return data;
   },
+  async getPoints(): Promise<any> {
+    const { data } = await axios.post('/user.php', {
+      type: 'getPoint',
+      token: localStorage.getItem('token'),
+    });
+    return data;
+  },
 };
 
 export const userUpdateService = {

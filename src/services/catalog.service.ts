@@ -24,3 +24,25 @@ export const CardService = {
     return data;
   },
 };
+
+export const FilterService = {
+  async getFilterItems(id: any): Promise<any> {
+    const params = {
+      type: 'getFilterParams',
+      sectionId: id,
+    };
+    const { data } = await axios.post<any>('v1/catalog.php', params);
+    return data;
+  },
+  async getData(id: any, discount: any, filterParams: any): Promise<any> {
+    const params = {
+      type: 'useFilter',
+      sectionId: id,
+      sort: 'popular',
+      discount: discount,
+      S10: ['8'],
+    };
+    const { data } = await axios.post<any>('v1/catalog.php', params);
+    return data;
+  },
+};

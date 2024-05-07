@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/other/basicModal/basicModal.jsx"
+    "src/components/other/basicModal/basicModal.tsx"
   ],
   "exclude": ["node_modules"]
 }

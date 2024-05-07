@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
@@ -7,12 +7,18 @@ import starSvg from './../../../../../public/violetStar.svg';
 
 import style from './pointsCard.module.sass';
 import BasicModal from '@/components/other/basicModal/basicModal';
+import { userInfoService } from '@/services/profile.service';
 
 const valueLabelFormat = (value: number) => {
   return `Ваша сумма покупок составляет  ${value} ₽`;
 };
 
 const PointsCard: FC = () => {
+  const [points, setPoints] = useState();
+  useEffect(() => {
+    const res = userInfoService.getPoints();
+    res.then((res) => console.log(res));
+  }, [points]);
   const marks = [
     {
       value: 1,

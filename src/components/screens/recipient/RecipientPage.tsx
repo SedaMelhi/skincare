@@ -51,7 +51,7 @@ const RecipientPage: FC = ({}) => {
   });
 
   useEffect(() => {
-    getBasketService.getBasket().then((res) => setBasket(res));
+    getBasketService.getBasket(localStorage.getItem('saleUserId')).then((res) => setBasket(res));
     setIsAuth(localStorage.getItem('token'));
   }, []);
 

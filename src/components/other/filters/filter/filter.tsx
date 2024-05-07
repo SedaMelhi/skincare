@@ -4,7 +4,7 @@ import minusSvg from './../../../../../public/catalog/minus.svg';
 
 import style from './filter.module.sass';
 
-const Filter: FC<{ name: string; items: string[] }> = ({ name, items }) => {
+const Filter: FC<{ name: any; items: { name: string; id: string }[] }> = ({ name, items }) => {
   const [show, setShow] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
   useEffect(() => {
@@ -22,11 +22,11 @@ const Filter: FC<{ name: string; items: string[] }> = ({ name, items }) => {
       </label>
       <div className={style.params__wrap}>
         <div className={style.params}>
-          {items.map((item, i) => (
-            <label className={style.item} key={i} style={i > 3 && show ? { display: 'none' } : {}}>
-              <input type="checkbox" name="type_skin" value={item} />
+          {items.map(({ name, id }, i) => (
+            <label className={style.item} key={id} style={i > 3 && show ? { display: 'none' } : {}}>
+              <input type="checkbox" name="type_skin" value={name} />
               <div className={style.input}></div>
-              {item}
+              {name}
             </label>
           ))}
           <div className={style.show} onClick={() => setShow(!show)}>

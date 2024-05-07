@@ -25,9 +25,22 @@ export const getCdekTokenService = {
 
 export const getAddressesService = {
   async getAddresses(token: any): Promise<any> {
-    const { data } = await axios.get('https://api.cdek.ru/v2/deliverypoints?region_code=71', {
+    //?region_code=71
+    const { data } = await axios.get('https://api.cdek.ru/v2/deliverypoints', {
       headers: { Authorization: 'Bearer ' + token },
     });
+    return data;
+  },
+};
+
+export const getAllAddressService = {
+  async getAddresses(token: any): Promise<any> {
+    const { data } = await axios.get(
+      'https://api.cdek.ru/v2/location/cities?size=15&city=ассиновская',
+      {
+        headers: { Authorization: 'Bearer ' + token },
+      },
+    );
     return data;
   },
 };

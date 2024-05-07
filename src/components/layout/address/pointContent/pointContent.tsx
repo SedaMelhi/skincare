@@ -54,7 +54,7 @@ const PointContent: FC<ICloseAside> = ({ closeAside, activeAddress }) => {
           <div className={style.subtitle}>Режим работы</div>
           <ul className={style.times}>
             {activeAddress.work_time_list.map((item, i) => (
-              <li>
+              <li key={i}>
                 <span>{days[i] + ':'}</span> {item.time}
               </li>
             ))}

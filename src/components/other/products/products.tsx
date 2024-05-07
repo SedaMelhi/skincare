@@ -43,10 +43,10 @@ const Products: FC<{ products: IProductArr }> = ({ products }) => {
                   if (counter === 9) {
                     smallProductCount++;
                     return (
-                      <>
+                      <div key={i}>
                         <Circle />
-                        <Product item={item} classValue="card" key={i} />
-                      </>
+                        <Product item={item} classValue="card" />
+                      </div>
                     );
                   }
                   return <Product item={item} classValue="card" key={i} />;
@@ -68,10 +68,10 @@ const Products: FC<{ products: IProductArr }> = ({ products }) => {
                   if (mCounter === 11) {
                     mSmallProductCount = 1;
                     return (
-                      <>
+                      <div key={i}>
                         <Circle />
-                        <Product item={item} classValue="card" key={i} />
-                      </>
+                        <Product item={item} classValue="card" />
+                      </div>
                     );
                   }
                   return <Product item={item} classValue="card_big" key={i} />;

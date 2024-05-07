@@ -12,7 +12,7 @@ const httpsOptions = {
   cert: fs.readFileSync('cert/fullchain.cer'), // Путь к сертификату
 };
 
-// //для локалки
+//для локалки
 // const httpsOptions = {
 //   key: fs.readFileSync('./localhost.key'), // Путь к ключу
 //   cert: fs.readFileSync('./localhost.crt'), // Путь к сертификату
@@ -28,7 +28,7 @@ app.prepare().then(() => {
   https.createServer(httpsOptions, server).listen(443, () => {
     console.log('> Ready on https://localhost:3000');
   });
-  //для локалки
+  // для локалки
   // https.createServer(httpsOptions, server).listen(3000, () => {
   //   console.log('> Ready on https://localhost:3000');
   // });

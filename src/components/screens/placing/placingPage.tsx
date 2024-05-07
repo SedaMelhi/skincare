@@ -5,7 +5,7 @@ import { API_URL } from '@/services';
 import { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { getOrderInfoService } from '@/services/order.service';
+import { getBasketService, getCertificate, getOrderInfoService } from '@/services/order.service';
 import { setIsAddressOpen } from '@/redux/addressSlice/addressSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,13 +21,22 @@ import arrowViolet from './../../../../public/arrowViolet.svg';
 
 import style from './placing.module.sass';
 
-const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
+const PlacingPage: FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const address = useSelector((state: any) => state.address.isAddressOpen);
+  const [basket, setBasket] = useState<IOrder>();
   const [saveAddress, setSaveAddress] = useState<any>();
   const [isAuth, setIsAuth] = useState<any>();
+  const [certificate, setCertificate] = useState<any>();
+  const sendCertificate = async (e: any) => {
+    setCertificate(e.target.value);
+    const res = await getCertificate.getBasket();
+    console.log('erer', res);
+  };
   useEffect(() => {
+    const basket = getBasketService.getBasket(localStorage.getItem('saleUserId'));
+    basket.then((res: IOrder) => setBasket(res));
     fetch(API_URL + 'v1/user.php', {
       method: 'POST',
       body: JSON.stringify({ type: 'getAddress', token: localStorage.getItem('token') }),
@@ -102,7 +111,7 @@ const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
               </Link>
             )}
 
-            <BasketRight basket={basket} />
+            {basket && <BasketRight basket={basket} />}
             <div className={style.message__text + ' ' + style.mobile}>
               Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих покупок и применять
               сертификат.
@@ -112,7 +121,13 @@ const PlacingPage: FC<{ basket: IOrder }> = ({ basket }) => {
               <img src={plusSvg.src} alt="" />
             </div>
             <div className={style.promocode__wrap}>
-              <input type="text" className={style.promocode} placeholder="Подарочный сертификат" />
+              <input
+                type="text"
+                className={style.promocode}
+                placeholder="Подарочный сертификат"
+                value={certificate}
+                onChange={sendCertificate}
+              />
               <img src={plusSvg.src} alt="" />
             </div>
           </div>

@@ -31,6 +31,27 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   const [entrance, setEntrance] = useState(address.entrance); //подъезд
   const [floor, setFloor] = useState(address.floor); //этаж
   const dispatch = useDispatch();
+  // const getCityData = (setValue: any) => {
+  //   fetch('https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address', {
+  //     method: 'POST',
+  //     mode: 'cors',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: 'application/json',
+  //       Authorization: 'Token fa61c01e3240267c9f2d331dd8c43371b52909ca',
+  //     },
+  //     body: JSON.stringify({
+  //       query: city.name,
+  //       from_bound: { value: 'city' },
+  //       to_bound: { value: 'settlement' },
+  //       count: 15,
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       console.log(res);
+  //     });
+  // };
   const getCityData = (setValue: any) => {
     fetch('https://b.skincareagents.com/local/api/v1/user.php', {
       method: 'POST',
