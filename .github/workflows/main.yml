@@ -9,11 +9,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: build
+      - name: build - make sure that images can build
         run: docker compose build
-      - name: npm build
+      - name: npm build - make sure that npm can succeed build 
         run: docker compose run --entrypoint="" frontend npm run build
-      - name: Deploy compose
+      - name: Deploy compose - run prod after all build test.
         run: docker compose up -d
-      - name: Docker prune to clear storage
+      - name: Docker prune to clear storage - only after previous succeed, else disk storage will fill with bad build images
         run: docker system prune -a -f
