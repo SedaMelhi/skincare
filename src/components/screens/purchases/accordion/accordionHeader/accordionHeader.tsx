@@ -4,7 +4,7 @@ import Address from '@/components/other/address/address';
 import DeliveryDate from '@/components/other/deliveryDate/deliveryDate';
 import SmallProducts from '@/components/other/smallProducts/smallProducts';
 
-import image from './../../../../../../public/hits/1.png';
+import image from './../../../../../../public/about/1.png';
 
 import style from './accordionHeader.module.sass';
 

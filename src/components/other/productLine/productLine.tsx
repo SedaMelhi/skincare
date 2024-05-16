@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import Link from 'next/link';
 
-import image from './../../../../public/hits/1.png';
+import image from './../../../../public/about/1.png';
 
 import style from './productLine.module.sass';
 

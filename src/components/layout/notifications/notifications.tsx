@@ -7,7 +7,7 @@ import { setIsNotifications } from '@/redux/basketSlice/basketSlice';
 import closeSvg from './../../../../public/close.svg';
 import notificationsSvg from './../../../../public/notifications.svg';
 import image1 from './../../../../public/notification/1.png';
-import image2 from './../../../../public/hits/1.png';
+import image2 from './../../../../public/about/1.png';
 
 import style from './notifications.module.sass';
 import Notification from './notification/notifiction';
