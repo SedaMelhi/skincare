@@ -13,7 +13,7 @@ import style from './CertificateForm.module.sass';
 import { certificateService } from '@/services/certificate.service';
 import { useRouter } from 'next/router';
 
-const CertificateForm: FC = () => {
+const CertificateForm: FC<{ giftId: any }> = ({ giftId }) => {
   const [modalActive, setModalActive] = useState(false);
   const router = useRouter();
   const [date, setDate] = useState<Date | null>(null);
@@ -23,7 +23,7 @@ const CertificateForm: FC = () => {
     surname: string;
     date: string;
     design: number | null;
-    price: number | null;
+    price: string;
     whoIs: string;
     wishes: string;
     pay: string;
@@ -32,8 +32,8 @@ const CertificateForm: FC = () => {
     name: '',
     surname: '',
     date: '',
-    design: 1,
-    price: null,
+    design: giftId,
+    price: '',
     whoIs: '',
     wishes: '',
     pay: 'site',
@@ -54,24 +54,17 @@ const CertificateForm: FC = () => {
     const year = date.getFullYear();
     return { day, month, year };
   };
-  const extractNumbers = (input: string): string => {
-    const cleanedInput = input.replace(/\D/g, '');
-    const number = parseInt(cleanedInput, 10);
-    if (!isNaN(number)) {
-      return number.toString();
-    } else {
-      return '';
-    }
-  };
 
   const changePrice = (event: any) => {
-    const obj = {
-      ...data,
-      price: +extractNumbers(
-        event.currentTarget.innerText.substring(0, event.currentTarget.innerText.length - 1),
-      ),
-    };
-    setData(obj);
+    setData((prev) => {
+      return {
+        ...prev,
+        price: event.target.innerText
+          .substring(0, event.target.innerText.length - 1)
+          .replace(/\D/g, '')
+          .toString(),
+      };
+    });
   };
   const sendData = async (e: any) => {
     e.preventDefault();
@@ -147,12 +140,12 @@ const CertificateForm: FC = () => {
             id="certValue"
             name="certValue"
             placeholder="Выбрать сумму *"
-            onInput={(event) =>
+            onChange={(event) =>
               setData((prev) => {
-                return { ...prev, price: +event.currentTarget.value };
+                return { ...prev, price: event.target.value };
               })
             }
-            value={data.price ? data.price : ''}
+            value={data.price}
           />
         </div>
 

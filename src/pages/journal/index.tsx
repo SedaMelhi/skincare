@@ -1,11 +1,69 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-
 import Layout from '@/components/layout/Layout';
-
+import Filter from '@/components/other/filters/filter/filter';
+import { JournalService } from '@/services/journal.service';
+import { API_URL } from '@/services';
 import style from './journal.module.sass';
+import Load from '@/components/other/load/load';
 
-const Journal: NextPage = () => {
+export interface IJournal {
+  id: number;
+  date: string;
+  sort: number;
+  name: string;
+  description: string;
+  picture: string;
+  section: { id: number; name: string };
+}
+
+const Journal: NextPage<{ data: any; mainItem: any }> = ({ data, mainItem }) => {
+  const [items, setItems] = useState<IJournal[]>(data.items);
+  const [main, setMain] = useState<IJournal>(data.items[0]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [fetching, setFetching] = useState(false);
+  const count = +data.count;
+  const getData = () => {
+    fetch(API_URL + 'journal.php', {
+      method: 'POST',
+      body: JSON.stringify({
+        type: 'getItemsList',
+        offset: 12 * currentPage,
+        limit: 12,
+        categoryId: null,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        res.items && setItems([...items, ...res.items]);
+        setCurrentPage(currentPage + 1);
+        setFetching(false);
+      });
+  };
+  useEffect(() => {
+    if (fetching) {
+      getData();
+    }
+  }, [fetching]);
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+    return function () {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, [items]);
+  const scrollHandler = (e: any) => {
+    const difference = window.innerWidth >= 1200 ? 650 : 1200;
+    if (
+      e.target.documentElement.scrollHeight -
+        (e.target.documentElement.scrollTop + window.innerHeight) <
+        difference &&
+      items.length < count
+    ) {
+      setFetching(true);
+    }
+  };
+
   return (
     <Layout title="Журнал">
       <div className="wrap">
@@ -13,20 +71,20 @@ const Journal: NextPage = () => {
           <h1 className={style.journal__title}>Журнал</h1>
           <div className={style.journal__content}>
             <div className={style.journal__img}>
-              <img src="./journal/img-1.svg" alt="Product image" />
+              <img
+                src={
+                  main.picture ? 'https://b.skincareagents.com/' + main.picture : '/notphoto.png'
+                }
+                alt="Product image"
+              />
             </div>
             <div className={style.journal__textCol}>
               <div className={style.journal__text}>
-                <p className={style.date}>02/09/23</p>
-                <h2 className={style.journal__subtitle}>Вода для потрясающей кожи</h2>
-                <p className={style.journal__article}>
-                  Красота и здоровье кожи - это цель, которую все мы стремимся достичь. И хотя
-                  существует множество продуктов и процедур, которые обещают подарить нам идеальную
-                  кожу, не стоит недооценивать простоту и силу естественных элементов, таких как
-                  вода.
-                </p>
+                <p className={style.date}>{main.date}</p>
+                <h2 className={style.journal__subtitle}>{main.name}</h2>
+                <p className={style.journal__article}>{main.description}</p>
               </div>
-              <Link href="/article/1" className={style.journal__btn}>
+              <Link href={`/article/${main.id}`} className={style.journal__btn}>
                 <span className={style.journal__btnText}>Читать</span>
                 <img
                   className={style.journal__btnArrow}
@@ -38,6 +96,9 @@ const Journal: NextPage = () => {
           </div>
         </section>
         <section className={style.categories}>
+          {/* {
+             <Filter name={filters[item].name} items={filters[item].items} key={item} />
+          } */}
           <div className={style.categories__leftCol}>
             <h2 className={style.categories__title}>Категории</h2>
             <div className={style.dropdownHolder}>
@@ -82,109 +143,71 @@ const Journal: NextPage = () => {
               />
             </div>
           </div>
-          <div className={style.articleColumns}>
-            <div className={style.articleRow}>
-              <Link href="/article/1" className={style.articleColumn}>
-                <div className={style.articleColumn__img}></div>
-                <p className={style.category}>Уход</p>
-                <h3 className={style.articleColumn__title}>Как составить уход?</h3>
-              </Link>
-              <Link href="/article/1" className={style.articleColumn}>
-                <div
-                  className={
-                    style.articleColumn__img + ' ' + style.articleColumn__img_second
-                  }></div>
-                <p className={style.category}>Уход</p>
-                <h3 className={style.articleColumn__title}>Лучшая ткань для хиджаба</h3>
-              </Link>
-              <Link href="/article/1" className={style.articleColumn}>
-                <div
-                  className={style.articleColumn__img + ' ' + style.articleColumn__img_third}></div>
-                <p className={style.category}>Уход</p>
-                <h3 className={style.articleColumn__title}>Что такое ко-вошинг?</h3>
-              </Link>
-            </div>
-            <div className={style.article2}>
-              <div className={style.article2__imgCol}>
-                <picture>
-                  <source srcSet="./journal/article-img-4.svg" media="(min-width: 768px)" />
-                  <img
-                    src="./journal/article-img-4-mobile.svg"
-                    alt="Image"
-                    className={style.article2__img}
-                  />
-                </picture>
-              </div>
-              <Link href="/article/1" className={style.article2__textCol}>
-                <p className={style.category}>Уход</p>
-                <h2 className={style.article2__title}>Вода для потрясающей кожи</h2>
-                <p className={style.article2__paragraph}>
-                  Красота и здоровье кожи - это цель, которую все мы стремимся достичь. И хотя
-                  существует множество продуктов и процедур, которые обещают подарить нам идеальную
-                  кожу, не стоит недооценивать простоту и силу естественных элементов, таких как
-                  вода.
-                </p>
-              </Link>
-            </div>
-
+          <div className={style.items}>
             <div className={style.articleColumns}>
-              <div className={style.articleRow}>
-                <Link
-                  href="/article/1"
-                  className={style.articleColumn + ' ' + style.articleColumn_order3}>
-                  <div className={style.articleColumn__img}></div>
-                  <p className={style.category}>Уход</p>
-                  <h3 className={style.articleColumn__title}>Как составить уход?</h3>
-                </Link>
-                <Link
-                  href="/article/1"
-                  className={style.articleColumn + ' ' + style.article_column_order2}>
-                  <div
-                    className={
-                      style.articleColumn__img + ' ' + style.articleColumn__img_second
-                    }></div>
-                  <p className={style.category}>Уход</p>
-                  <h3 className={style.articleColumn__title}>Лучшая ткань для хиджаба</h3>
-                </Link>
-                <Link
-                  href="/article/1"
-                  className={style.articleColumn + ' ' + style.articleColumn_order1}>
-                  <div
-                    className={
-                      style.articleColumn__img + ' ' + style.articleColumn__img_third
-                    }></div>
-                  <p className={style.category}>Уход</p>
-                  <h3 className={style.articleColumn__title}>Что такое ко-вошинг?</h3>
-                </Link>
-              </div>
-
-              <div className={style.article2 + ' ' + style.article2_reversed}>
-                <div className={style.article2__imgCol}>
-                  <picture>
-                    <source srcSet="./journal/article-img-4.svg" media="(min-width: 768px)" />
-                    <img
-                      src="./journal/article-img-4-mobile.svg"
-                      alt="Image"
-                      className={style.article2__img}
-                    />
-                  </picture>
-                </div>
-                <Link href="/article/1" className={style.article2__textCol}>
-                  <p className={style.category}>Уход</p>
-                  <h2 className={style.article2__title}>Вода для потрясающей кожи</h2>
-                  <p className={style.article2__paragraph}>
-                    Красота и здоровье кожи - это цель, которую все мы стремимся достичь. И хотя
-                    существует множество продуктов и процедур, которые обещают подарить нам
-                    идеальную кожу, не стоит недооценивать простоту и силу естественных элементов,
-                    таких как вода.
-                  </p>
-                </Link>
-              </div>
+              {items.map(({ id, date, name, description, picture, section }, i) =>
+                (i + 1) % 4 !== 0 ? (
+                  <Link href={`/article/${id}`} className={style.articleColumn} key={id}>
+                    <div
+                      className={
+                        style.articleColumn__img +
+                        ' ' +
+                        (i % 4 === 0
+                          ? ''
+                          : i % 4 === 1
+                          ? style.articleColumn__img_second
+                          : style.articleColumn__img_third)
+                      }
+                      style={
+                        picture
+                          ? {
+                              backgroundImage: `url(${'https://b.skincareagents.com/' + picture})`,
+                            }
+                          : {}
+                      }></div>
+                    <p className={style.category}>{section.name}</p>
+                    <h3 className={style.articleColumn__title}>{name}</h3>
+                  </Link>
+                ) : (
+                  <Link href={`/article/${id}`} className={style.article2} key={id}>
+                    <div className={style.article2__imgCol}>
+                      <img
+                        src={picture ? 'https://b.skincareagents.com/' + picture : '/notphoto.png'}
+                        alt="Image"
+                        className={style.article2__img}
+                      />
+                    </div>
+                    <div className={style.article2__textCol}>
+                      <p className={style.category}>{section.name}</p>
+                      <h2 className={style.article2__title}>{name}</h2>
+                      <p className={style.article2__paragraph}>{description}</p>
+                    </div>
+                  </Link>
+                ),
+              )}
             </div>
+            {fetching && (
+              <div className={style.load}>
+                <Load />
+              </div>
+            )}
           </div>
         </section>
       </div>
     </Layout>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const data = await JournalService.getJournal({
+    offset: 0,
+    limit: 12,
+    categoryId: null,
+  });
+  const mainItem = await JournalService.getMainItem();
+  return {
+    props: { data, mainItem },
+  };
+};
+
 export default Journal;

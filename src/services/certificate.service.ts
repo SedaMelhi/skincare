@@ -9,7 +9,7 @@ export const certificateService = {
     surname: string;
     date: string;
     design: number | null;
-    price: number | null;
+    price: string;
     whoIs: string;
     wishes: string;
     pay: string;
@@ -17,6 +17,7 @@ export const certificateService = {
     const { data } = await axios.post('v1/certificate.php', {
       type: 'createCertificate',
       ...dataSend,
+      price: dataSend.price,
     });
     return data;
   },

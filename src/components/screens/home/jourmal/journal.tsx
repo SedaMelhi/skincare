@@ -7,7 +7,7 @@ import Accordion from './accordion/accordion';
 
 import style from './journal.module.sass';
 
-const Journal: FC<any> = ({ journal }) => {
+const Journal: FC<any> = ({ journals }) => {
   return (
     <section className={style.journal}>
       <div className={style.title}>
@@ -17,8 +17,8 @@ const Journal: FC<any> = ({ journal }) => {
       </div>
       <div className={style.left__wrap}>
         <div className={style.left}>
-          <Header />
-          <Accordion />
+          <Header journal={journals[0]} />
+          <Accordion journals={journals} />
         </div>
       </div>
     </section>

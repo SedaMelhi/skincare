@@ -41,7 +41,7 @@ const ErrorPage: FC = () => {
                 width="1652"
                 height="1165"
                 filterUnits="userSpaceOnUse"
-                color-interpolation-filters="sRGB">
+                colorInterpolationFilters="sRGB">
                 <feFlood floodOpacity="0" result="BackgroundImageFix" />
                 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                 <feGaussianBlur stdDeviation="132" result="effect1_foregroundBlur_1_14235" />

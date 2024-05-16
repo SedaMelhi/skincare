@@ -4,8 +4,10 @@ import { RunningLineArray } from '@/interfaces/runningLine.interface';
 import { PromoBlockArray } from '@/interfaces/promoBlocks.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
 import { CatalogArray } from '@/interfaces/catalog.interface';
+import { IGift } from '@/interfaces/gift.interface';
 
 export const API_URL = 'https://b.skincareagents.com/local/api/';
+export const API_DOMAIN = 'https://b.skincareagents.com';
 
 axios.defaults.baseURL = API_URL;
 
@@ -44,21 +46,14 @@ export const NewProductsService = {
   },
 };
 export const GiftsService = {
-  async getGiftsService(): Promise<NewProducts> {
+  async getGiftsService(): Promise<IGift[]> {
     const { data } = await axios.post('/v1/main.php', { type: 'getGifts' });
     return data;
   },
 };
-// export const JournalService = {
-//   async getJournalService(): Promise<any> {
-//     const { data } = await axios.post('/main.php', { type: 'getJournal' });
-//     return data;
-//   },
-// };
-
 export const JournalService = {
   async getJournalService(): Promise<any> {
-    const { data } = await axios.post('/journal.php', { type: 'getList', numPage: 2, count: 9 });
+    const { data } = await axios.post('/main.php', { type: 'getJournal' });
     return data;
   },
 };

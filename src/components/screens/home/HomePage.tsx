@@ -19,16 +19,16 @@ import { PromoBlockArray } from '@/interfaces/promoBlocks.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
 
 import style from './Home.module.sass';
+import { IGift } from '@/interfaces/gift.interface';
 
 const HomePage: FC<{
   slider: MainSliderArray;
   runningLine: RunningLineArray;
   newProducts: NewProducts;
   runningVerticalLine: RunningLineArray;
-  journal: any;
-
+  journals: any;
   hits: any;
-}> = ({ slider, runningLine, newProducts, journal, hits, runningVerticalLine }) => {
+}> = ({ slider, runningLine, newProducts, journals, hits, runningVerticalLine }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleSticker, setIsVisibleSticker] = useState(false);
   const section = useRef<HTMLDivElement | null>(null);
@@ -90,7 +90,7 @@ const HomePage: FC<{
             <Hits hits={hits} />
           </div>
           <Experts />
-          <Journal journal={journal} />
+          <Journal journals={journals} />
           <Present />
           <About />
         </main>

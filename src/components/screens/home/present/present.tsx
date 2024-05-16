@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Link from 'next/link';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,8 +8,16 @@ import Title from '@/components/other/title/title';
 
 import 'swiper/css';
 import style from './present.module.sass';
+import { IGift } from '@/interfaces/gift.interface';
+import { API_DOMAIN, GiftsService } from '@/services';
 
 const Present: FC = () => {
+  const [gifts, setGifts] = useState<IGift[] | []>([]);
+  useEffect(() => {
+    const data = GiftsService.getGiftsService();
+    data.then((res) => setGifts(res));
+  }, []);
+
   return (
     <div className={style.bg}>
       <section className={style.present__wrap}>
@@ -57,39 +65,24 @@ const Present: FC = () => {
                     spaceBetween: 16,
                   },
                 }}>
-                <SwiperSlide>
-                  <Link href="/catalog" className={style.card}>
-                    <div className={style.img + ' img ' + style.img_one}></div>
-                    <h3 className={style.subtitle}>Подарочный сертификат</h3>
-                    <div className={style.price}>2 234 ₽</div>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link href="/catalog" className={style.card}>
-                    <div className={style.img + ' img ' + style.img_two}></div>
-                    <h3 className={style.subtitle}>Подарочный сертификат</h3>
-                    <div className={style.price}>2 234 ₽</div>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link href="/catalog" className={style.card}>
-                    <div className={style.img + ' img ' + style.img_three}></div>
-                    <h3 className={style.subtitle}>Подарочный сертификат</h3>
-                    <div className={style.price}>2 234 ₽</div>
-                  </Link>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Link href="/catalog" className={style.card}>
-                    <div className={style.img + ' img ' + style.img_four}></div>
-                    <h3 className={style.subtitle}>Подарочный сертификат</h3>
-                    <div className={style.price}>2 234 ₽</div>
-                  </Link>
-                </SwiperSlide>
+                {gifts.map(({ id, name, picture, value }) => (
+                  <SwiperSlide key={id}>
+                    <Link href={`/certificate/${id}`} className={style.card}>
+                      <div
+                        className={style.img + ' img ' + style.img_one}
+                        style={
+                          picture ? { backgroundImage: `url("${API_DOMAIN}${picture}")` } : {}
+                        }></div>
+                      <h3 className={style.subtitle}>{name}</h3>
+                      <div className={style.price}>{value} ₽</div>
+                    </Link>
+                  </SwiperSlide>
+                ))}
               </Swiper>
             </div>
           </div>
           <div className={style.btn__wrap}>
-            <Link  href="/certificate" className={style.btn}>
+            <Link href="/certificate" className={style.btn}>
               Выбрать
               <div className={style.circle}>
                 <span>

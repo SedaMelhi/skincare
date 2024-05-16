@@ -1,6 +1,7 @@
 import { YMaps, Map, Placemark, ZoomControl, GeolocationControl } from 'react-yandex-maps';
 import { Dispatch, FC, SetStateAction, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { yandexData } from '@/pages/placing/data';
 
 interface IWorkTimeList {
   day: number;
@@ -23,8 +24,8 @@ interface IYandexMap {
 }
 const YandexMap: FC<IYandexMap> = ({ setActiveAddress }) => {
   const apiKey = 'aabbc81f-486d-4525-9b53-133c380eb5fe';
-  const mapData: IMapData[] = useSelector((state: any) => state.address.mapData);
-
+  const mapData: IMapData[] = yandexData;
+  //useSelector((state: any) => state.address.mapData);
   const [mapState, setMapState] = useState({
     center: [43.33417, 45.68794],
     zoom: 15,

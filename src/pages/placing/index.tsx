@@ -56,47 +56,47 @@ interface IAddressObj {
 }
 
 const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any }> = ({ data, cdekToken }) => {
-  const dispatch = useDispatch();
-  console.log(
-    JSON.stringify(
-      data.map((item) => {
-        return {
-          type: 'Feature',
-          id: item.uuid,
-          geometry: {
-            type: 'Point',
-            coordinates: [item.location?.latitude, item.location?.longitude],
-          },
-          properties: {
-            balloonContentHeader: item.name,
-            balloonContentBody: item.location.address_full,
-            balloonContentFooter: item.work_time,
-          },
-          work_time_list: item.work_time_list,
-        };
-      }),
-    ),
-  );
+  //const dispatch = useDispatch();
+  // console.log(
+  //   JSON.stringify(
+  //     data.map((item) => {
+  //       return {
+  //         type: 'Feature',
+  //         id: item.uuid,
+  //         geometry: {
+  //           type: 'Point',
+  //           coordinates: [item.location?.latitude, item.location?.longitude],
+  //         },
+  //         properties: {
+  //           balloonContentHeader: item.name,
+  //           balloonContentBody: item.location.address_full,
+  //           balloonContentFooter: item.work_time,
+  //         },
+  //         work_time_list: item.work_time_list,
+  //       };
+  //     }),
+  //   ),
+  // );
   useEffect(() => {
-    const yandexMapData: any = data
-      ? data.map((item) => {
-          return {
-            type: 'Feature',
-            id: item.uuid,
-            geometry: {
-              type: 'Point',
-              coordinates: [item.location?.latitude, item.location?.longitude],
-            },
-            properties: {
-              balloonContentHeader: item.name,
-              balloonContentBody: item.location.address_full,
-              balloonContentFooter: item.work_time,
-            },
-            work_time_list: item.work_time_list,
-          };
-        })
-      : [];
-    dispatch(setMapData(yandexMapData));
+    // const yandexMapData: any = data
+    //   ? data.map((item) => {
+    //       return {
+    //         type: 'Feature',
+    //         id: item.uuid,
+    //         geometry: {
+    //           type: 'Point',
+    //           coordinates: [item.location?.latitude, item.location?.longitude],
+    //         },
+    //         properties: {
+    //           balloonContentHeader: item.name,
+    //           balloonContentBody: item.location.address_full,
+    //           balloonContentFooter: item.work_time,
+    //         },
+    //         work_time_list: item.work_time_list,
+    //       };
+    //     })
+    //   : [];
+    //dispatch(setMapData(yandexMapData));
   }, []);
 
   return <PlacingPage />;
@@ -104,10 +104,13 @@ const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any }> = ({ data, cdek
 
 export const getServerSideProps: GetStaticProps = async (context) => {
   const cdekToken = await getCdekTokenService.getCdekToken();
-  const data = await getAddressesService.getAddresses(cdekToken.access_token);
+  //const data = await getAddressesService.getAddresses(cdekToken.access_token);
 
   return {
-    props: { data, cdekToken },
+    props: {
+      //data,
+      cdekToken,
+    },
   };
 };
 

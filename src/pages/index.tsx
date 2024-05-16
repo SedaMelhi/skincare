@@ -25,6 +25,8 @@ import { RunningLineArray } from '@/interfaces/runningLine.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
 import { CatalogArray } from '@/interfaces/catalog.interface';
 import { setHits } from '@/redux/hitsSlice/hitsSlice';
+import { IJournalItem } from '@/components/screens/home/jourmal/header/header';
+import { IGift } from '@/interfaces/gift.interface';
 
 const Home: NextPage<{
   data: ContactsArray;
@@ -32,22 +34,20 @@ const Home: NextPage<{
   runningLine: RunningLineArray;
   runningVerticalLine: RunningLineArray;
   newProducts: NewProducts;
-  journal: any;
+  journals: IJournalItem[];
   hits: any;
   catalog: CatalogArray;
   sets: any;
-  gifts: any;
   promo: any;
 }> = ({
   data,
   slider,
   runningLine,
   newProducts,
-  journal,
+  journals,
   hits,
   runningVerticalLine,
   //sets,
-  gifts,
   promo,
 }) => {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ const Home: NextPage<{
           : runningVerticalLine
       }
       newProducts={newProducts}
-      journal={journal}
+      journals={journals}
       hits={hits}
     />
   );
@@ -84,10 +84,9 @@ export const getServerSideProps: GetServerSideProps<{
   const runningLine = await RunningLineService.getRunningLine(); //данные главного слайдера
   const runningVerticalLine = await RunningVerticalLineService.getRunningLine();
   const newProducts = await NewProductsService.getProductsService();
-  const journal = await JournalService.getJournalService();
+  const journals = await JournalService.getJournalService();
   const hits = await HitsService.getHitsService();
   //const sets = await SetsService.getSetsService();
-  const gifts = await GiftsService.getGiftsService();
   const promo = await PromoBlockService.getPromoBlock();
 
   return {
@@ -97,10 +96,9 @@ export const getServerSideProps: GetServerSideProps<{
       runningLine,
       runningVerticalLine,
       newProducts,
-      journal,
+      journals,
       hits,
       //sets,
-      gifts,
       promo,
     },
   };
