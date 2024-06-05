@@ -78,7 +78,7 @@ const SearchContent: FC<{
           <div className={style.journal}>
             {journalItems &&
               journalItems.map((item) => (
-                <Link href={`journal/${item.id}`} key={item.id}>
+                <Link href={`/article/${item.id}`} key={item.id} onClick={() => setIsOpen(false)}>
                   <div className={style.header}>
                     <div className={style.image}></div>
                     <div className={'wrap ' + style.header__text}>

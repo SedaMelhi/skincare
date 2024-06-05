@@ -1,21 +1,26 @@
 import { FC, useEffect } from 'react';
-
 import Product from './product/product';
 import Circle from './circle/Circle';
+import Load from '@/components/other/load/load';
+import { useRouter } from 'next/router';
 import { IProductArr } from '@/interfaces/products.interface';
 
 import style from './products.module.sass';
 
-const Products: FC<{ products: IProductArr }> = ({ products }) => {
-  let del = 6;
-  let smallProductCount = -1;
+const Products: FC<{ products: IProductArr; fetching: boolean }> = ({ products, fetching }) => {
+  const router = useRouter();
+  let smallProductCount = 0;
   let bigProductCount = 0;
-  let counter = 0;
 
-  let mDel = 6;
-  let mSmallProductCount = -1;
+  let mSmallProductCount = 0;
   let mBigProductCount = 0;
-  let mCounter = 0;
+
+  useEffect(() => {
+    smallProductCount = 0;
+    bigProductCount = 0;
+    mSmallProductCount = 0;
+    mBigProductCount = 0;
+  }, [router.query.id]);
 
   return (
     <div className={style.wrap}>
@@ -23,33 +28,25 @@ const Products: FC<{ products: IProductArr }> = ({ products }) => {
         <div className={style.products}>
           {products.length > 0
             ? products.map((item, i) => {
-                smallProductCount++;
-                counter++;
-                if (smallProductCount % del === 0) {
-                  bigProductCount++;
-                  del = 6;
-                  if (bigProductCount === 2) {
-                    del = 7;
+                if (item.id !== 'circle') {
+                  if (
+                    bigProductCount === 0 ||
+                    (bigProductCount === 1 && smallProductCount === 5) ||
+                    (bigProductCount === 2 && smallProductCount === 6)
+                  ) {
+                    if (bigProductCount === 2 && smallProductCount === 6) {
+                      bigProductCount = 1;
+                    } else {
+                      bigProductCount++;
+                    }
                     smallProductCount = 0;
+                    return <Product item={item} classValue="card_big" key={item.id} />;
                   }
-                  if (bigProductCount === 3) {
-                    del = 6;
-                    bigProductCount = 1;
-                    smallProductCount = 0;
-                  }
-
-                  return <Product item={item} classValue="card_big" key={i} />;
-                } else if (smallProductCount >= 0) {
-                  if (counter === 9) {
-                    smallProductCount++;
-                    return (
-                      <div key={i}>
-                        <Circle />
-                        <Product item={item} classValue="card" />
-                      </div>
-                    );
-                  }
-                  return <Product item={item} classValue="card" key={i} />;
+                  smallProductCount++;
+                  return <Product item={item} classValue="card" key={item.id} />;
+                } else {
+                  smallProductCount++;
+                  return <Circle key={'c' + item.id} />;
                 }
               })
             : 'Данных нет'}
@@ -60,28 +57,34 @@ const Products: FC<{ products: IProductArr }> = ({ products }) => {
         <div className={style.products}>
           {products.length > 0
             ? products.map((item, i) => {
-                mSmallProductCount++;
-                mCounter++;
-                if (mSmallProductCount % mDel === 0) {
-                  mBigProductCount++;
-                  mDel = 5;
-                  if (mCounter === 11) {
-                    mSmallProductCount = 1;
-                    return (
-                      <div key={i}>
-                        <Circle />
-                        <Product item={item} classValue="card" />
-                      </div>
-                    );
+                if (item.id !== 'circle') {
+                  if (
+                    mBigProductCount === 0 ||
+                    (mBigProductCount === 1 && mSmallProductCount === 4)
+                  ) {
+                    if (mBigProductCount === 1 && mSmallProductCount === 4) {
+                      mBigProductCount = 1;
+                      mSmallProductCount = 0;
+                    } else {
+                      mBigProductCount++;
+                    }
+                    return <Product item={item} classValue="card_big" key={item.id} />;
                   }
-                  return <Product item={item} classValue="card_big" key={i} />;
-                } else if (mSmallProductCount >= 0) {
-                  return <Product item={item} classValue="card" key={i} />;
+                  mSmallProductCount++;
+                  return <Product item={item} classValue="card" key={item.id} />;
+                } else {
+                  mSmallProductCount = 0;
+                  return <Circle key={'c' + item.id} />;
                 }
               })
             : 'Данных нет'}
         </div>
       </div>
+      {fetching && (
+        <div className={style.load}>
+          <Load />
+        </div>
+      )}
     </div>
   );
 };

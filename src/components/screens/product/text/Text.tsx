@@ -31,7 +31,6 @@ const Text: FC<{
   scu?.forEach((item) => {
     !sizes.includes(item.value) && sizes.push(item.value);
   });
-  console.log(activeScu);
 
   const [activeSize, setActiveSize] = useState(sizes[0]);
 

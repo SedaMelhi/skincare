@@ -50,7 +50,7 @@ const TabPanel: FC<{ product: any }> = ({ product }) => {
         },
         {
           name: 'Тип кожи',
-          desc: product.props && product.props[27].value,
+          desc: product.props && product.props[27].value && product.props[27].value.join(', '),
           id: 3,
         },
       ],

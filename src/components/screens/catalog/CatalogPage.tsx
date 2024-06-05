@@ -16,7 +16,11 @@ import filtersSvg from './../../../../public/catalog/filters.svg';
 
 import style from './catalog.module.sass';
 
-const CatalogPage: FC<{ products: IProductArr; count: number }> = ({ products, count }) => {
+const CatalogPage: FC<{ products: IProductArr; count: number; fetching: boolean }> = ({
+  products,
+  count,
+  fetching,
+}) => {
   const [name, setName] = useState<string>('');
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
@@ -61,7 +65,7 @@ const CatalogPage: FC<{ products: IProductArr; count: number }> = ({ products, c
         </div>
         <div className={style.wrap}>
           <Filters />
-          {products.length > 0 && <Products products={products} />}
+          {products && products.length > 0 && <Products products={products} fetching={fetching} />}
         </div>
       </div>
     </Layout>

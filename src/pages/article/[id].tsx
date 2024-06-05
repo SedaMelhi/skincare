@@ -12,8 +12,6 @@ import { JournalService } from '@/services/journal.service';
 import { API_DOMAIN } from '@/services';
 
 const Journal: NextPage<{ data: any }> = ({ data }) => {
-  console.log(data);
-
   return (
     <Layout title="Статья">
       <section className={style.articles}>

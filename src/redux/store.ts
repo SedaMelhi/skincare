@@ -6,6 +6,7 @@ import hits from './hitsSlice/hitsSlice';
 import auth from './authSlice/authSlice';
 import address from './addressSlice/addressSlice';
 import order from './orderSlice/orderSlice';
+import catalog from './catalogSlice/catalogSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     auth,
     address,
     order,
+    catalog,
   },
 });

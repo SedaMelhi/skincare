@@ -1,15 +1,11 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 
 import style from './smallProducts.module.sass';
-
-interface SmallProductProps {
-  image: string;
-  link: string;
-  id: number;
-}
+import Link from 'next/link';
+import { API_DOMAIN } from '@/services';
 
 interface SmallProductPropsArr {
-  products: SmallProductProps[] | null;
+  products: { id: number; image: string }[];
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   size: string;
 }
@@ -52,13 +48,15 @@ const SmallProducts: FC<SmallProductPropsArr> = ({ products, setIsOpen, size }) 
     <div className={style.cards__wrap}>
       <div className={style.cards} onClick={() => setIsOpen(true)}>
         {products &&
-          products.map(({ image, link, id }, i) =>
+          products.map(({ image, id }, i) =>
             i !== countProducts ? (
               i < countProducts && (
-                <div
-                  key={id}
-                  className={size === 'big' ? style.card : style.card__small}
-                  style={{ backgroundImage: `url(${image})` }}></div>
+                <Link href={`/product/${id}`} key={id}>
+                  <div
+                    key={id}
+                    className={size === 'big' ? style.card : style.card__small}
+                    style={{ backgroundImage: `url(${API_DOMAIN + image})` }}></div>
+                </Link>
               )
             ) : (
               <div className={style.circle} key={id}>

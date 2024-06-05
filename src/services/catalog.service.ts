@@ -25,6 +25,10 @@ export const CardService = {
   },
 };
 
+interface IFilters {
+  [key: string]: string[];
+}
+
 export const FilterService = {
   async getFilterItems(id: any): Promise<any> {
     const params = {
@@ -34,13 +38,13 @@ export const FilterService = {
     const { data } = await axios.post<any>('v1/catalog.php', params);
     return data;
   },
-  async getData(id: any, discount: any, filterParams: any): Promise<any> {
+  async getData(id: any, discount: any, sort: any, key: IFilters): Promise<any> {
     const params = {
       type: 'useFilter',
       sectionId: id,
-      sort: 'popular',
-      discount: discount,
-      S10: ['8'],
+      sort: sort || 'popular',
+      discount: discount || 'Y',
+      ...key,
     };
     const { data } = await axios.post<any>('v1/catalog.php', params);
     return data;

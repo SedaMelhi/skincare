@@ -5,6 +5,7 @@ import AccordionBody from './accordionBody/accordionBody';
 import AccordionHeader from './accordionHeader/accordionHeader';
 
 import style from './accordion.module.sass';
+import { IProductOrder } from '@/interfaces/profile.interface';
 
 interface AccordionProps {
   title: string;
@@ -12,9 +13,21 @@ interface AccordionProps {
   status?: 'waiting' | 'paid';
   date?: string;
   type: string;
+  allPrice: string;
+  deliveryPrice: string;
+  products: IProductOrder[];
 }
 
-const Accordion: FC<AccordionProps> = ({ title, price, status, date, type }) => {
+const Accordion: FC<AccordionProps> = ({
+  title,
+  price,
+  status,
+  date,
+  type,
+  products,
+  allPrice,
+  deliveryPrice,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [height, setHeight] = useState('0');
   const [overflow, setOverflow] = useState<'hidden' | 'visible'>('hidden');
@@ -42,10 +55,29 @@ const Accordion: FC<AccordionProps> = ({ title, price, status, date, type }) => 
   }, [isOpen]);
 
   return (
-    <Window title={title} price={price} status={status} setIsOpen={setIsOpen} date={date}>
+    <Window title={title} price={+allPrice} status={status} setIsOpen={setIsOpen} date={date}>
       <div className={style.content}>
-        <AccordionHeader isOpen={isOpen} setIsOpen={setIsOpen} type={type} />
-        <AccordionBody bodyElement={bodyElement} overflow={overflow} height={height} />
+        {products && (
+          <AccordionHeader
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            type={type}
+            products={Object.values(products).map(({ id, picture }) => {
+              return { id, image: picture };
+            })}
+          />
+        )}
+        {products && (
+          <AccordionBody
+            bodyElement={bodyElement}
+            overflow={overflow}
+            height={height}
+            products={products}
+            allPrice={+allPrice}
+            price={+price}
+            deliveryPrice={+deliveryPrice}
+          />
+        )}
       </div>
     </Window>
   );

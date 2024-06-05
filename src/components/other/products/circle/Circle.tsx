@@ -1,9 +1,8 @@
 import { FC } from 'react';
-
+import Link from 'next/link';
 import CircleArrow from '../../circleArrow/circleArrow';
 
 import style from './Circle.module.sass';
-import Link from 'next/link';
 
 const Circle: FC = () => {
   return (

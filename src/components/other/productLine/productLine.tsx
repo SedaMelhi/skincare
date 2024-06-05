@@ -5,100 +5,31 @@ import Link from 'next/link';
 import image from './../../../../public/about/1.png';
 
 import style from './productLine.module.sass';
+import { IProductOrder } from '@/interfaces/profile.interface';
+import { API_DOMAIN } from '@/services';
 
-const ProductLine: FC = () => {
+const ProductLine: FC<{ products: IProductOrder[] }> = ({ products }) => {
   return (
     <div className={style.products}>
-      <div className={style.line}>
-        <Link href="/product/1">
-          <div className={style.left}>
-            <div className={style.image} style={{ backgroundImage: `url(${image.src})` }}></div>
-            <div className={style.text}>
-              <div className={style.title}>SKIN&LAB Porebarrier Clear Pad очищающие пэды</div>
-              <div className={style.details}>
-                <div className={style.count}>1 шт</div>
-                <div className={style.size}>100 мл</div>
+      {products.map(({ name, quantity, value, price, picture, id }) => (
+        <div className={style.line} key={id}>
+          <Link href="/product/1">
+            <div className={style.left}>
+              <div
+                className={style.image}
+                style={{ backgroundImage: `url(${API_DOMAIN + picture})` }}></div>
+              <div className={style.text}>
+                <div className={style.title}>{name}</div>
+                <div className={style.details}>
+                  <div className={style.count}>{quantity} шт</div>
+                  <div className={style.size}>{value}</div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className={style.price}> 2 400 ₽</div>
-        </Link>
-      </div>
-      <div className={style.line}>
-        <Link href="/product/1">
-          <div className={style.left}>
-            <div className={style.image} style={{ backgroundImage: `url(${image.src})` }}></div>
-            <div className={style.text}>
-              <div className={style.title}>SKIN&LAB Porebarrier Clear Pad очищающие пэды</div>
-              <div className={style.details}>
-                <div className={style.count}>1 шт</div>
-                <div className={style.size}>100 мл</div>
-              </div>
-            </div>
-          </div>
-          <div className={style.price}> 2 400 ₽</div>
-        </Link>
-      </div>
-      <div className={style.line}>
-        <Link href="/product/1">
-          <div className={style.left}>
-            <div className={style.image} style={{ backgroundImage: `url(${image.src})` }}></div>
-            <div className={style.text}>
-              <div className={style.title}>SKIN&LAB Porebarrier Clear Pad очищающие пэды</div>
-              <div className={style.details}>
-                <div className={style.count}>1 шт</div>
-                <div className={style.size}>100 мл</div>
-              </div>
-            </div>
-          </div>
-          <div className={style.price}> 2 400 ₽</div>
-        </Link>
-      </div>
-      <div className={style.line}>
-        <Link href="/product/1">
-          <div className={style.left}>
-            <div className={style.image} style={{ backgroundImage: `url(${image.src})` }}></div>
-            <div className={style.text}>
-              <div className={style.title}>SKIN&LAB Porebarrier Clear Pad очищающие пэды</div>
-              <div className={style.details}>
-                <div className={style.count}>1 шт</div>
-                <div className={style.size}>100 мл</div>
-              </div>
-            </div>
-          </div>
-          <div className={style.price}> 2 400 ₽</div>
-        </Link>
-      </div>
-      <div className={style.line}>
-        <Link href="/product/1">
-          <div className={style.left}>
-            <div className={style.image} style={{ backgroundImage: `url(${image.src})` }}></div>
-            <div className={style.text}>
-              <div className={style.title}>SKIN&LAB Porebarrier Clear Pad очищающие пэды</div>
-              <div className={style.details}>
-                <div className={style.count}>1 шт</div>
-                <div className={style.size}>100 мл</div>
-              </div>
-            </div>
-          </div>
-          <div className={style.price}> 2 400 ₽</div>
-        </Link>
-      </div>
-      <div className={style.line}>
-        <Link href="/product/1">
-          <div className={style.left}>
-            <div className={style.image} style={{ backgroundImage: `url(${image.src})` }}></div>
-            <div className={style.text}>
-              <div className={style.title}>SKIN&LAB Porebarrier Clear Pad очищающие пэды</div>
-              <div className={style.details}>
-                <div className={style.count}>1 шт</div>
-                <div className={style.size}>100 мл</div>
-              </div>
-            </div>
-          </div>
-          <div className={style.price}> 2 400 ₽</div>
-        </Link>
-      </div>
+            <div className={style.price}> {price} ₽</div>
+          </Link>
+        </div>
+      ))}
     </div>
   );
 };

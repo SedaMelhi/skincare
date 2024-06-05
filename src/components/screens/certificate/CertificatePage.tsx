@@ -30,7 +30,6 @@ const CertificatePage: FC = () => {
       setGiftId(gifts[0].id);
     }
   }, [gifts, giftId]);
-  console.log(giftId);
 
   return (
     <>

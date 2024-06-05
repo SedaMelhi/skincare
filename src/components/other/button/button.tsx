@@ -31,7 +31,7 @@ const Button: FC<ButtonProps> = ({ text, height, fontSize, link, onClick, arrow 
               <path
                 d="M24.0741 1L30 7M24.0741 13L30 7M30 7L24.0741 7L0 7"
                 stroke="#FDFCFD"
-                stroke-width="1.5"
+                strokeWidth="1.5"
               />
             </svg>
           </div>

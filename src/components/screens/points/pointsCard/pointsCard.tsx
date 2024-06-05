@@ -17,7 +17,6 @@ const PointsCard: FC = () => {
   const [points, setPoints] = useState();
   useEffect(() => {
     const res = userInfoService.getPoints();
-    res.then((res) => console.log(res));
   }, [points]);
   const marks = [
     {

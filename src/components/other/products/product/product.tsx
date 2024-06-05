@@ -42,7 +42,7 @@ const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue 
               {colors
                 ?.filter((item, i) => i < 4)
                 .map(({ name, value }) => (
-                  <img src={'https://b.skincareagents.com/' + value} alt={name} />
+                  <img src={'https://b.skincareagents.com/' + value} alt={name} key={value} />
                 ))}
             </div>
             {colors && colors.length - 4 > 0 && `+${colors.length - 4}`}

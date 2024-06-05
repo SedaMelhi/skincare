@@ -45,13 +45,11 @@ const MapsPage: FC = () => {
       .then((res) => res.json())
       .then((res) => {
         setAddress(res['3']);
-        console.log(address);
       });
   };
   useEffect(() => {
     getNewAddress();
   }, [activeTab]);
-  console.log(address);
 
   return (
     <Layout title={'Адреса'}>

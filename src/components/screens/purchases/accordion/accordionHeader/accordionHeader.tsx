@@ -12,56 +12,10 @@ interface AccordionHeaderProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   type: string;
+  products: { id: number; image: string }[];
 }
 
-const AccordionHeader: FC<AccordionHeaderProps> = ({ isOpen, setIsOpen, type }) => {
-  const products = [
-    {
-      image: image.src,
-      link: '/',
-      id: 0,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 1,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 2,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 3,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 4,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 5,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 6,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 7,
-    },
-    {
-      image: image.src,
-      link: '/',
-      id: 8,
-    },
-  ];
+const AccordionHeader: FC<AccordionHeaderProps> = ({ isOpen, setIsOpen, type, products }) => {
   return (
     <div className={style.flex}>
       {type === 'purchases' && (

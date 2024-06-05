@@ -32,7 +32,6 @@ const PlacingPage: FC = () => {
   const sendCertificate = async (e: any) => {
     setCertificate(e.target.value);
     const res = await getCertificate.getBasket();
-    console.log('erer', res);
   };
   useEffect(() => {
     const basket = getBasketService.getBasket(localStorage.getItem('saleUserId'));
@@ -52,7 +51,7 @@ const PlacingPage: FC = () => {
     setIsAuth(localStorage.getItem('token'));
   }, []);
   const changeAddress = () => {};
-  console.log(saveAddress);
+
   return (
     <Layout title="Оформление заказа" nav={false}>
       <div className="wrap">

@@ -15,8 +15,6 @@ export interface IJournalItem {
 }
 
 const Header: FC<{ journal: IJournalItem }> = ({ journal }) => {
-  console.log(API_DOMAIN + journal.smallPicture);
-
   return (
     <Link href={`article/${journal.id}`} className={style.header}>
       <div

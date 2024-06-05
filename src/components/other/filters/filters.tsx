@@ -2,6 +2,8 @@ import { FC, useEffect, useState } from 'react';
 import { StyledEngineProvider } from '@mui/material';
 import { FilterService } from '@/services/catalog.service';
 import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
 
 import RangeSlider from '../rangeSlider/rangeSlider';
 
@@ -10,19 +12,26 @@ import Filter from './filter/filter';
 import style from './filters.module.sass';
 
 const Filters: FC = () => {
-  const [filters, setFilters] = useState<any>({});
+  const [filters, setFilters] = useState<any>(null);
   const [checkbox, setCheckbox] = useState('null');
   const router = useRouter();
+  const dispatch = useDispatch();
   useEffect(() => {
     const res = FilterService.getFilterItems(router.query.id);
     res.then((res) => setFilters(res));
   }, []);
   useEffect(() => {
-    const res = FilterService.getData(router.query.id, checkbox, []);
-    res.then((res) => console.log(res));
-  }, [checkbox]);
+    const obj: any = {};
+    if (filters) {
+      Object.keys(filters)
+        .filter((item) => item[0] === 'S')
+        .forEach((item) => {
+          obj[item] = [];
+        });
+      dispatch(setCheckboxFilters(obj));
+    }
+  }, [filters, router.query.id]);
   console.log(filters);
-  console.log(checkbox);
 
   return (
     <aside className={style.aside}>
@@ -43,12 +52,20 @@ const Filters: FC = () => {
       <StyledEngineProvider injectFirst>
         <RangeSlider />
       </StyledEngineProvider>
-      {['S10', 'S9', 'S1', 'S8', 'S7', 'S6'].map(
-        (item) =>
-          filters[item] && (
-            <Filter name={filters[item].name} items={filters[item].items} key={item} />
-          ),
-      )}
+      {filters &&
+        Object.keys(filters)
+          .filter((item) => item[0] === 'S')
+          .map(
+            (item) =>
+              filters[item] && (
+                <Filter
+                  name={filters[item].name}
+                  id={item}
+                  items={filters[item].items}
+                  key={item}
+                />
+              ),
+          )}
     </aside>
   );
 };

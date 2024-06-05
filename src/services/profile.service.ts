@@ -1,3 +1,4 @@
+import { IOrderList } from '@/interfaces/profile.interface';
 import axios from 'axios';
 const API_URL = 'https://b.skincareagents.com/local/api/';
 
@@ -74,6 +75,17 @@ export const favoriteService = {
       type: 'removeDelay',
       SCUId: id,
       saleUserId: localStorage.getItem('saleUserId'),
+    });
+    return data;
+  },
+};
+
+export const orderListService = {
+  async getOrderList(old: boolean): Promise<any> {
+    const { data } = await axios.post('/v1/user.php', {
+      type: 'getOrderList',
+      token: localStorage.getItem('token'),
+      old,
     });
     return data;
   },
