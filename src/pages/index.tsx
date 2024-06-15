@@ -47,7 +47,7 @@ const Home: NextPage<{
   journals,
   hits,
   runningVerticalLine,
-  //sets,
+  sets,
   promo,
 }) => {
   const dispatch = useDispatch();
@@ -71,6 +71,7 @@ const Home: NextPage<{
       newProducts={newProducts}
       journals={journals}
       hits={hits}
+      sets={Object.values(sets)}
     />
   );
 };
@@ -86,7 +87,7 @@ export const getServerSideProps: GetServerSideProps<{
   const newProducts = await NewProductsService.getProductsService();
   const journals = await JournalService.getJournalService();
   const hits = await HitsService.getHitsService();
-  //const sets = await SetsService.getSetsService();
+  const sets = await SetsService.getSetsService();
   const promo = await PromoBlockService.getPromoBlock();
 
   return {
@@ -98,7 +99,7 @@ export const getServerSideProps: GetServerSideProps<{
       newProducts,
       journals,
       hits,
-      //sets,
+      sets,
       promo,
     },
   };

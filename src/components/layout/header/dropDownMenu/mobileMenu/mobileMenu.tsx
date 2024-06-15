@@ -3,20 +3,22 @@ import { CatalogItems } from '../interface';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-
+import { useRouter } from 'next/router';
+import { IBrands } from '../dropDownMenu';
 import arrow from './../../../../../../public/arr.svg';
 import arrowLeft from './../../../../../../public/arrowLeft.svg';
 import pinkHurt from './../../../../../../public/pinkHurt.svg';
 
 import style from './mobileMenu.module.sass';
-import { useRouter } from 'next/router';
 
 interface MobileMenuProps {
   items: CatalogItems;
   setMenuOpen: Dispatch<SetStateAction<boolean>>;
+  brands: IBrands;
+  brandsCount: number;
 }
 
-const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen }) => {
+const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) => {
   const [menu, setMenu] = useState<CatalogItems | undefined>(items);
   const [title, setTitle] = useState<string>('');
   const router = useRouter();
@@ -28,6 +30,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen }) => {
     setMenu(arr);
     setTitle(name);
   };
+
   const changeLink = (id: string): void => {
     setMenuOpen(false);
     router.push('/catalog/' + id);
@@ -35,6 +38,12 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen }) => {
 
   return (
     <div className={style.menu}>
+      {!title && (
+        <div className={style.level1} onClick={() => changeLink('')}>
+          <div className={style.name}>ВСЕ</div>
+        </div>
+      )}
+
       {title && (
         <div className={style.title} onClick={() => handleMenuItemClick(items, '')}>
           <div>
@@ -43,6 +52,37 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen }) => {
           <div>{title}</div>
         </div>
       )}
+      {!title ? (
+        <div className={style.level1} onClick={() => handleMenuItemClick([], 'БРЕНДЫ')}>
+          <div className={style.name}>БРЕНДЫ</div>
+          <div className={style.arrow}>
+            <img src={arrow.src} alt="" />
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
+      {title === 'БРЕНДЫ' ? (
+        <div className={style.level2 + ' ' + style.brands}>
+          {Object.keys(brands).map((key) => (
+            <div className={style.brands__column} key={key}>
+              <div className={style.brands__letter}>
+                <span className={style.brands__letter_upper}>{key}</span>
+                <span className={style.brands__letter_lower}>{key}</span>
+              </div>
+
+              {brands[key].map(({ id, name }) => (
+                <div className={style.brands__item}>
+                  <div onClick={() => changeLink(id)}>{name}</div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      ) : (
+        ''
+      )}
+
       {menu &&
         menu.map(({ DEPTH_LEVEL, DESCRIPTION, IBLOCK_SECTION_ID, ID, NAME, SUBCATEGORIES }) =>
           DEPTH_LEVEL === '1' ? (

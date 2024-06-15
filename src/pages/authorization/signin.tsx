@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { useState, useEffect } from 'react';
 import { getTokenService } from '@/services/auth.service';
+import { useRouter } from 'next/router';
 
 import Link from 'next/link';
 import InputMask from 'react-input-mask';
@@ -11,7 +12,7 @@ import eyeSvg2 from './../../../public/eyeClose.svg';
 
 import Layout from '@/components/layout/Layout';
 import style from './authorization.module.sass';
-import { useRouter } from 'next/router';
+import { saleUserIdService } from '@/services/noauth.service';
 
 const SignIn: NextPage<any> = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -41,6 +42,12 @@ const SignIn: NextPage<any> = () => {
       setError(token.status.replace(/<br>/g, ' '));
     } else if (token) {
       setError('');
+      const data = saleUserIdService.getSaleUserId();
+      data.then((res) => {
+        if (res.result) {
+          localStorage.setItem('saleUserId', res.result);
+        }
+      });
       localStorage.setItem('token', token);
       router.push('/profile');
     }

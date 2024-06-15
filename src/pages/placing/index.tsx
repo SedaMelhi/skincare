@@ -103,13 +103,13 @@ const Placing: NextPage<{ data: IAddressObj[]; cdekToken: any }> = ({ data, cdek
 };
 
 export const getServerSideProps: GetStaticProps = async (context) => {
-  const cdekToken = await getCdekTokenService.getCdekToken();
+  //const cdekToken = await getCdekTokenService.getCdekToken();
   //const data = await getAddressesService.getAddresses(cdekToken.access_token);
 
   return {
     props: {
       //data,
-      cdekToken,
+      //cdekToken,
     },
   };
 };

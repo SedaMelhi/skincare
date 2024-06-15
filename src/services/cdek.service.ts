@@ -10,8 +10,8 @@ import axios from 'axios';
 //   userId: number;
 // }
 
-const client_id = 'k3OdE7pr6jQP0PauikalMJu5Sgc00ujR'; //account
-const client_secret = 'DtyPJ37oxCQPwnN8WkP1skJ9G2XBpJ60'; //secure_password
+const client_id = 'EMscd6r9JnFiQ3bLoyjJY6eM78JrJceI'; //account
+const client_secret = 'PjLZkKBHEiLK3YsjtNrt3TGNG0ahs3kG'; //secure_password
 
 export const getCdekTokenService = {
   async getCdekToken(): Promise<any> {

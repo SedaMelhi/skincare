@@ -2,8 +2,6 @@
     display: flex
     max-width: var(--max-width)
     margin: 0 auto
-    
-    
 
 .catalog
     display: flex
@@ -15,7 +13,7 @@
     position: relative
     flex-shrink: 0
     @media (min-width: 768px)
-        width: 1015px
+        max-width: 1015px
     &__wrap
         position: fixed
         overflow-y: scroll
@@ -36,7 +34,6 @@
 .scroll
     border-bottom: 1px solid var(--Primary-100)
     background: var(--Primary-50)
-
 
 .empty
     width: 345px
@@ -103,7 +100,6 @@
                             color: var(--grey-500)
                             font-weight: 400
 
-
 .subcategories
     position: absolute
     width: 206px
@@ -130,3 +126,24 @@
             visibility: visible
             transform: translateX(0px)
             opacity: 1
+
+.brands
+    width: 82.75%
+    margin-left: 20px
+    display: flex
+    gap: 48px 20px
+    flex-wrap: wrap
+    &__item
+        margin-bottom: 8px
+        text-transform: none
+        font-size: 14px
+    &__column
+        width: 148.5px
+    &__letter
+        font-size: 48px
+        color: var(--Grey-900)
+        margin-bottom: 20px
+        border-bottom: 1px solid var(--grey-400)
+        padding-bottom: 34px
+        &_lower
+            text-transform: lowercase

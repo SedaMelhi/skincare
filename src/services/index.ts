@@ -67,7 +67,7 @@ export const HitsService = {
 
 export const SetsService = {
   async getSetsService(): Promise<any> {
-    const { data } = await axios.post('/v1/main.php', { type: 'getSets' });
+    const { data } = await axios.post('/main.php', { type: 'getSets' });
     return data;
   },
 };
