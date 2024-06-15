@@ -49,7 +49,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   //   })
   //     .then((res) => res.json())
   //     .then((res) => {
-  //       console.log(res);
+  //
   //     });
   // };
   const getCityData = (setValue: any) => {
@@ -102,9 +102,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
       }),
     })
       .then((res) => res.json())
-      .then((res) => {
-        //console.log(res);
-      });
+      .then((res) => {});
   };
   useEffect(() => {
     setCity(address.city);

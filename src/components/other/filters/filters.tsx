@@ -31,7 +31,6 @@ const Filters: FC = () => {
       dispatch(setCheckboxFilters(obj));
     }
   }, [filters, router.query.id]);
-  console.log(filters);
 
   return (
     <aside className={style.aside}>

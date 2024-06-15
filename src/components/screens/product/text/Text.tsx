@@ -52,7 +52,7 @@ const Text: FC<{
   });
   const addFavorite = () => {
     const res = favoriteService.addFavorite(activeScu.id);
-    res.then((data) => console.log(data));
+    // res.then((data) => console.log(data));
   };
   const [activeColor, setActiveColor] = useState<string>(colors[0] ? colors[0].id : '0');
 
@@ -105,12 +105,15 @@ const Text: FC<{
   const addProductInCart = async () => {
     if (localStorage.getItem('saleUserId')) {
       const data = await addSCUToCartService.addSCUToCart(activeScu.id, 1);
+      console.log(data);
 
       if (data.status === 'ok') {
         setBtnText('добавлен');
         const dataArr = getCartService.getCart();
 
         dataArr.then((res) => {
+          console.log(res);
+
           dispatch(setReduxBasketArr(Object.values(res.cartItems)));
           dispatch(setIsAddNewItem(true));
         });

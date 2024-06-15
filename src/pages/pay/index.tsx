@@ -66,11 +66,8 @@ const Pay: NextPage = ({}) => {
       .then((res) => res.json())
       .then((res) => {
         if (res && res.status === 'ok') {
-          console.log(res);
           router.push(res.link);
-        } else {
-          console.log(res);
-        }
+        } 
       });
   };
 
