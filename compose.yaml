@@ -27,4 +27,4 @@ services:
     # depends_on:
     #   - nginx
     volumes:
-      - ./out/skincareagents.com_ecc:/app/cert
+      - /etc/ssl/out/skincareagents.com_ecc:/app/cert
