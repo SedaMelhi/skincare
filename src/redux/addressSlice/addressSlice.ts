@@ -1,19 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const addressSlice = createSlice({
-  name: 'address',
+  name: "address",
   initialState: {
     isAddressOpen: false,
-    type: 'courier',
+    type: "courier",
     mapData: [],
-    address: {
-      city: { id: false, name: '' },
-      street: { id: false, name: '' },
-      apartment: '',
-      intercom: '',
-      entrance: '',
-      floor: '',
-    },
+    cities: [],
+    selectedCityCode: 441,
+    cdekToken: null,
+    address: {},
   },
   reducers: {
     setIsAddressOpen: (state, { payload }) => {
@@ -28,8 +24,25 @@ export const addressSlice = createSlice({
     setAddress: (state, { payload }) => {
       state.address = payload;
     },
+    setCities: (state, { payload }) => {
+      state.cities = payload;
+    },
+    setSelectedCityCode: (state, { payload }) => {
+      state.selectedCityCode = payload;
+    },
+    setCdekToken: (state, { payload }) => {
+      state.cdekToken = payload;
+    },
   },
 });
 
-export const { setIsAddressOpen, setType, setMapData, setAddress } = addressSlice.actions;
+export const {
+  setIsAddressOpen,
+  setType,
+  setMapData,
+  setAddress,
+  setCities,
+  setSelectedCityCode,
+  setCdekToken,
+} = addressSlice.actions;
 export default addressSlice.reducer;
