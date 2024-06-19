@@ -42,7 +42,9 @@ const Basket: FC = () => {
       data.then((res) => {
         console.log('res', res);
         setPricesObj(res.basket);
-        setBasketArr(Object.values(res.cartItems));
+        if (res.cartItems) {
+          setBasketArr(Object.values(res.cartItems));
+        }
       });
       data.catch((error) => console.error('Error fetching cart:', error));
     }
