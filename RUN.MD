@@ -13,5 +13,5 @@ docker run --rm  -itd  \
   --name=acme.sh \
   neilpang/acme.sh daemon
 
-docker exec acme.sh --register-account -m imran@uziev.com
-docker exec acme.sh --issue -d skincareagents.com --standalone
+docker exec acme.sh --register-account -m imran@uziev.com --server letsencrypt
+docker exec acme.sh --issue -d skincareagents.com --standalone --server letsencrypt
