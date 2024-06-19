@@ -2,10 +2,13 @@ import { Dispatch, FC, SetStateAction } from 'react';
 import Link from 'next/link';
 import { IBrands } from '../dropDownMenu';
 import { CatalogItems } from '../interface';
+import { useRouter } from 'next/router';
 
 import arrow from './../../../../../../public/arr.svg';
 
 import style from './../dropDownMenu.module.sass';
+import { useDispatch } from 'react-redux';
+import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
 
 interface PCMenuProps {
   items: CatalogItems;
@@ -15,8 +18,14 @@ interface PCMenuProps {
 }
 
 const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) => {
-  console.log(brands);
-
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const handleBrandClick = (id: string) => {
+    setMenuOpen((prev) => !prev);
+    console.log(1);
+    dispatch(setCheckboxFilters({ S1: [id] }));
+    router.push('/catalog/19');
+  };
   return (
     <div>
       {
@@ -45,9 +54,7 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
 
                   {brands[key].map(({ id, name }) => (
                     <div className={style.brands__item}>
-                      <Link href={'/catalog/' + id} onClick={() => setMenuOpen((prev) => !prev)}>
-                        {name}
-                      </Link>
+                      <div onClick={() => handleBrandClick(id)}>{name}</div>
                     </div>
                   ))}
                 </div>
