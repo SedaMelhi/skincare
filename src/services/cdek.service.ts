@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // interface IUserData {
 //   birthday: string;
@@ -10,14 +10,14 @@ import axios from 'axios';
 //   userId: number;
 // }
 
-const client_id = 'EMscd6r9JnFiQ3bLoyjJY6eM78JrJceI'; //account
-const client_secret = 'PjLZkKBHEiLK3YsjtNrt3TGNG0ahs3kG'; //secure_password
+const client_id = "kTEd7L8tcvklItLg9XTQf5lkXiyYVfbg"; //account
+const client_secret = "JcG3doDHAn3xEzvs2sbwqG8qfDvj1Uae"; //secure_password
 
 export const getCdekTokenService = {
   async getCdekToken(): Promise<any> {
     const { data } = await axios.post(
       `https://api.cdek.ru/v2/oauth/token?client_id=${client_id}&client_secret=${client_secret}&grant_type=client_credentials`,
-      {},
+      {}
     );
     return data;
   },
@@ -26,8 +26,8 @@ export const getCdekTokenService = {
 export const getAddressesService = {
   async getAddresses(token: any): Promise<any> {
     //?region_code=71
-    const { data } = await axios.get('https://api.cdek.ru/v2/deliverypoints?region_code=71', {
-      headers: { Authorization: 'Bearer ' + token },
+    const { data } = await axios.get("https://api.cdek.ru/v2/deliverypoints", {
+      headers: { Authorization: "Bearer " + token },
     });
     return data;
   },
@@ -35,12 +35,9 @@ export const getAddressesService = {
 
 export const getAllAddressService = {
   async getAddresses(token: any): Promise<any> {
-    const { data } = await axios.get(
-      'https://api.cdek.ru/v2/location/cities?size=15&city=ассиновская',
-      {
-        headers: { Authorization: 'Bearer ' + token },
-      },
-    );
+    const { data } = await axios.get(`https://api.cdek.ru/v2/location/cities`, {
+      headers: { Authorization: "Bearer " + token },
+    });
     return data;
   },
 };
