@@ -22,7 +22,7 @@ const Methods: FC = () => {
   };
 
   return (
-    <div className={style.method}>
+    <div className={style.method + ' placing__accordion'}>
       <div className={style.method__title}>способ доставки</div>
       <Accordion className={style.accordion} expanded={isOpen}>
         <AccordionSummary
