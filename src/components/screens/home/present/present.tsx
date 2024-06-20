@@ -65,19 +65,20 @@ const Present: FC = () => {
                     spaceBetween: 16,
                   },
                 }}>
-                {gifts.map(({ id, name, picture, value }) => (
-                  <SwiperSlide key={id}>
-                    <Link href={`/certificate/${id}`} className={style.card}>
-                      <div
-                        className={style.img + ' img ' + style.img_one}
-                        style={
-                          picture ? { backgroundImage: `url("${API_DOMAIN}${picture}")` } : {}
-                        }></div>
-                      <h3 className={style.subtitle}>{name}</h3>
-                      <div className={style.price}>{value} ₽</div>
-                    </Link>
-                  </SwiperSlide>
-                ))}
+                {gifts &&
+                  gifts.map(({ id, name, picture, value }) => (
+                    <SwiperSlide key={id}>
+                      <Link href={`/certificate/${id}`} className={style.card}>
+                        <div
+                          className={style.img + ' img ' + style.img_one}
+                          style={
+                            picture ? { backgroundImage: `url("${API_DOMAIN}${picture}")` } : {}
+                          }></div>
+                        <h3 className={style.subtitle}>{name}</h3>
+                        <div className={style.price}>{value} ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                  ))}
               </Swiper>
             </div>
           </div>
