@@ -15,7 +15,7 @@ axios.defaults.baseURL = API_URL;
 
 export const getOrderInfoService = {
   async getOrderInfo(): Promise<any> {
-    const { data } = await axios.post('v1/cart.php', {
+    const { data } = await axios.post('/cart.php', {
       type: 'getOrderInfo',
       saleUserId: localStorage.getItem('saleUserId'),
     });

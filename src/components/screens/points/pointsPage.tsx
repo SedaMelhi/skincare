@@ -1,34 +1,34 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from "react";
 
-import Layout from '@/components/layout/Layout';
-import ProfileTitle from '../profile/profileTitle/Title';
-import ProfileAside from '../profile/profileAside/profileAside';
-import PointsCard from './pointsCard/pointsCard';
-import CertificateCard from './certificateCard/certificateCard';
-import AddCertificate from './addCertificate/addCertificate';
-import Footer from '@/components/layout/footer/footer';
+import Layout from "@/components/layout/Layout";
+import ProfileTitle from "../profile/profileTitle/Title";
+import ProfileAside from "../profile/profileAside/profileAside";
+import PointsCard from "./pointsCard/pointsCard";
+import CertificateCard from "./certificateCard/certificateCard";
+import AddCertificate from "./addCertificate/addCertificate";
+import Footer from "@/components/layout/footer/footer";
 
-import style from './points.module.sass';
-import { IUserData } from '../profile/profilePage';
-import { userInfoService } from '@/services/profile.service';
+import style from "./points.module.sass";
+import { IUserData } from "../profile/profilePage";
+import { userInfoService } from "@/services/profile.service";
 
 const PointsPage: FC = () => {
   const [userDataServer, setUserDataServer] = useState<IUserData>({
-    birthday: '',
-    email: '',
-    lastName: '',
-    loginPhone: '',
-    name: '',
-    secondName: '',
+    birthday: "",
+    email: "",
+    lastName: "",
+    loginPhone: "",
+    name: "",
+    secondName: "",
     userId: 0,
   });
   useEffect(() => {
     userInfoService.getUserInfo().then(setUserDataServer);
   }, []);
   return (
-    <Layout title={'Баллы и сертификаты'}>
+    <Layout title={"Баллы и сертификаты"}>
       <section className={style.wrap}>
-        <div className={'wrap ' + style.content}>
+        <div className={"wrap " + style.content}>
           <div className={style.aside}>
             <ProfileAside
               activeMenu={2}

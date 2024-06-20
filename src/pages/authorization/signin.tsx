@@ -2,7 +2,6 @@ import { GetServerSideProps, NextPage } from 'next';
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
 import { useState, useEffect } from 'react';
 import { getTokenService } from '@/services/auth.service';
-import { useRouter } from 'next/router';
 
 import Link from 'next/link';
 import InputMask from 'react-input-mask';
@@ -12,7 +11,7 @@ import eyeSvg2 from './../../../public/eyeClose.svg';
 
 import Layout from '@/components/layout/Layout';
 import style from './authorization.module.sass';
-import { saleUserIdService } from '@/services/noauth.service';
+import { useRouter } from 'next/router';
 
 const SignIn: NextPage<any> = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
@@ -38,19 +37,10 @@ const SignIn: NextPage<any> = () => {
   const sendData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = await getTokenService.getToken(phoneNumber, password);
-    const data = await saleUserIdService.getSaleUserId();
-    localStorage.setItem('saleUserId', data.result);
-
     if (token.status) {
       setError(token.status.replace(/<br>/g, ' '));
     } else if (token) {
       setError('');
-      // const data = saleUserIdService.getSaleUserId();
-      // data.then((res) => {
-      //   if (res.result) {
-      //     localStorage.setItem('saleUserId', res.result);
-      //   }
-      // });
       localStorage.setItem('token', token);
       router.push('/profile');
     }
@@ -75,7 +65,7 @@ const SignIn: NextPage<any> = () => {
             <input
               className={style.input_field}
               type={passwordShown ? 'text' : 'password'}
-              placeholder="Придумайте пароль *"
+              placeholder="Пароль *"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}

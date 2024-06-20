@@ -5,7 +5,7 @@ axios.defaults.baseURL = API_URL;
 
 export const saleUserIdService = {
   async getSaleUserId(): Promise<any> {
-    const { data } = await axios.post('v1/cart.php', {
+    const { data } = await axios.post('/cart.php', {
       type: 'getSaleUserId',
     });
     return data;

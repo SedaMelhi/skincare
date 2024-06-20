@@ -31,7 +31,7 @@ const Accordion: FC<{ isOpen: boolean; setIsOpen: Dispatch<SetStateAction<boolea
   const div = useRef<HTMLDivElement | null>(null);
   const getProductsData = debounce(() => {
     if (value === '') {
-      fetch(API_URL + 'v1/main.php', {
+      fetch(API_URL + 'main.php', {
         method: 'POST',
         body: JSON.stringify({
           type: 'getHits',

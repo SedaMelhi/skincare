@@ -11,24 +11,13 @@ import { RunningLineArray } from '@/interfaces/runningLine.interface';
 
 import 'swiper/css';
 import style from './sets.module.sass';
-import { API_DOMAIN } from '@/services';
 
 interface SetsProps {
   isVisible: boolean;
   runningLine: RunningLineArray;
-  sets: {
-    id: string;
-    name: string;
-    picture: string;
-    setItem: {
-      DETAIL_PICTURE: string;
-      ID: string;
-      NAME: string;
-    }[];
-  }[];
 }
 
-const Sets: FC<SetsProps> = ({ isVisible, runningLine, sets }) => {
+const Sets: FC<SetsProps> = ({ isVisible, runningLine }) => {
   return (
     <section className={style.sets__wrap}>
       <PinkMarquee isVisible={isVisible} runningLine={runningLine} />
@@ -51,59 +40,166 @@ const Sets: FC<SetsProps> = ({ isVisible, runningLine, sets }) => {
                 prevEl: '.prev-sets',
                 enabled: true,
               }}>
-              {sets.map(
-                ({ id, name, picture, setItem }) =>
-                  id && (
-                    <SwiperSlide key={id}>
-                      <div className={style.main}>
-                        <h2 className={style.subtitle}>{name}</h2>
-                        <div
-                          className={style.mainImage + ' ' + style.mainImage_one}
-                          style={{ backgroundImage: `url(${API_DOMAIN + picture})` }}></div>
-                      </div>
-                      <div className={style.products}>
-                        <Swiper
-                          slidesPerView={4.3}
-                          slidesPerGroup={4}
-                          spaceBetween={28}
-                          breakpoints={{
-                            1200: {
-                              spaceBetween: 28,
-                            },
-                            768: {
-                              slidesPerView: 3.3,
-                              slidesPerGroup: 3,
-                              spaceBetween: 16,
-                            },
-                            550: {
-                              slidesPerView: 2.5,
-                              slidesPerGroup: 2,
-                            },
-                            0: {
-                              slidesPerView: 2.2,
-                              slidesPerGroup: 2,
-                              spaceBetween: 16,
-                            },
-                          }}>
-                          {setItem.map(({ ID, NAME, DETAIL_PICTURE }) => (
-                            <SwiperSlide key={ID}>
-                              <Link href={`/product/${ID}`} className={style.card}>
-                                <div
-                                  className={style.img + ' img ' + style.img_one}
-                                  style={{
-                                    backgroundImage: `url(${API_DOMAIN + DETAIL_PICTURE})`,
-                                  }}></div>
-                                <div className={style.size}>20 мл</div>
-                                <h3 className={style.description}>{NAME}</h3>
-                                <div className={style.price}>2 234 ₽</div>
-                              </Link>
-                            </SwiperSlide>
-                          ))}
-                        </Swiper>
-                      </div>
+              <SwiperSlide>
+                <div className={style.main}>
+                  <h2 className={style.subtitle}>Для сухой кожи</h2>
+                  <div className={style.mainImage + ' ' + style.mainImage_one}></div>
+                </div>
+                <div className={style.products}>
+                  <Swiper
+                    slidesPerView={4.3}
+                    slidesPerGroup={4}
+                    spaceBetween={28}
+                    breakpoints={{
+                      1200: {
+                        spaceBetween: 28,
+                      },
+                      768: {
+                        slidesPerView: 3.3,
+                        slidesPerGroup: 3,
+                        spaceBetween: 16,
+                      },
+                      550: {
+                        slidesPerView: 2.5,
+                        slidesPerGroup: 2,
+                      },
+                      0: {
+                        slidesPerView: 2.2,
+                        slidesPerGroup: 2,
+                        spaceBetween: 16,
+                      },
+                    }}>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_one}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
                     </SwiperSlide>
-                  ),
-              )}
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_two}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_three}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_four}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_three}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_one}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                  </Swiper>
+                </div>
+              </SwiperSlide>
+              <SwiperSlide>
+                <div className={style.main}>
+                  <h2 className={style.subtitle}>Для жирной кожи</h2>
+                  <div className={style.mainImage + ' ' + style.mainImage_two}></div>
+                </div>
+                <div className={style.products}>
+                  <Swiper
+                    slidesPerView={4.3}
+                    slidesPerGroup={4}
+                    spaceBetween={28}
+                    breakpoints={{
+                      1200: {
+                        spaceBetween: 28,
+                      },
+                      768: {
+                        slidesPerView: 3.3,
+                        slidesPerGroup: 3,
+                        spaceBetween: 16,
+                      },
+                      550: {
+                        slidesPerView: 2.5,
+                        slidesPerGroup: 2,
+                      },
+                      0: {
+                        slidesPerView: 2.2,
+                        slidesPerGroup: 2,
+                        spaceBetween: 16,
+                      },
+                    }}>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_three}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_one}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_two}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_four}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_three}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                    <SwiperSlide>
+                      <Link href="/product/1" className={style.card}>
+                        <div className={style.img + ' img ' + style.img_one}></div>
+                        <div className={style.size}>20 мл</div>
+                        <h3 className={style.description}>Porebarrier Clear Pad очищающие пэды</h3>
+                        <div className={style.price}>2 234 ₽</div>
+                      </Link>
+                    </SwiperSlide>
+                  </Swiper>
+                </div>
+              </SwiperSlide>
             </Swiper>
           </div>
         </div>

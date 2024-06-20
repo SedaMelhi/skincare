@@ -71,7 +71,7 @@ const Home: NextPage<{
       newProducts={newProducts}
       journals={journals}
       hits={hits}
-      sets={Object.values(sets)}
+      sets={sets}
     />
   );
 };

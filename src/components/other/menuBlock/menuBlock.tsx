@@ -27,7 +27,7 @@ const MenuBlock: FC<{ id: number; getNewAddress: any }> = ({ id, getNewAddress }
     // })
     //   .then((res) => res.json())
     //   .then((res) => {
-    //
+    //     console.log(res);
     //   });
     //setAnchorEl(null);
   };

@@ -17,9 +17,9 @@ import { MainSliderArray } from '@/interfaces/mainSlider.inerface';
 import { RunningLineArray } from '@/interfaces/runningLine.interface';
 import { PromoBlockArray } from '@/interfaces/promoBlocks.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
-import { IGift } from '@/interfaces/gift.interface';
 
 import style from './Home.module.sass';
+import { IGift } from '@/interfaces/gift.interface';
 
 const HomePage: FC<{
   slider: MainSliderArray;
@@ -28,8 +28,7 @@ const HomePage: FC<{
   runningVerticalLine: RunningLineArray;
   journals: any;
   hits: any;
-  sets: any;
-}> = ({ slider, runningLine, newProducts, journals, hits, runningVerticalLine, sets }) => {
+}> = ({ slider, runningLine, newProducts, journals, hits, runningVerticalLine }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisibleSticker, setIsVisibleSticker] = useState(false);
   const section = useRef<HTMLDivElement | null>(null);
@@ -87,7 +86,7 @@ const HomePage: FC<{
           </div>
           <News newProducts={newProducts} />
           <div ref={section} className={style.pinkMarqueeWrap}>
-            <Sets isVisible={isVisible} runningLine={runningVerticalLine} sets={sets} />
+            <Sets isVisible={isVisible} runningLine={runningVerticalLine} />
             <Hits hits={hits} />
           </div>
           <Experts />

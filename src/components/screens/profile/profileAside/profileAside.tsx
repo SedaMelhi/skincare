@@ -9,7 +9,6 @@ import notificationsSvg from './../../../../../public/notifications.svg';
 import arrowSvg from './../../../../../public/arrowCircle.svg';
 
 import style from './profileAside.module.sass';
-import { getTokenService } from '@/services/auth.service';
 
 interface IuserDataServer {
   birthday: string;
@@ -75,8 +74,6 @@ const ProfileAside: FC<ProfileAsideProps> = ({
     );
   };
   const handleLogOut = () => {
-    getTokenService.userLogout().then((res) => console.log('log', res));
-    localStorage.removeItem('saleUserId');
     localStorage.removeItem('token');
   };
   return (

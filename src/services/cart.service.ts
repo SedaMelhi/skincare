@@ -5,7 +5,7 @@ axios.defaults.baseURL = API_URL;
 
 export const addSCUToCartService = {
   async addSCUToCart(SCUId: number, quantity: number): Promise<any> {
-    const { data } = await axios.post('v1/cart.php', {
+    const { data } = await axios.post('/cart.php', {
       type: 'addSCUToCart',
       saleUserId: localStorage.getItem('saleUserId'),
       SCUId: SCUId,
@@ -19,7 +19,7 @@ export const addSCUToCartService = {
 
 export const removeSCUToCartService = {
   async removeSCUToCart(cartId: number): Promise<any> {
-    const { data } = await axios.post('v1/cart.php', {
+    const { data } = await axios.post('/cart.php', {
       type: 'deleteCartItem',
       saleUserId: localStorage.getItem('saleUserId'),
       cartId: cartId,
@@ -32,7 +32,7 @@ export const removeSCUToCartService = {
 
 export const getCartService = {
   async getCart(): Promise<any> {
-    const { data } = await axios.post('v1/cart.php', {
+    const { data } = await axios.post('/cart.php', {
       type: 'getCart',
       saleUserId: localStorage.getItem('saleUserId'),
     });

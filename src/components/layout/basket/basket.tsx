@@ -35,16 +35,12 @@ const Basket: FC = () => {
   const handleBtnClick = () => {
     router.push('/placing');
   };
-
   useEffect(() => {
     if (localStorage.getItem('saleUserId')) {
       const data = getCartService.getCart();
       data.then((res) => {
-        console.log('res', res);
         setPricesObj(res.basket);
-        if (res.cartItems) {
-          setBasketArr(Object.values(res.cartItems));
-        }
+        setBasketArr(Object.values(res.cartItems));
       });
       data.catch((error) => console.error('Error fetching cart:', error));
     }

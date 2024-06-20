@@ -5,6 +5,8 @@ export const scrollHandler = (e: any, setFetching: any, count: number, items: an
       500 &&
     items.length < count
   ) {
+    console.log(items.length, count);
+
     setFetching(true);
   }
 };
