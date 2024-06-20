@@ -1,26 +1,26 @@
-import { NextPage } from "next";
-import Link from "next/link";
+import { NextPage } from 'next';
+import Link from 'next/link';
 
-import Layout from "@/components/layout/Layout";
+import Layout from '@/components/layout/Layout';
 
-import image from "./../../../public/images/asterisk.svg";
+import image from './../../../public/images/asterisk.svg';
 
-import style from "./authorization.module.sass";
-import { useState } from "react";
-import { updateUserPassService } from "@/services/auth.service";
-import { useRouter } from "next/router";
+import style from './authorization.module.sass';
+import { useState } from 'react';
+import { updateUserPassService } from '@/services/auth.service';
+import { useRouter } from 'next/router';
 
-import eyeSvg1 from "./../../../public/eye.svg";
-import eyeSvg2 from "./../../../public/eyeClose.svg";
+import eyeSvg1 from './../../../public/eye.svg';
+import eyeSvg2 from './../../../public/eyeClose.svg';
 
 const NewPassword: NextPage = () => {
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
+  const [password, setPassword] = useState('');
+  const [rePassword, setRePassword] = useState('');
 
-  const [passError, setPassError] = useState("");
-  const [rePassError, setRePassError] = useState("");
+  const [passError, setPassError] = useState('');
+  const [rePassError, setRePassError] = useState('');
 
-  const [serverErr, setServerErr] = useState("");
+  const [serverErr, setServerErr] = useState('');
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [password2Shown, setPassword2Shown] = useState(false);
@@ -40,25 +40,22 @@ const NewPassword: NextPage = () => {
     const containsDigits = /\d/.test(password);
 
     if (password.length < 8 || !(containsLetters && containsDigits)) {
-      setPassError("Пароль должен быть больше 8 символов и содержать цифру.");
+      setPassError('Пароль должен быть больше 8 символов и содержать цифру.');
     } else {
       if (password === rePassword) {
-        const userId = sessionStorage.getItem("id")!;
-        const data = await updateUserPassService.updateUserPass(
-          userId,
-          password
-        );
+        const userId = sessionStorage.getItem('id')!;
+        const data = await updateUserPassService.updateUserPass(userId, password);
 
-        if (data.status === "ok") {
-          router.push("passwordupdate");
+        if (data.status === 'ok') {
+          router.push('passwordupdate');
         } else {
-          setServerErr(data.MESSAGE.replace(/<br>/g, " "));
+          setServerErr(data.MESSAGE.replace(/<br>/g, ' '));
         }
 
-        setPassError("");
-        setRePassError("");
+        setPassError('');
+        setRePassError('');
       } else {
-        setRePassError("Пароль не соответствует.");
+        setRePassError('Пароль не соответствует.');
       }
     }
   };
@@ -74,62 +71,38 @@ const NewPassword: NextPage = () => {
               Новый пароль <img src={image.src} alt="Asterisk" />
             </label>
             <input
-              className={
-                style.input_field + " " + style.input_field_visibility_on
-              }
-              type={passwordShown ? "text" : "password"}
+              className={style.input_field + ' ' + style.input_field_visibility_on}
+              type={passwordShown ? 'text' : 'password'}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordShown ? (
-              <img
-                src={eyeSvg1.src}
-                alt=""
-                onClick={togglePasswordVisibility}
-              />
+              <img src={eyeSvg1.src} alt="" onClick={togglePasswordVisibility} />
             ) : (
-              <img
-                src={eyeSvg2.src}
-                alt=""
-                onClick={togglePasswordVisibility}
-              />
+              <img src={eyeSvg2.src} alt="" onClick={togglePasswordVisibility} />
             )}
-            {passError && (
-              <div className={style.error_message}>{passError}</div>
-            )}
+            {passError && <div className={style.error_message}>{passError}</div>}
           </div>
           <div className={style.input_field_inner}>
             <label htmlFor="" className={style.input_field__label_text}>
               Подтвердите пароль <img src={image.src} alt="Asterisk" />
             </label>
             <input
-              className={
-                style.input_field + " " + style.input_field_visibility_off
-              }
-              type={password2Shown ? "text" : "password"}
+              className={style.input_field + ' ' + style.input_field_visibility_off}
+              type={password2Shown ? 'text' : 'password'}
               required
               value={rePassword}
               onChange={(e) => setRePassword(e.target.value)}
             />
             {password2Shown ? (
-              <img
-                src={eyeSvg1.src}
-                alt=""
-                onClick={togglePassword2Visibility}
-              />
+              <img src={eyeSvg1.src} alt="" onClick={togglePassword2Visibility} />
             ) : (
-              <img
-                src={eyeSvg2.src}
-                alt=""
-                onClick={togglePassword2Visibility}
-              />
+              <img src={eyeSvg2.src} alt="" onClick={togglePassword2Visibility} />
             )}
-            {rePassError && (
-              <div className={style.error_message}>{passError}</div>
-            )}
+            {rePassError && <div className={style.error_message}>{passError}</div>}
           </div>
-          <button className={style.btn}>Поменять</button>
+          <button className={style.btn + ' ' + style.btn_margin}>Поменять</button>
         </form>
       </section>
     </Layout>
