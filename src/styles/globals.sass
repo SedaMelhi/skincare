@@ -328,5 +328,27 @@ input
    
 
 
-   
-
+.placing__accordion   
+  .MuiPaper-root
+    min-height: 51px
+    margin: 0!important
+    border: 1px solid var(--Grey-300)
+    box-shadow: none
+    background: none
+    width: 100%
+    border-radius: 16px!important
+    position: relative
+    & > div
+        min-height: auto!important
+    &::before
+        display: none
+    @media (min-width: 768px)
+        width: 498px
+  .MuiButtonBase-root
+      display: block
+      position: relative
+      & > div
+          width: 100%
+          padding-top: 5px
+          & > label
+              width: 100%

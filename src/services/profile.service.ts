@@ -1,6 +1,6 @@
 import { IOrderList } from '@/interfaces/profile.interface';
 import axios from 'axios';
-const API_URL = 'https://b.skincareagents.com/local/api/';
+import { API_URL } from '.';
 
 axios.defaults.baseURL = API_URL;
 interface IUserData {
@@ -86,6 +86,23 @@ export const orderListService = {
       type: 'getOrderList',
       token: localStorage.getItem('token'),
       old,
+    });
+    return data;
+  },
+};
+
+export const addCertificateService = {
+  async addCertificate(): Promise<any> {
+    const { data } = await axios.post('/user.php', {
+      type: 'addCertificate',
+      token: localStorage.getItem('token'),
+    });
+    return data;
+  },
+  async getCertificates(): Promise<any> {
+    const { data } = await axios.post('/user.php', {
+      type: 'getCertificates',
+      token: localStorage.getItem('token'),
     });
     return data;
   },

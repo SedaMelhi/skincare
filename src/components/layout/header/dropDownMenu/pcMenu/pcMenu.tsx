@@ -53,7 +53,7 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
                   </div>
 
                   {brands[key].map(({ id, name }) => (
-                    <div className={style.brands__item}>
+                    <div className={style.brands__item} key={id}>
                       <div onClick={() => handleBrandClick(id)}>{name}</div>
                     </div>
                   ))}

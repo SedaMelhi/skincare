@@ -54,9 +54,10 @@ const BasketProduct: FC<IbasketData> = ({
     data.then((res) => {
       if (res.status === 'ok') {
         const data = getCartService.getCart();
-        data.then((res) => {
+
+        data.then((res: any) => {
           setPricesObj && setPricesObj(res.basket);
-          setBasketArr && setBasketArr(Object.values(res.cartItems));
+          setBasketArr && setBasketArr(res.cartItems ? Object.values(res.cartItems) : []);
         });
       }
     });
@@ -80,11 +81,13 @@ const BasketProduct: FC<IbasketData> = ({
     handleRemoveScuToCart(cartId);
   };
   const handlePlusScu = () => {
-    const data = addSCUToCartService.addSCUToCart(scuId, quantity + 1);
+    const data = addSCUToCartService.addSCUToCart(scuId, 1);
     data.then((res) => {
       if (res.status === 'ok') {
         const data = getCartService.getCart();
         data.then((res) => {
+          console.log(res);
+
           setPricesObj && setPricesObj(res.basket);
           setBasketArr && setBasketArr(Object.values(res.cartItems));
         });
@@ -93,7 +96,7 @@ const BasketProduct: FC<IbasketData> = ({
   };
   const handleMinusScu = () => {
     if (quantity > 1) {
-      const data = addSCUToCartService.addSCUToCart(scuId, quantity - 1);
+      const data = addSCUToCartService.addSCUToCart(scuId, -1);
       data.then((res) => {
         if (res.status === 'ok') {
           const data = getCartService.getCart();
