@@ -4,6 +4,7 @@ import axios from 'axios';
 interface IAddress {
   city: { id: boolean; name: string };
   street: { id: boolean; name: string };
+  house: string;
   apartment: string;
   intercom: string;
   entrance: string;
@@ -82,6 +83,7 @@ const initialState: IAddressState = {
   address: {
     city: { id: false, name: '' },
     street: { id: false, name: '' },
+    house: '',
     apartment: '',
     intercom: '',
     entrance: '',

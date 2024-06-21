@@ -109,3 +109,13 @@ export const addCertificateService = {
     return data;
   },
 };
+
+export const getUserAddressService = {
+  async getAddress(): Promise<any> {
+    const { data } = await axios.post("/v1/user.php", {
+      type: "getAddress",
+      token: localStorage.getItem("token"),
+    });
+    return data;
+  }
+};
