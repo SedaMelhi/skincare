@@ -3,7 +3,7 @@ import { StyledEngineProvider } from '@mui/material';
 import { FilterService } from '@/services/catalog.service';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
+import { setCheckboxFilters, setDiscountFilter } from '@/redux/catalogSlice/catalogSlice';
 
 import RangeSlider from '../rangeSlider/rangeSlider';
 
@@ -21,6 +21,7 @@ const Filters: FC = () => {
     res.then((res) => setFilters(res));
   }, []);
   useEffect(() => {
+    console.log(filters);
     const obj: any = {};
     if (filters) {
       Object.keys(filters)
@@ -31,6 +32,10 @@ const Filters: FC = () => {
       dispatch(setCheckboxFilters(obj));
     }
   }, [filters, router.query.id]);
+
+  useEffect(() => {
+    dispatch(setDiscountFilter(checkbox));
+  }, [checkbox]);
 
   return (
     <aside className={style.aside}>

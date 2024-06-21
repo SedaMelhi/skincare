@@ -39,17 +39,16 @@ const CatalogPage: FC<{
           <div className={style.width}>
             <div className={style.top}>
               <div className={style.flex}>
-                {search ? (
+{search ? (
                   <div className={style.subtitle}>Поиск по запросу</div>
                 ) : (
-                  <Breadcrumbs
-                    arr={[
-                      { text: 'Каталог', link: 'catalog' },
-                      { text: name, link: 'catalog/1' },
-                    ]}
-                  />
+                 <Breadcrumbs
+                  arr={[
+                    { text: 'Каталог', link: 'catalog' },
+                    { text: name, link: '/catalog/1' },
+                  ]}
+                />
                 )}
-
                 <CountProducts count={count} />
               </div>
             </div>
