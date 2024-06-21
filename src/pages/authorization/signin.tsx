@@ -38,19 +38,14 @@ const SignIn: NextPage<any> = () => {
   const sendData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const token = await getTokenService.getToken(phoneNumber, password);
-    const data = await saleUserIdService.getSaleUserId();
+    localStorage.setItem('token', token);
+    const data = await saleUserIdService.getSaleUserId(true);
     localStorage.setItem('saleUserId', data.result);
 
     if (token.status) {
       setError(token.status.replace(/<br>/g, ' '));
     } else if (token) {
       setError('');
-      // const data = saleUserIdService.getSaleUserId();
-      // data.then((res) => {
-      //   if (res.result) {
-      //     localStorage.setItem('saleUserId', res.result);
-      //   }
-      // });
       localStorage.setItem('token', token);
       router.push('/profile');
     }

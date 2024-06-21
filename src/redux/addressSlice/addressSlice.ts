@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 interface IAddress {
   city: { id: boolean; name: string };
@@ -72,7 +72,7 @@ interface ISuggestion {
 
 const initialState: IAddressState = {
   isAddressOpen: false,
-  type: "courier",
+  type: 'courier',
   mapData: [],
   cities: [],
   pochtaMapData: [],
@@ -80,13 +80,13 @@ const initialState: IAddressState = {
   selectedCityCode: 441,
   cdekToken: null,
   address: {
-    city: { id: false, name: "" },
-    street: { id: false, name: "" },
-    apartment: "",
-    intercom: "",
-    entrance: "",
-    floor: "",
-    full_address: "",
+    city: { id: false, name: '' },
+    street: { id: false, name: '' },
+    apartment: '',
+    intercom: '',
+    entrance: '',
+    floor: '',
+    full_address: '',
   },
 };
 
@@ -95,16 +95,16 @@ interface IFetchAddressesArgs {
   code: string | number;
 }
 
-const api_key = "677d53bc2930feca03704fee6c3f9d7bd3395461";
+const api_key = '677d53bc2930feca03704fee6c3f9d7bd3395461';
 
 export const fetchAddresses = createAsyncThunk<
   ISuggestion[],
   IFetchAddressesArgs,
   { rejectValue: any }
->("address/fetchAddresses", async ({ city, code }, { rejectWithValue }) => {
+>('address/fetchAddresses', async ({ city, code }, { rejectWithValue }) => {
   try {
     const { data } = await axios.post(
-      "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/postal_unit",
+      'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/postal_unit',
       {
         query: city,
         filters: [
@@ -115,10 +115,10 @@ export const fetchAddresses = createAsyncThunk<
       },
       {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Authorization: `Token ${api_key}`,
         },
-      }
+      },
     );
     return data.suggestions || [];
   } catch (error: any) {
@@ -126,32 +126,31 @@ export const fetchAddresses = createAsyncThunk<
   }
 });
 
-export const fetchAddressesList = createAsyncThunk<
-  ISuggestion[],
-  string,
-  { rejectValue: any }
->("address/fetchAddressesList", async (city, { rejectWithValue }) => {
-  try {
-    const { data } = await axios.post(
-      "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/postal_unit",
-      {
-        query: city,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${api_key}`,
+export const fetchAddressesList = createAsyncThunk<ISuggestion[], string, { rejectValue: any }>(
+  'address/fetchAddressesList',
+  async (city, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(
+        'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/postal_unit',
+        {
+          query: city,
         },
-      }
-    );
-    return data.suggestions || [];
-  } catch (error: any) {
-    return rejectWithValue(error.response.data);
-  }
-});
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${api_key}`,
+          },
+        },
+      );
+      return data.suggestions || [];
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
 export const addressSlice = createSlice({
-  name: "address",
+  name: 'address',
   initialState,
   reducers: {
     setIsAddressOpen: (state, { payload }) => {
@@ -182,7 +181,7 @@ export const addressSlice = createSlice({
         state.pochtaMapData = payload.map((suggestion, index) => ({
           geometry: {
             coordinates: [suggestion.data.geo_lat, suggestion.data.geo_lon],
-            type: "Point",
+            type: 'Point',
           },
           id: suggestion.value + index.toString(),
           properties: {
@@ -190,7 +189,7 @@ export const addressSlice = createSlice({
             balloonContentFooter: suggestion.data.address_str,
             balloonContentHeader: suggestion.data.address_str,
           },
-          type: "Feature",
+          type: 'Feature',
           work_time_list: [
             { day: 1, time: suggestion.data.schedule_mon },
             { day: 2, time: suggestion.data.schedule_tue },
