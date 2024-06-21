@@ -8,10 +8,8 @@ interface CatalogProps {
 
 const Catalog: FC<CatalogProps> = ({ menuOpen, setMenuOpen }) => {
   return (
-    <div className={style.catalog}>
-      <div
-        className={style.hamburger + ' ' + (menuOpen ? style.open : style.close)}
-        onClick={() => setMenuOpen(!menuOpen)}>
+    <div onClick={() => setMenuOpen(!menuOpen)} className={style.catalog}>
+      <div className={style.hamburger + ' ' + (menuOpen ? style.open : style.close)}>
         <div className={style.line}></div>
         <div className={style.line}></div>
         <div className={style.line}></div>

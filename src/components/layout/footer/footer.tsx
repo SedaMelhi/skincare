@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { ContactsArray } from '@/interfaces/contact.interface';
 
@@ -8,6 +8,7 @@ import logo from './../../../../public/logo.svg';
 import style from './footer.module.sass';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
+import FooterInfoModal from './modals/footerInfoModal';
 interface RootState {
   footer: {
     footerData: ContactsArray;
@@ -15,6 +16,16 @@ interface RootState {
 }
 const Footer: FC = () => {
   const data = useSelector((state: RootState) => state.footer.footerData);
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<string>('');
+
+  const handleOpen = (content: string) => {
+    setModalContent(content);
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   const formatPhoneNumber = (phone: string) => {
     const match = phone.match(/^7(\d{3})(\d{3})(\d{2})(\d{2})$/);
@@ -47,8 +58,8 @@ const Footer: FC = () => {
               <div className={style.column}>
                 <div className={style.subtitle}>клиентам</div>
                 <div className={style.item}>Доставка</div>
-                <div className={style.item}>Возврат</div>
-                <div className={style.item}>Помощь</div>
+                <div className={style.item} onClick={() => handleOpen('Возврат')}>Возврат</div>
+                <div className={style.item} onClick={() => handleOpen('Помощь')}>Помощь</div>
               </div>
               <div className={style.column}>
                 <div className={style.subtitle}>Контакты</div>
@@ -87,6 +98,7 @@ const Footer: FC = () => {
           </div>
         </div>
       </div>
+      <FooterInfoModal open={open} handleClose={handleClose} content={modalContent} />
     </footer>
   );
 };
