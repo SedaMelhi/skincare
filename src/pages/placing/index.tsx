@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import {
+  fetchAddresses,
   setCdekToken,
   setCities,
   setMapData,
@@ -16,12 +17,19 @@ import {
 import { getBasketService } from "@/services/order.service";
 import { IbasketData } from "@/interfaces/basket.interface";
 import { IOrder } from "@/interfaces/order.interface";
+import { AppDispatch, RootState } from "@/redux/store";
 
 // {"type": "Feature", "id": 0, "geometry": {"type": "Point", "coordinates": [55.831903, 37.411961]}, "properties": {"balloonContentHeader": "<font size=3><b><a target='_blank' href='https://yandex.ru'>Здесь может быть ваша ссылка</a></b></font>", "balloonContentBody": "<p>Ваше имя: <input name='login'></p><p><em>Телефон в формате 2xxx-xxx:</em>  <input></p><p><input type='submit' value='Отправить'></p>", "balloonContentFooter": "<font size=1>Информация предоставлена: </font> <strong>этим балуном</strong>", "clusterCaption": "<strong><s>Еще</s> одна</strong> метка", "hintContent": "<strong>Текст  <s>подсказки</s></strong>"}},
 
 interface IWorkTimeList {
   day: number;
   time: string;
+}
+
+interface ICity {
+  name: string;
+  coordinates: number[];
+  code: number;
 }
 
 interface IAddressObj {
@@ -66,11 +74,10 @@ interface IAddressObj {
 const Placing: NextPage<{
   data: IAddressObj[];
   cdekToken: any;
-  cities: any;
-}> = ({ data, cdekToken, cities }) => {
-  const dispatch = useDispatch();
+}> = ({ data, cdekToken }) => {
+  const dispatch = useDispatch<AppDispatch>();
   const selectedCityCode = useSelector(
-    (state: any) => state.address.selectedCityCode
+    (state: RootState) => state.address.selectedCityCode
   );
 
   useEffect(() => {
@@ -81,6 +88,7 @@ const Placing: NextPage<{
               type: "Feature",
               id: item.uuid,
               city_code: item.location.city_code,
+              region_code: item.location.region_code,
               geometry: {
                 type: "Point",
                 coordinates: [
@@ -99,9 +107,32 @@ const Placing: NextPage<{
           })
           .filter((item) => item.city_code === selectedCityCode)
       : [];
+
+    const cities = data.reduce<ICity[]>((acc, current) => {
+      // Проверяем, есть ли город уже в массиве уникальных городов
+      const cityExists = acc.find(
+        (city) => city.code === current.location.city_code
+      );
+
+      if (!cityExists) {
+        // Если город не найден, добавляем его в массив уникальных городов
+        acc.push({
+          name: `${current.location.region}, ${current.location.city}`,
+          coordinates: [current.location.latitude, current.location.longitude], // Обратите внимание на широту и долготу
+          code: current.location.city_code,
+        });
+      }
+
+      return acc;
+    }, []); // Изначально массив уникальных городов пуст
+
     dispatch(setMapData(yandexMapData));
     dispatch(setCities(cities));
   }, [selectedCityCode]);
+
+  useEffect(() => {
+    dispatch(fetchAddresses({ city: "Грозный", code: "" }));
+  }, []);
 
   return <PlacingPage />;
 };
@@ -109,15 +140,11 @@ const Placing: NextPage<{
 export const getServerSideProps: GetStaticProps = async (context) => {
   const cdekToken = await getCdekTokenService.getCdekToken();
   const data = await getAddressesService.getAddresses(cdekToken.access_token);
-  const cities = await getAllAddressService.getAddresses(
-    cdekToken.access_token
-  );
 
   return {
     props: {
       data,
       cdekToken,
-      cities,
     },
   };
 };
