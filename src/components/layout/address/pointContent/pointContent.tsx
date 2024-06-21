@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 
 import Input from "@/components/other/input/input";
 
@@ -16,13 +16,20 @@ import {
   List,
   ListItem,
   ListItemText,
+  Box,
+  Tabs,
+  Tab,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
+  fetchAddresses,
+  fetchAddressesList,
   setAddress,
-  setMapData,
   setSelectedCityCode,
 } from "@/redux/addressSlice/addressSlice";
+import { AppDispatch } from "@/redux/store";
 
 interface IWorkTimeList {
   day: number;
@@ -39,13 +46,16 @@ interface IAddressObj {
   };
   type: "Feature";
   work_time_list: IWorkTimeList[];
+  address: string;
 }
 
 interface ICloseAside {
   closeAside: () => void;
-  activeAddress: IAddressObj | null;
+  activeAddress: IAddressObj | any;
   setActiveAddress: (address: IAddressObj) => void;
   setMapCenter: (coordinates: number[], zoom: number) => void;
+  selectedService: number;
+  setSelectedService: (selected: number) => void;
 }
 
 const PointContent: FC<ICloseAside> = ({
@@ -53,6 +63,8 @@ const PointContent: FC<ICloseAside> = ({
   activeAddress,
   setActiveAddress,
   setMapCenter,
+  selectedService,
+  setSelectedService,
 }) => {
   const [city, setCity] = useState("");
   // const [street, setStreet] = useState("S");
@@ -62,46 +74,62 @@ const PointContent: FC<ICloseAside> = ({
   // const [floor, setFloor] = useState(""); //этаж
   const days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const [expandedAddress, setExpandedAddress] = useState<string | false>(false);
   const [filteredCities, setFilteredCities] = useState<
-    { city: string; code: number }[]
+    { name: string; code: number; coordinates: number[] }[]
   >([]);
-  const cities = useSelector((state: any) => state.address.cities);
+  const { cities, pochtaCities } = useSelector((state: any) => state.address);
   const [debouncedCity, setDebouncedCity] = useState(city);
   const [showSuggestions, setShowSuggestions] = useState(false);
-
-  const handleAccordionChange =
-    (address: IAddressObj) =>
-    (event: React.SyntheticEvent, isExpanded: boolean) => {
-      if (isExpanded) {
-        setActiveAddress(address);
-        setMapCenter(address.geometry.coordinates, 20);
-      }
-    };
+  const [isUserInput, setIsUserInput] = useState(false);
 
   const mapData: IMapData[] = useSelector(
     (state: any) => state.address.mapData
   );
 
-  console.log("mapData", filteredCities);
+  const pochtaMapData: IMapData[] = useSelector(
+    (state: any) => state.address.pochtaMapData
+  );
+
+  const handleAccordionChange = useCallback(
+    (address: IAddressObj) =>
+      (event: React.SyntheticEvent, isExpanded: boolean) => {
+        // setExpandedAddress(isExpanded ? `panel${address.id}` : false);
+
+        if (isExpanded) {
+          setActiveAddress(address);
+          setMapCenter(address.geometry.coordinates, 20);
+        }
+      },
+    [setActiveAddress, setMapCenter]
+  );
+
   useEffect(() => {
     if (activeAddress) {
-      setExpandedAddress(
-        `panel${mapData.findIndex((item) => item.id === activeAddress.id)}`
-      );
+      if (selectedService === 0) {
+        setExpandedAddress(
+          `panel${mapData.findIndex((item) => item.id === activeAddress.id)}`
+        );
+      } else {
+        setExpandedAddress(
+          `panel${pochtaMapData.findIndex(
+            (item) => item.id === activeAddress.id
+          )}`
+        );
+      }
     }
-  }, [activeAddress, mapData]);
+  }, [activeAddress, mapData, pochtaMapData]);
 
-  const handleSaveAddress = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    address: IAddressObj
-  ) => {
-    e.preventDefault();
-    dispatch(setAddress(address));
-    closeAside();
-  };
+  const handleSaveAddress = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>, address: IAddressObj) => {
+      e.preventDefault();
+      dispatch(setAddress({ full_address: address.address }));
+      closeAside();
+    },
+    [setActiveAddress, setMapCenter]
+  );
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -117,61 +145,58 @@ const PointContent: FC<ICloseAside> = ({
     if (debouncedCity) {
       setFilteredCities(
         cities.filter((c: any) =>
-          c.city.toLowerCase().includes(debouncedCity.toLowerCase())
+          c.name.toLowerCase().includes(debouncedCity.toLowerCase())
         )
       );
-      setShowSuggestions(true);
+      if (isUserInput) {
+        setShowSuggestions(true);
+      }
+      if (selectedService === 1) {
+        dispatch(fetchAddressesList(debouncedCity));
+      }
     } else {
       setFilteredCities([]);
       setShowSuggestions(false);
     }
-  }, [debouncedCity, cities]);
+  }, [debouncedCity, cities, selectedService, dispatch]);
 
-  const handleCitySelect = (
-    city: string,
-    code: number,
-    coordinates: number[]
-  ) => {
-    setCity(city);
-    dispatch(setSelectedCityCode(code));
-    setMapCenter(coordinates, 13);
-    setShowSuggestions(false);
-  };
+  const handleCitySelect = (city_select: string, code: number, coordinates: number[]) => {
+      setTimeout(() => {
+        setShowSuggestions(false);
+      }, 500);
+      setIsUserInput(false);
+      if (selectedService === 0) {
+        setCity(city_select);
+      }
+      dispatch(setSelectedCityCode(code));
+      setMapCenter(coordinates, 13);
 
-  return (
-    <form className={style.form}>
-      <div className={style.content}>
-        <div className={style.margin}>
-          <Input
-            placeholder="Город"
-            value={city}
-            type="text"
-            isNecessary={true}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          {showSuggestions && filteredCities.length > 0 && (
-            <Paper className={style.suggestions}>
-              <List>
-                {filteredCities.map((c: any) => (
-                  <ListItem
-                    style={{ cursor: "pointer" }}
-                    key={c.code}
-                    onClick={() =>
-                      handleCitySelect(c.city, c.code, [
-                        c.latitude,
-                        c.longitude,
-                      ])
-                    }
-                  >
-                    <ListItemText primary={c.city} />
-                  </ListItem>
-                ))}
-              </List>
-            </Paper>
-          )}
-        </div>
-      </div>
-      {mapData.map((item, index) => (
+      if (selectedService === 1) {
+        dispatch(fetchAddresses({ city, code }));
+      }
+    }
+  const handleTabChange = useCallback(
+    (event: React.ChangeEvent<{}>, newValue: number) => {
+      event.preventDefault();
+      setCity("");
+      setSelectedService(newValue);
+    },
+
+    [setSelectedService]
+  );
+
+  const handleCityChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setCity(e.target.value);
+      setIsUserInput(true);
+    },
+    []
+  );
+
+  const renderServicePoints = useCallback(() => {
+    if (selectedService === 0) {
+      // СДЭК
+      return mapData.map((item, index) => (
         <Accordion
           key={item.id}
           expanded={expandedAddress === `panel${index}`}
@@ -191,9 +216,11 @@ const PointContent: FC<ICloseAside> = ({
                 <div className={style.address}>
                   {activeAddress.properties.balloonContentHeader}
                 </div>
+                <div className={style.subtitle_price}>СТОИМОСТЬ</div>
+                <div className={style.delivery_price}>350 ₽</div>
                 <div className={style.subtitle}>Режим работы</div>
                 <ul className={style.times}>
-                  {activeAddress.work_time_list.map((item, i) => (
+                  {activeAddress.work_time_list.map((item: any, i: number) => (
                     <li key={i}>
                       <span>{days[i] + ":"}</span> {item.time}
                     </li>
@@ -209,7 +236,117 @@ const PointContent: FC<ICloseAside> = ({
             )}
           </AccordionDetails>
         </Accordion>
-      ))}
+      ));
+    } else if (selectedService === 1) {
+      // Почта России
+      return pochtaMapData.map((item, index) => (
+        <Accordion
+          key={item.id}
+          expanded={expandedAddress === `panel${index}`}
+          onChange={handleAccordionChange(item)}
+        >
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls={`panel${index}bh-content`}
+            id={`panel${index}bh-header`}
+          >
+            <Typography>{item.address}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {activeAddress && activeAddress.id === item.id && (
+              <div className={style.middle}>
+                <div className={style.title}>Почта России</div>
+                <div className={style.address}>
+                  {activeAddress.properties.balloonContentHeader}
+                </div>
+                <div className={style.subtitle_price}>СТОИМОСТЬ</div>
+                <div className={style.delivery_price}>350 ₽</div>
+                <div className={style.subtitle}>Режим работы</div>
+                <ul className={style.times}>
+                  {activeAddress.work_time_list.map((item: any, i: number) => (
+                    <li key={i}>
+                      <span>{days[i] + ":"}</span>{" "}
+                      {item.time ? item.time : "выходной"}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className={style.btn}
+                  onClick={(e) => handleSaveAddress(e, item)}
+                >
+                  выбрать
+                </button>
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
+      ));
+    }
+  }, [
+    selectedService,
+    mapData,
+    pochtaMapData,
+    expandedAddress,
+    handleAccordionChange,
+    activeAddress,
+    days,
+    handleSaveAddress,
+  ]);
+
+  return (
+    <form className={style.form}>
+      <div className={style.content}>
+        <div className={style.margin}>
+          <Input
+            placeholder="Город"
+            value={city}
+            type="text"
+            isNecessary={true}
+            onChange={handleCityChange}
+          />
+          {showSuggestions &&
+            (filteredCities.length > 0 || pochtaCities.length > 0) && (
+              <Paper className={style.suggestions}>
+                <List>
+                  {(selectedService === 0 ? filteredCities : pochtaCities).map(
+                    (c: any) => (
+                      <ListItem
+                        className={style.address_item}
+                        key={selectedService === 0 ? c.code : c.id}
+                        onClick={() =>
+                          handleCitySelect(c.name, c.code, c.coordinates)
+                        }
+                      >
+                        <ListItemText primary={c.name} />
+                      </ListItem>
+                    )
+                  )}
+                </List>
+              </Paper>
+            )}
+        </div>
+        <div className={style.toggleButtonGroup}>
+          <button
+            onClick={(e) => handleTabChange(e, 0)}
+            value="СДЭК"
+            className={`${style.toggleButton} ${
+              selectedService === 0 ? style.selected : ""
+            }`}
+          >
+            СДЭК
+          </button>
+          <button
+            onClick={(e) => handleTabChange(e, 1)}
+            value="Почта России"
+            className={`${style.toggleButton} ${
+              selectedService === 1 ? style.selected : ""
+            }`}
+          >
+            ПОЧТА РОССИИ
+          </button>
+        </div>
+      </div>
+      <div className={style.addresses}>{renderServicePoints()}</div>
     </form>
   );
 };
