@@ -46,7 +46,7 @@ const CardProduct: FC<CardProductProps> = ({
           style={
             smallPhoto
               ? {
-                  background: `url(https://b.skincareagents.com${smallPhoto})`,
+                  backgroundImage: `url(https://b.skincareagents.com${smallPhoto})`,
                 }
               : {}
           }></div>
