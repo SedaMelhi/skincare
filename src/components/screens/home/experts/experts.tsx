@@ -12,6 +12,7 @@ import style from './experts.module.sass';
 
 const Experts: FC = () => {
   const colors = [style.step_pink, style.step_violet, style.step_grey];
+
   const arr = [
     {
       mainText: 'Бесплатно',

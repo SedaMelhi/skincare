@@ -26,15 +26,6 @@ const WaitingListPage: FC = () => {
               <div className={style.card}>
                 <CardProduct available={false} />
               </div>
-              <div className={style.card}>
-                <CardProduct available={false} />
-              </div>
-              <div className={style.card}>
-                <CardProduct available={false} />
-              </div>
-              <div className={style.card}>
-                <CardProduct available={false} />
-              </div>
             </div>
           </div>
         </div>
