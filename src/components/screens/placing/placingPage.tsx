@@ -77,7 +77,33 @@ const PlacingPage: FC = () => {
               <div className={style.method__title}>адрес доставки</div>
               <div className={style.box}>
                 <div className={style.address}>
-                  {savedAddress.address ? savedAddress.address : 'не указан'}
+                  {savedAddress.city.name && (
+                    <div>Город: {savedAddress.city.name}</div>
+                  )}
+                  {savedAddress.street.name && (
+                    <div>Улица: {savedAddress.street.name}</div>
+                  )}
+                  {savedAddress.apartment && (
+                    <div>Квартира: {savedAddress.apartment}</div>
+                  )}
+                  {savedAddress.intercom && (
+                    <div>Домофон: {savedAddress.intercom}</div>
+                  )}
+                  {savedAddress.entrance && (
+                    <div>Подъезд: {savedAddress.entrance}</div>
+                  )}
+                  {savedAddress.floor && <div>Этаж: {savedAddress.floor}</div>}
+                  {savedAddress.full_address && (
+                    <div>Полный адрес: {savedAddress.full_address}</div>
+                  )}
+                  {!savedAddress.city.name &&
+                    !savedAddress.street.name &&
+                    !savedAddress.apartment &&
+                    !savedAddress.intercom &&
+                    !savedAddress.entrance &&
+                    !savedAddress.floor &&
+                    !savedAddress.full_address &&
+                    "не указан"}
                 </div>
                 <button
                   className={style.btn}

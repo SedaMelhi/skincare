@@ -46,7 +46,7 @@ const CardProduct: FC<CardProductProps> = ({
           style={
             smallPhoto
               ? {
-                  background: `url(https://b.skincareagents.com${smallPhoto})`,
+                  backgroundImage: `url(https://b.skincareagents.com${smallPhoto})`,
                 }
               : {}
           }></div>
@@ -56,7 +56,7 @@ const CardProduct: FC<CardProductProps> = ({
 
       {available ? (
         <div className={style.price}>
-          {scu ? Object.values(scu)[0].price : ''} ₽{' '}
+          {scu ? parseFloat(Object.values(scu)[0].price).toString() : ''} ₽{' '}
           <span className={style.price__old}>2 234 ₽</span>
         </div>
       ) : (

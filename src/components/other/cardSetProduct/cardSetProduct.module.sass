@@ -1,0 +1,71 @@
+.card   
+    width: 147px
+    @media (min-width: 768px)
+        width: 229px
+    @media (min-width: 1200px)
+        width: 233px
+.padding
+    padding-top: 10px
+.bonus
+    display: flex
+    gap: 4px
+    position: absolute
+    top: 0
+    left: 8px
+
+
+.img
+    width: 120px
+    height: 120px
+    margin: 0 auto
+    border-radius: 217px
+    @media (min-width: 768px)
+        height: 160px
+        width: 160px
+    &_one
+        background: url(/sets/1.png) center/cover no-repeat
+
+.size
+    margin-bottom: 8px
+    color: var(--grey-500)
+    font-size: 12px
+    line-height: 16px
+    @media (min-width: 768px)
+        margin-bottom: 4px
+
+.description
+    color: var(--grey-700) 
+    font-size: 16px
+    line-height: 18px
+    margin: 23px 0 8px
+    font-weight: 400
+    @media (min-width: 768px)
+        font-size: 20px
+        line-height: 24px 
+    @media (min-width: 1200px)
+        margin: 16px 0 4px 
+
+.price
+    color: var(--grey-900)
+    font-size: 18px
+    line-height: normal
+    font-style: italic
+    @media (min-width: 768px)
+        font-size: 20px
+    &__old
+        display: none
+        @media (min-width: 768px)
+            display: inline
+            color: var(--grey-500)
+            font-size: 14px
+            line-height: normal
+            text-decoration: line-through
+
+.text
+    color: var(--Grey-800)
+    font-size: 18px
+    font-style: italic
+    line-height: 122%
+    margin-top: 4px
+    @media (min-width: 768px)
+        font-size: 20px 

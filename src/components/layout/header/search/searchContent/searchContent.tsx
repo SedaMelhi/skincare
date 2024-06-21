@@ -49,30 +49,37 @@ const SearchContent: FC<{
         <div className={style.name}>{value === '' ? 'Популярные запросы' : pluralize(count)}</div>
 
         {activeTab === 'продукты' ? (
-          <div className={style.popular}>
-            {products &&
-              products.map((item, i) => (
-                <div onClick={() => setIsOpen(false)} key={i}>
-                  {count === 0 ? (
-                    <div>
-                      <CardProduct
-                        available={true}
-                        id={item.id}
-                        name={item.name}
-                        pin={item.pin}
-                        scu={item.scu}
-                        sectionCode={item.sectionCode}
-                        sectionName={item.sectionName}
-                        smallPhoto={item.smallPhoto}
-                      />
-                    </div>
-                  ) : (
-                    <div>
-                      <Product item={item} classValue="card" />
-                    </div>
-                  )}
-                </div>
-              ))}
+          <div>
+            <div className={style.popular}>
+              {products &&
+                products.map((item, i) => (
+                  <div onClick={() => setIsOpen(false)} key={i}>
+                    {count === 0 ? (
+                      <div>
+                        <CardProduct
+                          available={true}
+                          id={item.id}
+                          name={item.name}
+                          pin={item.pin}
+                          scu={item.scu}
+                          sectionCode={item.sectionCode}
+                          sectionName={item.sectionName}
+                          smallPhoto={item.smallPhoto}
+                        />
+                      </div>
+                    ) : (
+                      <div>
+                        <Product item={item} classValue="card" />
+                      </div>
+                    )}
+                  </div>
+                ))}
+            </div>
+            {products && products.length > 0 && (
+              <div className={style.btn} onClick={() => setIsOpen(false)}>
+                <Button text={'Показать всё'} arrow={true} link={`catalog?search=${value}`} />
+              </div>
+            )}
           </div>
         ) : (
           <div className={style.journal}>
@@ -102,9 +109,9 @@ const SearchContent: FC<{
               ))}
           </div>
         )}
-        {count !== 0 && (
-          <div className={style.btn}>
-            <Button text={'Показать всё'} arrow={true} link={'catalog'} />
+        {journalItems && journalItems.length > 0 && (
+          <div className={style.btn} onClick={() => setIsOpen(false)}>
+            <Button text={'Показать всё'} arrow={true} link={`journal?search=${value}`} />
           </div>
         )}
       </div>

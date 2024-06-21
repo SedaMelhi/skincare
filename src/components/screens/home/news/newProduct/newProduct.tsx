@@ -17,7 +17,7 @@ const NewProduct: FC<any> = ({ item }) => {
         }}></div>
       <h3 className={style.subtitle}>SKIN&LAB</h3>
       <p className={style.description}>{item.name}</p>
-      <div className={style.price}>{item.scu && Object.values(item.scu)[0] && scu[0].price} ₽</div>
+      <div className={style.price}>{item.scu && Object.values(item.scu)[0] && parseFloat(scu[0].price).toString()} ₽</div>
     </Link>
   );
 };

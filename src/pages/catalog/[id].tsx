@@ -64,7 +64,7 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
   }, [fetching]);
 
   useEffect(() => {
-    if ((Object.values(checkboxFilters).some((item: any) => item.length !== 0)) || discountFilter)
+if ((Object.values(checkboxFilters).some((item: any) => item.length !== 0)) || discountFilter)
       FilterService.getData(id, discountFilter, 'popular', checkboxFilters).then((res) => setProducts(res.items));
     else setProducts(data.items);
   }, [checkboxFilters, discountFilter]);

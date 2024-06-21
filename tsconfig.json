@@ -23,6 +23,6 @@
     "**/*.ts",
     "**/*.tsx",
     "src/components/other/basicModal/basicModal.tsx"
-  ],
+, "src/components/layout/footer/modals/footerInfoModal.module.sass"  ],
   "exclude": ["node_modules"]
 }

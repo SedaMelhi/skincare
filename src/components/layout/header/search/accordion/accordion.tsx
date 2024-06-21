@@ -40,7 +40,7 @@ const Accordion: FC<{ isOpen: boolean; setIsOpen: Dispatch<SetStateAction<boolea
       })
         .then((res) => res.json())
         .then((res: any) => {
-          setProducts(Object.values(res).filter((item: any) => item.id));
+          setProducts(Object.values(res).filter((item: any, i: number) => item.id && i < 4));
           setCount(0);
         });
     } else {

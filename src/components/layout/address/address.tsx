@@ -52,6 +52,7 @@ const Address: FC = () => {
   const [activeAddress, setActiveAddress] = useState<IAddressObj | null>(null);
   const [mapCenter, setMapCenter] = useState<number[]>([43.33417, 45.68794]);
   const [mapZoom, setMapZoom] = useState<number>(13);
+  const [selectedService, setSelectedService] = useState<number>(0);
 
   const handleSetMapCenter = (coordinates: number[], zoom: number) => {
     setMapCenter(coordinates);
@@ -92,6 +93,7 @@ const Address: FC = () => {
                   setActiveAddress={setActiveAddress}
                   mapCenter={mapCenter}
                   mapZoom={mapZoom}
+                  selectedService={selectedService}
                 />
               </div>
             )}
@@ -125,6 +127,8 @@ const Address: FC = () => {
                 activeAddress={activeAddress}
                 setActiveAddress={setActiveAddress}
                 setMapCenter={handleSetMapCenter}
+                selectedService={selectedService}
+                setSelectedService={setSelectedService}
               />
             )}
             {type === "pickup" && <PickupContent />}
