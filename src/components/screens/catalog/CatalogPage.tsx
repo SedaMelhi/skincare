@@ -16,11 +16,13 @@ import filtersSvg from './../../../../public/catalog/filters.svg';
 
 import style from './catalog.module.sass';
 
-const CatalogPage: FC<{ products: IProductArr; count: number; fetching: boolean }> = ({
-  products,
-  count,
-  fetching,
-}) => {
+const CatalogPage: FC<{
+  products: IProductArr;
+  count: number;
+  fetching: boolean;
+  search?: boolean;
+  value?: string;
+}> = ({ products, count, fetching, search, value }) => {
   const [name, setName] = useState<string>('');
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
@@ -37,18 +39,23 @@ const CatalogPage: FC<{ products: IProductArr; count: number; fetching: boolean 
           <div className={style.width}>
             <div className={style.top}>
               <div className={style.flex}>
-                <Breadcrumbs
-                  arr={[
-                    { text: 'Каталог', link: 'catalog' },
-                    { text: name, link: 'catalog/1' },
-                  ]}
-                />
+                {search ? (
+                  <div className={style.subtitle}>Поиск по запросу</div>
+                ) : (
+                  <Breadcrumbs
+                    arr={[
+                      { text: 'Каталог', link: 'catalog' },
+                      { text: name, link: 'catalog/1' },
+                    ]}
+                  />
+                )}
+
                 <CountProducts count={count} />
               </div>
             </div>
             <div className={style.top}>
               <div className={`${style.flex}`}>
-                <h2 className={style.title}>{name}</h2>
+                <h2 className={style.title}>{value ? value : name}</h2>
               </div>
             </div>
           </div>

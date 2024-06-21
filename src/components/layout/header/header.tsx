@@ -12,7 +12,7 @@ import DropDownMenu from './dropDownMenu/dropDownMenu';
 import { setIsMenuOpen } from '@/redux/menuSlice/menuSlice';
 import { setMenu } from '@/redux/menuSlice/menuSlice';
 
-import { CatalogService } from '@/services';
+import { API_URL, CatalogService } from '@/services';
 
 import axios from 'axios';
 import { saleUserIdService } from '@/services/noauth.service';
@@ -47,7 +47,7 @@ const Header: FC = () => {
   }, [menuOpen]);
 
   useEffect(() => {
-    fetch('https://b.skincareagents.com/local/api/catalog.php', {
+    fetch(API_URL + 'catalog.php', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -62,7 +62,7 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
 
   useEffect(() => {
     if (Object.values(checkboxFilters).some((item: any) => item.length !== 0))
-      FilterService.getData(id, 'Y', 'popular', checkboxFilters).then((res) => setProducts(res));
+      FilterService.getData(id, 'Y', 'popular', checkboxFilters).then((res) => console.log(res));
     else setProducts(data.items);
   }, [checkboxFilters]);
 

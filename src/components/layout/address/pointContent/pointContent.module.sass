@@ -2,7 +2,6 @@
     height: 100%
     display: flex
     flex-direction: column
-    justify-content: space-between
         
 .btn
     display: flex
@@ -34,19 +33,22 @@
        
 
 .margin
-    margin-bottom: 40px
+    margin-bottom: 20px
 
 .middle
     height: 100%
     padding: 0 20px 
     ul
         list-style-type: none
+        margin-bottom: 40px
     li
         font-size: 14px
         margin-bottom: 8px
+        display: flex
         span
             color: var(--Grey-500)
             margin-right: 10px
+            width: 25px
 .title
     color: var(--Grey-800)
     font-size: 20px
@@ -56,9 +58,55 @@
 
 .address
     margin-bottom: 16px
+    font-size: 18px
 
 .subtitle
     color: var(--Grey-600)
     font-size: 14px
     text-transform: uppercase
     margin-bottom: 8px
+
+.subtitle_price
+    color: var(--Grey-600)
+    font-size: 14px
+    text-transform: uppercase
+
+.delivery_price 
+    margin-bottom: 16px
+
+.addresses
+    overflow-y: auto
+
+.address_item
+   cursor: pointer
+   &:hover 
+      background-color: #F2DDFF
+
+
+.toggleButtonGroup 
+  display: flex
+  background-color: transparent
+  border-radius: 20px
+  width: 250px
+  box-sizing: border-box
+  margin-bottom: 20px
+.toggleButton 
+  box-sizing: border-box
+  padding: 10px 20px
+  background-color: #fff
+  border-radius: 20px
+  color: #333
+  font-size: 14px
+  cursor: pointer
+  text-transform: uppercase
+  transition: background-color 0.3s ease, color 0.3s ease
+  &:hover 
+      background-color: #F2DDFF
+.selected 
+  background-color: #f3e6ff
+  color: #000
+  border-color: #F2DDFF
+
+
+  
+
