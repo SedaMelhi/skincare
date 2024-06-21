@@ -10,6 +10,9 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [fetching, setFetching] = useState(false);
   const checkboxFilters = useSelector((state: any) => state.catalog.checkboxFilters);
+  const discountFilter = useSelector((state: any) => state.catalog.discountFilter);
+  const min_price = useSelector((state: any) => state.catalog.discountFilter);
+  const max_price = useSelector((state: any) => state.catalog.discountFilter);
 
   const scrollHandler = (e: any) => {
     const difference = window.innerWidth >= 1200 ? 650 : 1200;
@@ -61,10 +64,10 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
   }, [fetching]);
 
   useEffect(() => {
-    if (Object.values(checkboxFilters).some((item: any) => item.length !== 0))
-      FilterService.getData(id, 'Y', 'popular', checkboxFilters).then((res) => setProducts(res));
+    if ((Object.values(checkboxFilters).some((item: any) => item.length !== 0)) || discountFilter)
+      FilterService.getData(id, discountFilter, 'popular', checkboxFilters).then((res) => setProducts(res.items));
     else setProducts(data.items);
-  }, [checkboxFilters]);
+  }, [checkboxFilters, discountFilter]);
 
   return <CatalogPage products={products} count={data.count} fetching={fetching} />;
 };

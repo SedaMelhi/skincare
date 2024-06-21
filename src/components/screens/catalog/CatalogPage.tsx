@@ -40,7 +40,7 @@ const CatalogPage: FC<{ products: IProductArr; count: number; fetching: boolean 
                 <Breadcrumbs
                   arr={[
                     { text: 'Каталог', link: 'catalog' },
-                    { text: name, link: 'catalog/1' },
+                    { text: name, link: '/catalog/1' },
                   ]}
                 />
                 <CountProducts count={count} />
