@@ -1,4 +1,11 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 
 import Input from "@/components/other/input/input";
 
@@ -10,19 +17,12 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-  TextField,
-  Button,
   Paper,
   List,
   ListItem,
   ListItemText,
-  Box,
-  Tabs,
-  Tab,
-  ToggleButtonGroup,
-  ToggleButton,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import {
   fetchAddresses,
   fetchAddressesList,
@@ -84,6 +84,8 @@ const PointContent: FC<ICloseAside> = ({
   const [debouncedCity, setDebouncedCity] = useState(city);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isUserInput, setIsUserInput] = useState(false);
+
+  const activeAccordionRef = useRef<HTMLDivElement | null>(null);
 
   const mapData: IMapData[] = useSelector(
     (state: any) => state.address.mapData
@@ -160,21 +162,25 @@ const PointContent: FC<ICloseAside> = ({
     }
   }, [debouncedCity, cities, selectedService, dispatch]);
 
-  const handleCitySelect = (city_select: string, code: number, coordinates: number[]) => {
-      setTimeout(() => {
-        setShowSuggestions(false);
-      }, 500);
-      setIsUserInput(false);
-      if (selectedService === 0) {
-        setCity(city_select);
-      }
-      dispatch(setSelectedCityCode(code));
-      setMapCenter(coordinates, 13);
-
-      if (selectedService === 1) {
-        dispatch(fetchAddresses({ city, code }));
-      }
+  const handleCitySelect = (
+    city_select: string,
+    code: number,
+    coordinates: number[]
+  ) => {
+    setTimeout(() => {
+      setShowSuggestions(false);
+    }, 500);
+    setIsUserInput(false);
+    if (selectedService === 0) {
+      setCity(city_select);
     }
+    dispatch(setSelectedCityCode(code));
+    setMapCenter(coordinates, 13);
+
+    if (selectedService === 1) {
+      dispatch(fetchAddresses({ city, code }));
+    }
+  };
   const handleTabChange = useCallback(
     (event: React.ChangeEvent<{}>, newValue: number) => {
       event.preventDefault();
@@ -193,17 +199,33 @@ const PointContent: FC<ICloseAside> = ({
     []
   );
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (activeAccordionRef.current) {
+        activeAccordionRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
+        });
+      }
+    }, 300);
+  }, [activeAccordionRef.current, activeAddress]);
+
   const renderServicePoints = useCallback(() => {
     if (selectedService === 0) {
       // СДЭК
       return mapData.map((item, index) => (
         <Accordion
+          ref={expandedAddress === `panel${index}` ? activeAccordionRef : null}
+          className={`${style.accordion} ${
+            activeAddress.id !== item.id ? style.accord_hover : ""
+          }`}
           key={item.id}
           expanded={expandedAddress === `panel${index}`}
           onChange={handleAccordionChange(item)}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ArrowDownwardIcon />}
             aria-controls={`panel${index}bh-content`}
             id={`panel${index}bh-header`}
           >
@@ -241,16 +263,20 @@ const PointContent: FC<ICloseAside> = ({
       // Почта России
       return pochtaMapData.map((item, index) => (
         <Accordion
+          ref={expandedAddress === `panel${index}` ? activeAccordionRef : null}
+          className={`${style.accordion} ${
+            activeAddress?.id !== item?.id ? style.accord_hover : ""
+          }`}
           key={item.id}
           expanded={expandedAddress === `panel${index}`}
           onChange={handleAccordionChange(item)}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
+            expandIcon={<ArrowDownwardIcon />}
             aria-controls={`panel${index}bh-content`}
             id={`panel${index}bh-header`}
           >
-            <Typography>{item.address}</Typography>
+            <div>{item.address}</div>
           </AccordionSummary>
           <AccordionDetails>
             {activeAddress && activeAddress.id === item.id && (
