@@ -31,7 +31,7 @@ const CardSetProduct: FC<CardProductProps> = ({
       </div>
 
       <div className={style.price}>
-        {price ? price : ''} ₽{' '}
+        {price ? parseFloat(price).toString() : ''} ₽{' '}
       </div>
     </Link>
   );
