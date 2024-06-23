@@ -67,7 +67,7 @@ const Pay: NextPage = ({}) => {
       .then((res) => {
         if (res && res.status === 'ok') {
           router.push(res.link);
-        } 
+        }
       });
   };
 
@@ -89,7 +89,7 @@ const Pay: NextPage = ({}) => {
               <RangeSlider range={3} />
             </div>
             <div className={style.method + ' ' + style.flex_start}>
-              <div className={style.method__title}>Способ оплаты: </div>
+              <div className={style.method__title}>Способ оплаты доставки: </div>
               <div className={style.box}>
                 <label className={style.label}>
                   <input

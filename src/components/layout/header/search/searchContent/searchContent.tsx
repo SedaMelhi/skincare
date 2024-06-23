@@ -77,7 +77,7 @@ const SearchContent: FC<{
             </div>
             {products && products.length > 0 && (
               <div className={style.btn} onClick={() => setIsOpen(false)}>
-                <Button text={'Показать всё'} arrow={true} link={`catalog?search=${value}`} />
+                <Button text={'Показать всё'} arrow={true} link={`/catalog?search=${value}`} />
               </div>
             )}
           </div>
@@ -111,7 +111,7 @@ const SearchContent: FC<{
         )}
         {journalItems && journalItems.length > 0 && (
           <div className={style.btn} onClick={() => setIsOpen(false)}>
-            <Button text={'Показать всё'} arrow={true} link={`journal?search=${value}`} />
+            <Button text={'Показать всё'} arrow={true} link={`/journal?search=${value}`} />
           </div>
         )}
       </div>

@@ -1,17 +1,10 @@
-import {
-  FC,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { FC, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
-import Input from "@/components/other/input/input";
+import Input from '@/components/other/input/input';
 
-import style from "./pointContent.module.sass";
-import { useDispatch, useSelector } from "react-redux";
-import { IMapData } from "../yandexMap/yandexMap";
+import style from './pointContent.module.sass';
+import { useDispatch, useSelector } from 'react-redux';
+import { IMapData } from '../yandexMap/yandexMap';
 import {
   Accordion,
   AccordionSummary,
@@ -21,15 +14,15 @@ import {
   List,
   ListItem,
   ListItemText,
-} from "@mui/material";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+} from '@mui/material';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import {
   fetchAddresses,
   fetchAddressesList,
   setAddress,
   setSelectedCityCode,
-} from "@/redux/addressSlice/addressSlice";
-import { AppDispatch } from "@/redux/store";
+} from '@/redux/addressSlice/addressSlice';
+import { AppDispatch } from '@/redux/store';
 
 interface IWorkTimeList {
   day: number;
@@ -44,7 +37,7 @@ interface IAddressObj {
     balloonContentFooter: string;
     balloonContentHeader: string;
   };
-  type: "Feature";
+  type: 'Feature';
   work_time_list: IWorkTimeList[];
   address: string;
 }
@@ -66,13 +59,13 @@ const PointContent: FC<ICloseAside> = ({
   selectedService,
   setSelectedService,
 }) => {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState('');
   // const [street, setStreet] = useState("S");
   // const [apartment, setApartment] = useState("A"); //квартира
   // const [intercom, setIntercom] = useState(""); //домофон
   // const [entrance, setEntrance] = useState(""); //подъезд
   // const [floor, setFloor] = useState(""); //этаж
-  const days = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
+  const days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -87,38 +80,29 @@ const PointContent: FC<ICloseAside> = ({
 
   const activeAccordionRef = useRef<HTMLDivElement | null>(null);
 
-  const mapData: IMapData[] = useSelector(
-    (state: any) => state.address.mapData
-  );
+  const mapData: IMapData[] = useSelector((state: any) => state.address.mapData);
 
-  const pochtaMapData: IMapData[] = useSelector(
-    (state: any) => state.address.pochtaMapData
-  );
+  const pochtaMapData: IMapData[] = useSelector((state: any) => state.address.pochtaMapData);
 
   const handleAccordionChange = useCallback(
-    (address: IAddressObj) =>
-      (event: React.SyntheticEvent, isExpanded: boolean) => {
-        // setExpandedAddress(isExpanded ? `panel${address.id}` : false);
+    (address: IAddressObj) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+      // setExpandedAddress(isExpanded ? `panel${address.id}` : false);
 
-        if (isExpanded) {
-          setActiveAddress(address);
-          setMapCenter(address.geometry.coordinates, 20);
-        }
-      },
-    [setActiveAddress, setMapCenter]
+      if (isExpanded) {
+        setActiveAddress(address);
+        setMapCenter(address.geometry.coordinates, 20);
+      }
+    },
+    [setActiveAddress, setMapCenter],
   );
 
   useEffect(() => {
     if (activeAddress) {
       if (selectedService === 0) {
-        setExpandedAddress(
-          `panel${mapData.findIndex((item) => item.id === activeAddress.id)}`
-        );
+        setExpandedAddress(`panel${mapData.findIndex((item) => item.id === activeAddress.id)}`);
       } else {
         setExpandedAddress(
-          `panel${pochtaMapData.findIndex(
-            (item) => item.id === activeAddress.id
-          )}`
+          `panel${pochtaMapData.findIndex((item) => item.id === activeAddress.id)}`,
         );
       }
     }
@@ -130,7 +114,7 @@ const PointContent: FC<ICloseAside> = ({
       dispatch(setAddress({ full_address: address.address }));
       closeAside();
     },
-    [setActiveAddress, setMapCenter]
+    [setActiveAddress, setMapCenter],
   );
 
   useEffect(() => {
@@ -146,9 +130,7 @@ const PointContent: FC<ICloseAside> = ({
   useEffect(() => {
     if (debouncedCity) {
       setFilteredCities(
-        cities.filter((c: any) =>
-          c.name.toLowerCase().includes(debouncedCity.toLowerCase())
-        )
+        cities.filter((c: any) => c.name.toLowerCase().includes(debouncedCity.toLowerCase())),
       );
       if (isUserInput) {
         setShowSuggestions(true);
@@ -162,11 +144,7 @@ const PointContent: FC<ICloseAside> = ({
     }
   }, [debouncedCity, cities, selectedService, dispatch]);
 
-  const handleCitySelect = (
-    city_select: string,
-    code: number,
-    coordinates: number[]
-  ) => {
+  const handleCitySelect = (city_select: string, code: number, coordinates: number[]) => {
     setTimeout(() => {
       setShowSuggestions(false);
     }, 500);
@@ -184,28 +162,25 @@ const PointContent: FC<ICloseAside> = ({
   const handleTabChange = useCallback(
     (event: React.ChangeEvent<{}>, newValue: number) => {
       event.preventDefault();
-      setCity("");
+      setCity('');
       setSelectedService(newValue);
     },
 
-    [setSelectedService]
+    [setSelectedService],
   );
 
-  const handleCityChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setCity(e.target.value);
-      setIsUserInput(true);
-    },
-    []
-  );
+  const handleCityChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setCity(e.target.value);
+    setIsUserInput(true);
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
       if (activeAccordionRef.current) {
         activeAccordionRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "nearest",
+          behavior: 'smooth',
+          block: 'center',
+          inline: 'nearest',
         });
       }
     }, 300);
@@ -218,40 +193,33 @@ const PointContent: FC<ICloseAside> = ({
         <Accordion
           ref={expandedAddress === `panel${index}` ? activeAccordionRef : null}
           className={`${style.accordion} ${
-            activeAddress.id !== item.id ? style.accord_hover : ""
+            activeAddress?.id !== item.id ? style.accord_hover : ''
           }`}
           key={item.id}
           expanded={expandedAddress === `panel${index}`}
-          onChange={handleAccordionChange(item)}
-        >
+          onChange={handleAccordionChange(item)}>
           <AccordionSummary
             expandIcon={<ArrowDownwardIcon />}
             aria-controls={`panel${index}bh-content`}
-            id={`panel${index}bh-header`}
-          >
+            id={`panel${index}bh-header`}>
             <Typography>{item.address}</Typography>
           </AccordionSummary>
           <AccordionDetails>
             {activeAddress && activeAddress.id === item.id && (
               <div className={style.middle}>
                 <div className={style.title}>СДЭК</div>
-                <div className={style.address}>
-                  {activeAddress.properties.balloonContentHeader}
-                </div>
+                <div className={style.address}>{activeAddress.properties.balloonContentHeader}</div>
                 <div className={style.subtitle_price}>СТОИМОСТЬ</div>
                 <div className={style.delivery_price}>350 ₽</div>
                 <div className={style.subtitle}>Режим работы</div>
                 <ul className={style.times}>
                   {activeAddress.work_time_list.map((item: any, i: number) => (
                     <li key={i}>
-                      <span>{days[i] + ":"}</span> {item.time}
+                      <span>{days[i] + ':'}</span> {item.time}
                     </li>
                   ))}
                 </ul>
-                <button
-                  className={style.btn}
-                  onClick={(e) => handleSaveAddress(e, item)}
-                >
+                <button className={style.btn} onClick={(e) => handleSaveAddress(e, item)}>
                   выбрать
                 </button>
               </div>
@@ -265,41 +233,33 @@ const PointContent: FC<ICloseAside> = ({
         <Accordion
           ref={expandedAddress === `panel${index}` ? activeAccordionRef : null}
           className={`${style.accordion} ${
-            activeAddress?.id !== item?.id ? style.accord_hover : ""
+            activeAddress?.id !== item?.id ? style.accord_hover : ''
           }`}
           key={item.id}
           expanded={expandedAddress === `panel${index}`}
-          onChange={handleAccordionChange(item)}
-        >
+          onChange={handleAccordionChange(item)}>
           <AccordionSummary
             expandIcon={<ArrowDownwardIcon />}
             aria-controls={`panel${index}bh-content`}
-            id={`panel${index}bh-header`}
-          >
+            id={`panel${index}bh-header`}>
             <div>{item.address}</div>
           </AccordionSummary>
           <AccordionDetails>
             {activeAddress && activeAddress.id === item.id && (
               <div className={style.middle}>
                 <div className={style.title}>Почта России</div>
-                <div className={style.address}>
-                  {activeAddress.properties.balloonContentHeader}
-                </div>
+                <div className={style.address}>{activeAddress.properties.balloonContentHeader}</div>
                 <div className={style.subtitle_price}>СТОИМОСТЬ</div>
                 <div className={style.delivery_price}>350 ₽</div>
                 <div className={style.subtitle}>Режим работы</div>
                 <ul className={style.times}>
                   {activeAddress.work_time_list.map((item: any, i: number) => (
                     <li key={i}>
-                      <span>{days[i] + ":"}</span>{" "}
-                      {item.time ? item.time : "выходной"}
+                      <span>{days[i] + ':'}</span> {item.time ? item.time : 'выходной'}
                     </li>
                   ))}
                 </ul>
-                <button
-                  className={style.btn}
-                  onClick={(e) => handleSaveAddress(e, item)}
-                >
+                <button className={style.btn} onClick={(e) => handleSaveAddress(e, item)}>
                   выбрать
                 </button>
               </div>
@@ -330,44 +290,32 @@ const PointContent: FC<ICloseAside> = ({
             isNecessary={true}
             onChange={handleCityChange}
           />
-          {showSuggestions &&
-            (filteredCities.length > 0 || pochtaCities.length > 0) && (
-              <Paper className={style.suggestions}>
-                <List>
-                  {(selectedService === 0 ? filteredCities : pochtaCities).map(
-                    (c: any) => (
-                      <ListItem
-                        className={style.address_item}
-                        key={selectedService === 0 ? c.code : c.id}
-                        onClick={() =>
-                          handleCitySelect(c.name, c.code, c.coordinates)
-                        }
-                      >
-                        <ListItemText primary={c.name} />
-                      </ListItem>
-                    )
-                  )}
-                </List>
-              </Paper>
-            )}
+          {showSuggestions && (filteredCities.length > 0 || pochtaCities.length > 0) && (
+            <Paper className={style.suggestions}>
+              <List>
+                {(selectedService === 0 ? filteredCities : pochtaCities).map((c: any) => (
+                  <ListItem
+                    className={style.address_item}
+                    key={selectedService === 0 ? c.code : c.id}
+                    onClick={() => handleCitySelect(c.name, c.code, c.coordinates)}>
+                    <ListItemText primary={c.name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Paper>
+          )}
         </div>
         <div className={style.toggleButtonGroup}>
           <button
             onClick={(e) => handleTabChange(e, 0)}
             value="СДЭК"
-            className={`${style.toggleButton} ${
-              selectedService === 0 ? style.selected : ""
-            }`}
-          >
+            className={`${style.toggleButton} ${selectedService === 0 ? style.selected : ''}`}>
             СДЭК
           </button>
           <button
             onClick={(e) => handleTabChange(e, 1)}
             value="Почта России"
-            className={`${style.toggleButton} ${
-              selectedService === 1 ? style.selected : ""
-            }`}
-          >
+            className={`${style.toggleButton} ${selectedService === 1 ? style.selected : ''}`}>
             ПОЧТА РОССИИ
           </button>
         </div>

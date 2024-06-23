@@ -12,6 +12,14 @@ export const JournalService = {
     const { data } = await axios.post<any>('journal.php', params);
     return data;
   },
+  async getCategoryList(): Promise<any> {
+    const params = {
+      type: 'getCategoryList',
+    };
+
+    const { data } = await axios.post<any>('journal.php', params);
+    return data;
+  },
   async getMainItem(): Promise<any> {
     const params = {
       type: 'getPrimary',

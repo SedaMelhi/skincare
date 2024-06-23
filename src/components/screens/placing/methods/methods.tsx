@@ -98,10 +98,7 @@ const Methods: FC = () => {
                   <div className={style.circle}>
                     <div className={style.active}></div>
                   </div>
-                  <div className={style.desc}>
-                    Самовывоз в г. Грозный
-                    <div className={style.grey}>Почта России, СДЭК</div>
-                  </div>
+                  <div className={style.desc}>Самовывоз в г. Грозный</div>
                 </div>
                 <div className={style.price}>Бесплатно</div>
               </label>
