@@ -88,7 +88,7 @@ const ProfileAside: FC<ProfileAsideProps> = ({
     getTokenService.userLogout().then((res) => console.log("log", res));
     localStorage.removeItem("saleUserId");
     localStorage.removeItem("token");
-    router.push('/authorization')
+    router.push("/authorization");
   };
 
   return (
@@ -134,9 +134,7 @@ const ProfileAside: FC<ProfileAsideProps> = ({
       </div>
       <div className={style.line}></div>
       <div className={style.logOut}>
-        <span onClick={() => setOpen(true)}>
-          выйти
-        </span>
+        <span onClick={() => setOpen(true)}>выйти</span>
       </div>
       <ProfileLogoutModal
         open={open}
