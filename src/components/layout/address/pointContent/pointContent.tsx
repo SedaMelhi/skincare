@@ -86,7 +86,7 @@ const PointContent: FC<ICloseAside> = ({
 
   const handleAccordionChange = useCallback(
     (address: IAddressObj) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      // setExpandedAddress(isExpanded ? `panel${address.id}` : false);
+      setExpandedAddress(isExpanded ? `panel${address.id}` : false);
 
       if (isExpanded) {
         setActiveAddress(address);
@@ -99,10 +99,10 @@ const PointContent: FC<ICloseAside> = ({
   useEffect(() => {
     if (activeAddress) {
       if (selectedService === 0) {
-        setExpandedAddress(`panel${mapData.findIndex((item) => item.id === activeAddress.id)}`);
+        setExpandedAddress(`panel${mapData.find((item) => item.id === activeAddress.id)?.id}`);
       } else {
         setExpandedAddress(
-          `panel${pochtaMapData.findIndex((item) => item.id === activeAddress.id)}`,
+          `panel${pochtaMapData.find((item) => item.id === activeAddress.id)?.id}`,
         );
       }
     }
@@ -187,87 +187,44 @@ const PointContent: FC<ICloseAside> = ({
   }, [activeAccordionRef.current, activeAddress]);
 
   const renderServicePoints = useCallback(() => {
-    if (selectedService === 0) {
-      // СДЭК
-      return mapData.map((item, index) => (
-        <Accordion
-          ref={expandedAddress === `panel${index}` ? activeAccordionRef : null}
-          className={`${style.accordion} ${
-            activeAddress?.id !== item.id ? style.accord_hover : ''
-          }`}
-          key={item.id}
-          expanded={expandedAddress === `panel${index}`}
-          onChange={handleAccordionChange(item)}>
-          <AccordionSummary
-            expandIcon={<ArrowDownwardIcon />}
-            aria-controls={`panel${index}bh-content`}
-            id={`panel${index}bh-header`}>
-            <Typography>{item.address}</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            {activeAddress && activeAddress.id === item.id && (
-              <div className={style.middle}>
-                <div className={style.title}>СДЭК</div>
-                <div className={style.address}>{activeAddress.properties.balloonContentHeader}</div>
-                <div className={style.subtitle_price}>СТОИМОСТЬ</div>
-                <div className={style.delivery_price}>350 ₽</div>
-                <div className={style.subtitle}>Режим работы</div>
-                <ul className={style.times}>
-                  {activeAddress.work_time_list.map((item: any, i: number) => (
-                    <li key={i}>
-                      <span>{days[i] + ':'}</span> {item.time}
-                    </li>
-                  ))}
-                </ul>
-                <button className={style.btn} onClick={(e) => handleSaveAddress(e, item)}>
-                  выбрать
-                </button>
-              </div>
-            )}
-          </AccordionDetails>
-        </Accordion>
-      ));
-    } else if (selectedService === 1) {
-      // Почта России
-      return pochtaMapData.map((item, index) => (
-        <Accordion
-          ref={expandedAddress === `panel${index}` ? activeAccordionRef : null}
-          className={`${style.accordion} ${
-            activeAddress?.id !== item?.id ? style.accord_hover : ''
-          }`}
-          key={item.id}
-          expanded={expandedAddress === `panel${index}`}
-          onChange={handleAccordionChange(item)}>
-          <AccordionSummary
-            expandIcon={<ArrowDownwardIcon />}
-            aria-controls={`panel${index}bh-content`}
-            id={`panel${index}bh-header`}>
-            <div>{item.address}</div>
-          </AccordionSummary>
-          <AccordionDetails>
-            {activeAddress && activeAddress.id === item.id && (
-              <div className={style.middle}>
-                <div className={style.title}>Почта России</div>
-                <div className={style.address}>{activeAddress.properties.balloonContentHeader}</div>
-                <div className={style.subtitle_price}>СТОИМОСТЬ</div>
-                <div className={style.delivery_price}>350 ₽</div>
-                <div className={style.subtitle}>Режим работы</div>
-                <ul className={style.times}>
-                  {activeAddress.work_time_list.map((item: any, i: number) => (
-                    <li key={i}>
-                      <span>{days[i] + ':'}</span> {item.time ? item.time : 'выходной'}
-                    </li>
-                  ))}
-                </ul>
-                <button className={style.btn} onClick={(e) => handleSaveAddress(e, item)}>
-                  выбрать
-                </button>
-              </div>
-            )}
-          </AccordionDetails>
-        </Accordion>
-      ));
-    }
+    return (selectedService === 0 ? mapData : pochtaMapData).map((item, index) => (
+      <Accordion
+        ref={expandedAddress === `panel${item.id}` ? activeAccordionRef : null}
+        className={`${style.accordion} ${
+          expandedAddress !== `panel${item.id}` ? style.accord_hover : ''
+        }`}
+        key={item.id}
+        expanded={expandedAddress === `panel${item.id}`}
+        onChange={handleAccordionChange(item)}>
+        <AccordionSummary
+          expandIcon={<ArrowDownwardIcon />}
+          aria-controls={`panel${item.id}bh-content`}
+          id={`panel${item.id}bh-header`}>
+          <Typography>{item.address}</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {activeAddress && activeAddress.id === item.id && (
+            <div className={style.middle}>
+              <div className={style.title}>{selectedService === 0 ? 'сдэк' : 'почта россии'}</div>
+              <div className={style.address}>{activeAddress.properties.balloonContentHeader}</div>
+              <div className={style.subtitle_price}>СТОИМОСТЬ</div>
+              <div className={style.delivery_price}>350 ₽</div>
+              <div className={style.subtitle}>Режим работы</div>
+              <ul className={style.times}>
+                {activeAddress.work_time_list.map((item: any, i: number) => (
+                  <li key={i}>
+                    <span>{days[i] + ':'}</span> {item.time ? item.time : 'выходной'}
+                  </li>
+                ))}
+              </ul>
+              <button className={style.btn} onClick={(e) => handleSaveAddress(e, item)}>
+                выбрать
+              </button>
+            </div>
+          )}
+        </AccordionDetails>
+      </Accordion>
+    ));
   }, [
     selectedService,
     mapData,

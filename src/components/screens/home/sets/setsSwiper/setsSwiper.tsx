@@ -50,7 +50,7 @@ const SetsSwiper: FC<SetsSwiperProps> = ({ slidesPerView, sets }) => {
           </div>
           <div className={style.button + ' wrap'}>
             <div className={style.btn__wrap}>
-              <button className={style.btn}>Купить сет — {price} ₽</button>
+              <button className={style.btn}>Купить сет — {parseFloat(price).toString()} ₽</button>
             </div>
           </div>
         </SwiperSlide>
