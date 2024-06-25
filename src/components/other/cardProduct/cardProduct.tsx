@@ -30,6 +30,7 @@ const CardProduct: FC<CardProductProps> = ({
   sectionName,
   smallPhoto,
 }) => {
+  
   const sizes: string[] = [];
   const prices: number[] = [];
 
