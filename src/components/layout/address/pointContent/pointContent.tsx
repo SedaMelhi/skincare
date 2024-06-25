@@ -14,8 +14,9 @@ import {
   List,
   ListItem,
   ListItemText,
-} from '@mui/material';
-import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+} from "@mui/material";
+import ArrowAccordIcon from "../../../../../public/arrowAccord.svg";
+
 import {
   fetchAddresses,
   fetchAddressesList,
@@ -32,6 +33,7 @@ interface IWorkTimeList {
 interface IAddressObj {
   geometry: { coordinates: number[]; type: string };
   id: string;
+  code: string;
   properties: {
     balloonContentBody: string;
     balloonContentFooter: string;
@@ -111,6 +113,19 @@ const PointContent: FC<ICloseAside> = ({
   const handleSaveAddress = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, address: IAddressObj) => {
       e.preventDefault();
+      if (selectedService === 0) {
+        fetch("https://b.skincareagents.com/local/api/v1/user.php", {
+          method: "POST",
+          body: JSON.stringify({
+            type: "addAddress",
+            token: localStorage.getItem("token"),
+            typeId: "1",
+            code: address.code,
+          }),
+        })
+          .then((res) => res.json())
+          .then((res) => {});
+      }
       dispatch(setAddress({ full_address: address.address }));
       closeAside();
     },
@@ -186,45 +201,65 @@ const PointContent: FC<ICloseAside> = ({
     }, 300);
   }, [activeAccordionRef.current, activeAddress]);
 
+  console.log(mapData, pochtaMapData);
+
   const renderServicePoints = useCallback(() => {
-    return (selectedService === 0 ? mapData : pochtaMapData).map((item, index) => (
-      <Accordion
-        ref={expandedAddress === `panel${item.id}` ? activeAccordionRef : null}
-        className={`${style.accordion} ${
-          expandedAddress !== `panel${item.id}` ? style.accord_hover : ''
-        }`}
-        key={item.id}
-        expanded={expandedAddress === `panel${item.id}`}
-        onChange={handleAccordionChange(item)}>
-        <AccordionSummary
-          expandIcon={<ArrowDownwardIcon />}
-          aria-controls={`panel${item.id}bh-content`}
-          id={`panel${item.id}bh-header`}>
-          <Typography>{item.address}</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          {activeAddress && activeAddress.id === item.id && (
-            <div className={style.middle}>
-              <div className={style.title}>{selectedService === 0 ? 'сдэк' : 'почта россии'}</div>
-              <div className={style.address}>{activeAddress.properties.balloonContentHeader}</div>
-              <div className={style.subtitle_price}>СТОИМОСТЬ</div>
-              <div className={style.delivery_price}>350 ₽</div>
-              <div className={style.subtitle}>Режим работы</div>
-              <ul className={style.times}>
-                {activeAddress.work_time_list.map((item: any, i: number) => (
-                  <li key={i}>
-                    <span>{days[i] + ':'}</span> {item.time ? item.time : 'выходной'}
-                  </li>
-                ))}
-              </ul>
-              <button className={style.btn} onClick={(e) => handleSaveAddress(e, item)}>
-                выбрать
-              </button>
-            </div>
-          )}
-        </AccordionDetails>
-      </Accordion>
-    ));
+    return (selectedService === 0 ? mapData : pochtaMapData).map(
+      (item, index) => (
+        <Accordion
+          ref={
+            expandedAddress === `panel${item.id}` ? activeAccordionRef : null
+          }
+          className={`${style.accordion} ${
+            expandedAddress !== `panel${item.id}` ? style.accord_hover : ""
+          }`}
+          key={item.id}
+          expanded={expandedAddress === `panel${item.id}`}
+          onChange={handleAccordionChange(item)}
+        >
+          <AccordionSummary
+            className={style.title}
+            expandIcon={<img src={ArrowAccordIcon.src} />}
+            aria-controls={`panel${item.id}bh-content`}
+            id={`panel${item.id}bh-header`}
+          >
+            {expandedAddress === `panel${item.id}` ? (
+              <div className={style.address}>
+                <div className={style.service}>
+                  {selectedService === 0 ? "сдэк" : "почта россии"}
+                </div>
+                <div>{activeAddress.properties.balloonContentHeader}</div>
+              </div>
+            ) : (
+              <div className={style.address}>{item.address}</div>
+            )}
+          </AccordionSummary>
+          <AccordionDetails>
+            {activeAddress && activeAddress.id === item.id && (
+              <div className={style.middle}>
+                <div className={style.subtitle_price}>СТОИМОСТЬ</div>
+                <div className={style.delivery_price}>350 ₽</div>
+                <div className={style.subtitle}>Режим работы</div>
+                <ul className={style.times}>
+                  {activeAddress.work_time_list.map((item: any, i: number) => (
+                    <li key={i}>
+                      <span>{days[i] + ":"}</span>{" "}
+                      {item.time ? item.time : "выходной"}
+                    </li>
+                  ))}
+                </ul>
+                <button
+                  className={style.btn}
+                  onClick={(e) => handleSaveAddress(e, item)}
+                >
+                  выбрать
+                </button>
+              </div>
+            )}
+          </AccordionDetails>
+        </Accordion>
+      )
+    );
   }, [
     selectedService,
     mapData,

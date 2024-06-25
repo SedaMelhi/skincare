@@ -5,6 +5,7 @@ import { PromoBlockArray } from '@/interfaces/promoBlocks.interface';
 import { NewProducts } from '@/interfaces/newProducts.interface';
 import { CatalogArray } from '@/interfaces/catalog.interface';
 import { IGift } from '@/interfaces/gift.interface';
+import { formatText } from './journal.service';
 
 export const API_URL = 'https://b.skincareagents.com/local/api/';
 export const API_DOMAIN = 'https://b.skincareagents.com';
@@ -51,10 +52,18 @@ export const GiftsService = {
     return data;
   },
 };
+
 export const JournalService = {
+  
   async getJournalService(): Promise<any> {
     const { data } = await axios.post('/main.php', { type: 'getJournal' });
-    return data;
+
+    const formattedData = data.map((entry: any) => ({
+      ...entry,
+      text: formatText(entry.text)
+    }));
+
+    return formattedData;
   },
 };
 

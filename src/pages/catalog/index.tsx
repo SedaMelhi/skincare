@@ -51,8 +51,8 @@ const Catalog: NextPage = () => {
         setCount(res.count);
       });
 
-    console.log(products);
-  };
+    };
+    console.log("checkboxFilters", checkboxFilters);
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
@@ -67,7 +67,8 @@ const Catalog: NextPage = () => {
   }, [fetching]);
   useEffect(() => {
     if (Object.values(checkboxFilters).some((item: any) => item.length !== 0))
-      FilterService.getData('', 'Y', 'popular', checkboxFilters).then((res) => console.log(res));
+      FilterService.getData('', 'Y', 'popular', checkboxFilters).then((res) => setProducts(res.items));
+    // FilterService.getData('', 'Y', 'popular', checkboxFilters).then((res) => console.log(res));
     else getData();
   }, [checkboxFilters]);
 

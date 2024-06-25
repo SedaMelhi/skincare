@@ -87,6 +87,7 @@ const Placing: NextPage<{
             return {
               type: "Feature",
               id: item.uuid,
+              code: item.code,
               city_code: item.location.city_code,
               region_code: item.location.region_code,
               geometry: {
@@ -97,7 +98,7 @@ const Placing: NextPage<{
                 ],
               },
               properties: {
-                balloonContentHeader: item.name,
+                balloonContentHeader: `${item.location.city}, ${item.location.address}`,
                 balloonContentBody: item.location.address_full,
                 balloonContentFooter: item.work_time,
               },

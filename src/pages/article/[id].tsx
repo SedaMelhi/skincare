@@ -34,7 +34,7 @@ const Journal: NextPage<{ data: any }> = ({ data }) => {
             style={
               data.picture ? { backgroundImage: `url(${API_DOMAIN + data.picture})` } : {}
             }></div>
-          <p className={style.articles__author}>Автор: эндокринолог</p>
+          <p className={style.articles__author}>Автор: {data.author ? data.author : 'эндокринолог'}</p>
           <p className={style.date}>{data.date.split('.').join('/')}</p>
           <div
             className={style.articles__text}
