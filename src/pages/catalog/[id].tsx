@@ -39,7 +39,7 @@ const CatalogCategory: NextPage = () => {
     ) {
       setFetching(true);
     }
-  };
+  };  
 
 
   const getData = async () => {

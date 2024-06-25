@@ -226,6 +226,8 @@ const PointContent: FC<ICloseAside> = ({
     }, 300);
   }, [activeAccordionRef.current, activeAddress]);
 
+  console.log(mapData, pochtaMapData);
+
   const renderServicePoints = useCallback(() => {
     return (selectedService === 0 ? mapData : pochtaMapData).map(
       (item, index) => (

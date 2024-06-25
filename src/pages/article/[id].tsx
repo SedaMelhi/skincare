@@ -138,14 +138,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     );
   }
 
-  products = products.flatMap((productGroup) => productGroup &&
-    Object.values(productGroup).filter((product: any) => product.id !== null)
+  products = products.flatMap(
+    (productGroup) =>
+      productGroup &&
+      Object.values(productGroup).filter((product: any) => product.id !== null)
   );
   // Преобразование price.basePrice в строку
   const transformPriceToString = (products: any[]) => {
     return products.map((product) => {
       const newScu: any = {};
-      if(product){
+      if (product) {
         for (const key in product.scu) {
           if (
             product.scu[key] &&
