@@ -60,7 +60,7 @@ const ProfileAside: FC<ProfileAsideProps> = ({
       id: 2,
     },
     {
-      text: 'адреса и карты',
+      text: 'адреса',
       link: '/profile/maps',
       active: activeMenu === 3 ? true : false,
       id: 3,

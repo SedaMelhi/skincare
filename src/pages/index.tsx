@@ -56,6 +56,7 @@ const Home: NextPage<{
     dispatch(setFooterData(data));
     dispatch(setHits(hits));
   }, [data]);
+  console.log(slider);
 
   return (
     <HomePage
