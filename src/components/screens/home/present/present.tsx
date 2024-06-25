@@ -75,7 +75,7 @@ const Present: FC = () => {
                             picture ? { backgroundImage: `url("${API_DOMAIN}${picture}")` } : {}
                           }></div>
                         <h3 className={style.subtitle}>{name}</h3>
-                        <div className={style.price}>{value} ₽</div>
+                        <div className={style.price}>{parseFloat(value).toString()} ₽</div>
                       </Link>
                     </SwiperSlide>
                   ))}

@@ -22,7 +22,10 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+// import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowDownwardIcon from "../../../../../public/arrowDown.svg";
+import ArrowAccordIcon from "../../../../../public/arrowAccord.svg";
+
 import {
   fetchAddresses,
   fetchAddressesList,
@@ -39,6 +42,7 @@ interface IWorkTimeList {
 interface IAddressObj {
   geometry: { coordinates: number[]; type: string };
   id: string;
+  code: string;
   properties: {
     balloonContentBody: string;
     balloonContentFooter: string;
@@ -127,6 +131,19 @@ const PointContent: FC<ICloseAside> = ({
   const handleSaveAddress = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, address: IAddressObj) => {
       e.preventDefault();
+      if (selectedService === 0) {
+        fetch("https://b.skincareagents.com/local/api/v1/user.php", {
+          method: "POST",
+          body: JSON.stringify({
+            type: "addAddress",
+            token: localStorage.getItem("token"),
+            typeId: "1",
+            code: address.code,
+          }),
+        })
+          .then((res) => res.json())
+          .then((res) => {});
+      }
       dispatch(setAddress({ full_address: address.address }));
       closeAside();
     },
@@ -211,6 +228,8 @@ const PointContent: FC<ICloseAside> = ({
     }, 300);
   }, [activeAccordionRef.current, activeAddress]);
 
+  console.log(mapData, pochtaMapData);
+
   const renderServicePoints = useCallback(() => {
     return (selectedService === 0 ? mapData : pochtaMapData).map(
       (item, index) => (
@@ -226,21 +245,25 @@ const PointContent: FC<ICloseAside> = ({
           onChange={handleAccordionChange(item)}
         >
           <AccordionSummary
-            expandIcon={<ArrowDownwardIcon />}
+            className={style.title}
+            expandIcon={<img src={ArrowAccordIcon.src} />}
             aria-controls={`panel${item.id}bh-content`}
             id={`panel${item.id}bh-header`}
           >
-            <Typography>{item.address}</Typography>
+            {expandedAddress === `panel${item.id}` ? (
+              <div className={style.address}>
+                <div className={style.service}>
+                  {selectedService === 0 ? "сдэк" : "почта россии"}
+                </div>
+                <div>{activeAddress.properties.balloonContentHeader}</div>
+              </div>
+            ) : (
+              <div className={style.address}>{item.address}</div>
+            )}
           </AccordionSummary>
           <AccordionDetails>
             {activeAddress && activeAddress.id === item.id && (
               <div className={style.middle}>
-                <div className={style.title}>
-                  {selectedService === 0 ? "сдэк" : "почта россии"}
-                </div>
-                <div className={style.address}>
-                  {activeAddress.properties.balloonContentHeader}
-                </div>
                 <div className={style.subtitle_price}>СТОИМОСТЬ</div>
                 <div className={style.delivery_price}>350 ₽</div>
                 <div className={style.subtitle}>Режим работы</div>

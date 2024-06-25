@@ -24,6 +24,7 @@ interface IWorkTimeList {
 export interface IMapData {
   geometry: { coordinates: number[]; type: string };
   id: string;
+  code: string;
   properties: {
     balloonContentBody: string;
     balloonContentFooter: string;

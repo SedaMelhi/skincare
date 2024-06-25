@@ -14,6 +14,7 @@ import style from './filters.module.sass';
 const Filters: FC = () => {
   const [filters, setFilters] = useState<any>(null);
   const [checkbox, setCheckbox] = useState('null');
+  const checkboxFilters = useSelector((state: any) => state.catalog.checkboxFilters);
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,15 +22,14 @@ const Filters: FC = () => {
     res.then((res) => setFilters(res));
   }, []);
   useEffect(() => {
-    console.log(filters);
-    const obj: any = {};
     if (filters) {
+      const newFilters: any = {};
       Object.keys(filters)
         .filter((item) => item[0] === 'S')
         .forEach((item) => {
-          obj[item] = [];
-        });
-      dispatch(setCheckboxFilters(obj));
+          newFilters[item] = checkboxFilters[item] || [];
+        });      
+      dispatch(setCheckboxFilters(newFilters));
     }
   }, [filters, router.query.id]);
 

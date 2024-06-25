@@ -25,7 +25,7 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
     ) {
       setFetching(true);
     }
-  };
+  };  
 
   const getData = async () => {
     const data = await CatalogService.getCatalog({
