@@ -24,14 +24,11 @@ const Catalog: NextPage = () => {
       products &&
       products.length < 20
     ) {
-      console.log(true);
-
       setFetching(true);
     }
   };
 
   const getData = async () => {
-    console.log('ok');
 
     const value: string = typeof router.query.search === 'string' ? router.query.search : '';
     fetch(API_URL + 'catalogue/index.php', {
@@ -52,7 +49,6 @@ const Catalog: NextPage = () => {
       });
 
     };
-    console.log("checkboxFilters", checkboxFilters);
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
@@ -68,7 +64,6 @@ const Catalog: NextPage = () => {
   useEffect(() => {
     if (Object.values(checkboxFilters).some((item: any) => item.length !== 0))
       FilterService.getData('', 'Y', 'popular', checkboxFilters).then((res) => setProducts(res.items));
-    // FilterService.getData('', 'Y', 'popular', checkboxFilters).then((res) => console.log(res));
     else getData();
   }, [checkboxFilters]);
 
