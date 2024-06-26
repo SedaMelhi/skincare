@@ -95,7 +95,6 @@ const DropDownMenu: FC<IMenuOpen> = ({ setMenuOpen, scroll }) => {
       }
     });
   }, []);
-  console.log(brands);
 
   return (
     <div className={style.catalog__wrap + ' ' + style[scroll]}>

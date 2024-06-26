@@ -20,11 +20,10 @@ interface PCMenuProps {
 const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const handleBrandClick = (id: string) => {
+  const handleBrandClick = (id: string, name: string) => {
     setMenuOpen((prev) => !prev);
-    console.log(1);
-    dispatch(setCheckboxFilters({ S1: [id] }));
-    router.push('/catalog/19');
+
+    router.push('/catalog?brandId=' + id + '&brandName=' + name);
   };
   return (
     <div>
@@ -54,7 +53,7 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
 
                   {brands[key].map(({ id, name }) => (
                     <div className={style.brands__item} key={id}>
-                      <div onClick={() => handleBrandClick(id)}>{name}</div>
+                      <div onClick={() => handleBrandClick(id, name)}>{name}</div>
                     </div>
                   ))}
                 </div>

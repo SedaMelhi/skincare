@@ -20,9 +20,9 @@ const CatalogPage: FC<{
   products: IProductArr;
   count: number;
   fetching: boolean;
-  search?: boolean;
   value?: string;
-}> = ({ products, count, fetching, search, value }) => {
+  brand?: string;
+}> = ({ products, count, fetching, value, brand }) => {
   const [name, setName] = useState<string>('');
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
@@ -39,22 +39,30 @@ const CatalogPage: FC<{
           <div className={style.width}>
             <div className={style.top}>
               <div className={style.flex}>
-{search ? (
+                {value ? (
                   <div className={style.subtitle}>Поиск по запросу</div>
+                ) : brand ? (
+                  <Breadcrumbs
+                    arr={[
+                      { text: 'Каталог', link: 'catalog' },
+                      { text: 'Бренды', link: 'catalog' },
+                      { text: brand, link: '' },
+                    ]}
+                  />
                 ) : (
-                 <Breadcrumbs
-                  arr={[
-                    { text: 'Каталог', link: 'catalog' },
-                    { text: name, link: '/catalog/1' },
-                  ]}
-                />
+                  <Breadcrumbs
+                    arr={[
+                      { text: 'Каталог', link: 'catalog' },
+                      { text: name, link: '/catalog/1' },
+                    ]}
+                  />
                 )}
                 <CountProducts count={count} />
               </div>
             </div>
             <div className={style.top}>
               <div className={`${style.flex}`}>
-                <h2 className={style.title}>{value ? value : name}</h2>
+                <h2 className={style.title}>{value ? value : brand ? brand : name}</h2>
               </div>
             </div>
           </div>
