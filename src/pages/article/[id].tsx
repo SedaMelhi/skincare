@@ -59,7 +59,6 @@ const Journal: NextPage<{ data: any; products: any }> = ({
         </div>
       </section>
       <div className={style.swiper__wrap}>
-        <div className={style.empty}></div>
         <div className={style.swiper}>
           <Swiper
             slidesPerView={4}

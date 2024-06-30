@@ -33,7 +33,7 @@ const CardProduct: FC<CardProductProps> = ({
   
   const sizes: string[] = [];
   const prices: number[] = [];
-
+console.log(scu)
   return (
     <Link href={`/product/${id}`} className={style.card}>
       <div style={available ? {} : { opacity: '.5' }} className={style.padding}>
@@ -58,7 +58,7 @@ const CardProduct: FC<CardProductProps> = ({
       {available ? (
         <div className={style.price}>
           {scu ? parseFloat(Object.values(scu)[0].price).toString() : ''} ₽{' '}
-          <span className={style.price__old}>2 234 ₽</span>
+          {/* <span className={style.price__old}>2 234 ₽</span> */}
         </div>
       ) : (
         <div className={style.text}>Нет в наличии</div>
