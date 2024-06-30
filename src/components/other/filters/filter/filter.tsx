@@ -18,14 +18,19 @@ const Filter: FC<{
   useEffect(() => {
     setTimeout(() => setFirstLoad(false), 600);
   }, []);
+
   const addCheckboxFilter = (i: string) => {
-    dispatch(
-      setCheckboxFilters(
-        checkboxFilters[id].some((item: any) => item === i)
-          ? { ...checkboxFilters, [id]: checkboxFilters[id].filter((item: any) => item !== i) }
-          : { ...checkboxFilters, [id]: [...checkboxFilters[id], i] },
-      ),
-    );
+    if (checkboxFilters[id]) {
+      dispatch(
+        setCheckboxFilters(
+          checkboxFilters[id].some((item: any) => item === i)
+            ? { ...checkboxFilters, [id]: checkboxFilters[id].filter((item: any) => item !== i) }
+            : { ...checkboxFilters, [id]: [...checkboxFilters[id], i] },
+        ),
+      );
+    } else {
+      dispatch(setCheckboxFilters({ ...checkboxFilters, [id]: [i] }));
+    }
   };
 
   return (

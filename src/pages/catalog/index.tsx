@@ -68,8 +68,6 @@ const Catalog: NextPage = () => {
     }
   }, [fetching]);
   useEffect(() => {
-    console.log(router.query.brandId);
-
     setProducts([]);
     setCurrentPage(0);
     setFetching(true);
