@@ -20,7 +20,6 @@ const Journal: NextPage<{ data: any; products: any }> = ({
   data,
   products,
 }) => {
-
   return (
     <Layout title="Статья">
       <section className={style.articles}>
@@ -52,73 +51,72 @@ const Journal: NextPage<{ data: any; products: any }> = ({
             className={style.articles__text}
             dangerouslySetInnerHTML={{ __html: data.description }}
           ></div>
-          <p className={style.articles__hits}>Хиты</p>
           <h2 className={style.articles__mentionedProducts}>
             упомянутые в статье
           </h2>
+          <div className={style.swiper__wrap}>
+            <div className={style.swiper}>
+              <Swiper
+                slidesPerView={3}
+                slidesPerGroup={3}
+                slideNextClass={style.nextSlide}
+                slidePrevClass={style.prevSlide}
+                slideActiveClass={style.activeSlide}
+                spaceBetween={20}
+                modules={[Navigation]}
+                navigation={{
+                  nextEl: ".next",
+                  prevEl: ".prev",
+                  enabled: true,
+                }}
+                breakpoints={{
+                  1200: {
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 16,
+                  },
+                  550: {
+                    slidesPerView: 2.3,
+                    slidesPerGroup: 2,
+                  },
+                  0: {
+                    slidesPerView: 1.6,
+                    slidesPerGroup: 1,
+                    spaceBetween: 16,
+                  },
+                }}
+              >
+                {products.map(
+                  ({
+                    id,
+                    name,
+                    smallPhoto,
+                    sectionCode,
+                    sectionName,
+                    pin,
+                    scu,
+                  }: any) => (
+                    <SwiperSlide key={id}>
+                      <CardProduct
+                        available={true}
+                        id={id}
+                        name={name}
+                        smallPhoto={smallPhoto}
+                        sectionCode={sectionCode}
+                        sectionName={sectionName}
+                        pin={pin}
+                        scu={scu}
+                      />
+                    </SwiperSlide>
+                  )
+                )}
+              </Swiper>
+            </div>
+          </div>
         </div>
       </section>
-      <div className={style.swiper__wrap}>
-        <div className={style.swiper}>
-          <Swiper
-            slidesPerView={4}
-            slidesPerGroup={3}
-            slideNextClass={style.nextSlide}
-            slidePrevClass={style.prevSlide}
-            slideActiveClass={style.activeSlide}
-            spaceBetween={20}
-            modules={[Navigation]}
-            navigation={{
-              nextEl: ".next",
-              prevEl: ".prev",
-              enabled: true,
-            }}
-            breakpoints={{
-              1200: {
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 3,
-                spaceBetween: 16,
-              },
-              550: {
-                slidesPerView: 2.3,
-                slidesPerGroup: 2,
-              },
-              0: {
-                slidesPerView: 1.6,
-                slidesPerGroup: 1,
-                spaceBetween: 16,
-              },
-            }}
-          >
-            {products.map(
-              ({
-                id,
-                name,
-                smallPhoto,
-                sectionCode,
-                sectionName,
-                pin,
-                scu,
-              }: any) => (
-                <SwiperSlide key={id}>
-                  <CardProduct
-                    available={true}
-                    id={id}
-                    name={name}
-                    smallPhoto={smallPhoto}
-                    sectionCode={sectionCode}
-                    sectionName={sectionName}
-                    pin={pin}
-                    scu={scu}
-                  />
-                </SwiperSlide>
-              )
-            )}
-          </Swiper>
-        </div>
-      </div>
     </Layout>
   );
 };
@@ -142,28 +140,32 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   products = products.flatMap((productGroup) =>
     Object.values(productGroup).filter((product: any) => product.id !== null)
-  )
-// Преобразование price.basePrice в строку
-const transformPriceToString = (products: any[]) => {
-  return products.map((product) => {
-    const newScu: any = {};
-    for (const key in product.scu) {
-      if (product.scu[key] && product.scu[key].price && typeof product.scu[key].price.basePrice === 'number') {
-        newScu[key] = {
-          ...product.scu[key],
-          price: product.scu[key].price.basePrice.toString(), // Преобразуем basePrice в строку
-        };
-      } else {
-        newScu[key] = product.scu[key];
+  );
+  // Преобразование price.basePrice в строку
+  const transformPriceToString = (products: any[]) => {
+    return products.map((product) => {
+      const newScu: any = {};
+      for (const key in product.scu) {
+        if (
+          product.scu[key] &&
+          product.scu[key].price &&
+          typeof product.scu[key].price.basePrice === "number"
+        ) {
+          newScu[key] = {
+            ...product.scu[key],
+            price: product.scu[key].price.basePrice.toString(), // Преобразуем basePrice в строку
+          };
+        } else {
+          newScu[key] = product.scu[key];
+        }
       }
-    }
-    return {
-      ...product,
-      scu: newScu,
-    };
-  });
-};
-    products = transformPriceToString(products);
+      return {
+        ...product,
+        scu: newScu,
+      };
+    });
+  };
+  products = transformPriceToString(products);
 
   return {
     props: { data, products },

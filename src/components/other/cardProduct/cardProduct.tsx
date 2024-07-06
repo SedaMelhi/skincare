@@ -33,7 +33,6 @@ const CardProduct: FC<CardProductProps> = ({
   
   const sizes: string[] = [];
   const prices: number[] = [];
-console.log(scu)
   return (
     <Link href={`/product/${id}`} className={style.card}>
       <div style={available ? {} : { opacity: '.5' }} className={style.padding}>
