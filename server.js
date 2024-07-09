@@ -25,11 +25,11 @@ app.prepare().then(() => {
     return handle(req, res);
   });
   // //для хостинга
-  // https.createServer(httpsOptions, server).listen(443, () => {
-  //   console.log('> Ready on https://localhost:3000');
-  // });
-  // для локалки
-  https.createServer(httpsOptions, server).listen(3000, () => {
+  https.createServer(httpsOptions, server).listen(443, () => {
     console.log('> Ready on https://localhost:3000');
   });
+  // для локалки
+  // https.createServer(httpsOptions, server).listen(3000, () => {
+  //   console.log('> Ready on https://localhost:3000');
+  // });
 });
