@@ -28,30 +28,26 @@ const BasketProduct: FC<IbasketData> = ({
   setBasketArr,
   setPricesObj,
 }) => {
-  const [activeScu, setActiveScu] = useState<any>(
-    parentItem?.SCU ? parentItem?.SCU.filter(({ id, value }) => id === scuId) : scuId,
+  const [activeScu, setActiveScu] = useState(
+    parentItem?.SCU.filter(({ id, value }) => id === scuId),
   );
   const uniqueColors: any = {};
   const [uniqueScuColor, setUniqueScuColor] = useState<(IShade | false)[]>(
-    parentItem?.SCU
-      ? parentItem?.SCU.map((item) => {
-          if (item.shade && !uniqueColors[item.shade.NAME] && activeScu[0].value === item.value) {
-            uniqueColors[item.shade.NAME] = true;
-            return item.shade;
-          }
-          return false;
-        }).filter((item) => item)
-      : [],
+    parentItem?.SCU.map((item) => {
+      if (item.shade && !uniqueColors[item.shade.NAME] && activeScu[0].value === item.value) {
+        uniqueColors[item.shade.NAME] = true;
+        return item.shade;
+      }
+      return false;
+    }).filter((item) => item),
   );
-  const uniqueScuValue: string[] = activeScu[0]
-    ? Array.from(
-        new Set(
-          parentItem?.SCU.map(({ value, shade }) =>
-            shade?.ID === activeScu[0].shade?.ID ? value : '',
-          ),
-        ),
-      ).filter((item) => item !== '')
-    : [];
+  const uniqueScuValue: string[] = Array.from(
+    new Set(
+      parentItem?.SCU.map(({ value, shade }) =>
+        shade?.ID === activeScu[0].shade?.ID ? value : '',
+      ),
+    ),
+  ).filter((item) => item !== '');
 
   const handleRemoveScuToCart = (cartId: number) => {
     const data = removeSCUToCartService.removeSCUToCart(cartId);
@@ -90,8 +86,6 @@ const BasketProduct: FC<IbasketData> = ({
       if (res.status === 'ok') {
         const data = getCartService.getCart();
         data.then((res) => {
-          console.log(res);
-
           setPricesObj && setPricesObj(res.basket);
           setBasketArr && setBasketArr(Object.values(res.cartItems));
         });
