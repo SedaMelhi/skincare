@@ -21,17 +21,19 @@ const Filters: FC = () => {
     const res = FilterService.getFilterItems(router.query.id);
     res.then((res) => setFilters(res));
   }, []);
-  useEffect(() => {
-    if (filters) {
-      const newFilters: any = {};
-      Object.keys(filters)
-        .filter((item) => item[0] === 'S')
-        .forEach((item) => {
-          newFilters[item] = checkboxFilters[item] || [];
-        });      
-      dispatch(setCheckboxFilters(newFilters));
-    }
-  }, [filters, router.query.id]);
+  // useEffect(() => {
+  //   if (filters) {
+  //     const newFilters: any = {};
+  //     Object.keys(filters)
+  //       .filter((item) => item[0] === 'S')
+  //       .forEach((item) => {
+  //         console.log(checkboxFilters[item]);
+
+  //         newFilters[item] = checkboxFilters[item] || [];
+  //       });
+  //     dispatch(setCheckboxFilters(newFilters));
+  //   }
+  // }, [filters, router.query.id]);
 
   useEffect(() => {
     dispatch(setDiscountFilter(checkbox));

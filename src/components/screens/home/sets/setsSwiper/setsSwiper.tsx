@@ -6,11 +6,12 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import style from './../sets.module.sass';
 import SetsSubSwiper from './../setsSubSwiper/setsSubSwiper';
+import { addSCUToCartService } from '@/services/cart.service';
 
 type SetsSwiperProps = {
   slidesPerView: number;
   sets?: Array<{
-    id: string;
+    id: number;
     name: string;
     description: string;
     picture: string;
@@ -21,7 +22,10 @@ type SetsSwiperProps = {
 
 const SetsSwiper: FC<SetsSwiperProps> = ({ slidesPerView, sets }) => {
   const setsArr = sets ? Object.values(sets).splice(0, Object.values(sets).length - 1) : [];
-
+  const addSetsToCart = (id: number) => {
+    addSCUToCartService.addSCUToCart(id, 1);
+    console.log(id);
+  };
   return (
     <Swiper
       modules={[Navigation]}
@@ -50,7 +54,9 @@ const SetsSwiper: FC<SetsSwiperProps> = ({ slidesPerView, sets }) => {
           </div>
           <div className={style.button + ' wrap'}>
             <div className={style.btn__wrap}>
-              <button className={style.btn}>Купить сет — {parseFloat(price).toString()} ₽</button>
+              <button className={style.btn} onClick={() => addSetsToCart(id)}>
+                Купить сет — {parseFloat(price).toString()} ₽
+              </button>
             </div>
           </div>
         </SwiperSlide>

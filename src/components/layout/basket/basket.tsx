@@ -35,12 +35,12 @@ const Basket: FC = () => {
   const handleBtnClick = () => {
     router.push('/placing');
   };
+  console.log(basketArr);
 
   useEffect(() => {
     if (localStorage.getItem('saleUserId')) {
       const data = getCartService.getCart();
       data.then((res) => {
-        console.log('res', res);
         setPricesObj(res.basket);
         if (res.cartItems) {
           setBasketArr(Object.values(res.cartItems));
