@@ -26,6 +26,7 @@ const PurchasesPage: FC = () => {
     userInfoService.getUserInfo().then(setUserDataServer);
     orderListService.getOrderList(false).then((res) => setData(Object.values(res)));
   }, []);
+  console.log(data);
 
   return (
     <Layout title={'Мои покупки'}>

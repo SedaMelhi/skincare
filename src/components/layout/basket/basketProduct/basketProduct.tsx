@@ -29,7 +29,7 @@ const BasketProduct: FC<IbasketData> = ({
   setPricesObj,
 }) => {
   const [activeScu, setActiveScu] = useState(
-    parentItem ? parentItem.SCU?.filter(({ id, value }) => id === scuId) : scuId,
+    parentItem?.SCU?.filter(({ id, value }) => id === scuId),
   );
   const uniqueColors: any = {};
   const [uniqueScuColor, setUniqueScuColor] = useState<(IShade | false)[]>(
@@ -106,7 +106,6 @@ const BasketProduct: FC<IbasketData> = ({
       });
     }
   };
-  console.log(activeScu);
 
   return (
     <div className={style.row} key={scuId}>
@@ -156,18 +155,22 @@ const BasketProduct: FC<IbasketData> = ({
                     ),
                 )}
               </div>
-              <div className={style.sizes}>
-                {uniqueScuValue?.map((value, i) => (
-                  <div
-                    className={
-                      style.size + ' ' + (activeScu[0].value === value ? style.active : '')
-                    }
-                    key={i}
-                    onClick={() => handleSizeClick(value, cartId)}>
-                    {value}
-                  </div>
-                ))}
-              </div>
+              {uniqueScuValue[0] ? (
+                <div className={style.sizes}>
+                  {uniqueScuValue?.map((value, i) => (
+                    <div
+                      className={
+                        style.size + ' ' + (activeScu[0].value === value ? style.active : '')
+                      }
+                      key={i}
+                      onClick={() => handleSizeClick(value, cartId)}>
+                      {value}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
 
             <div>

@@ -1,8 +1,8 @@
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-
-import style from './smallProducts.module.sass';
 import Link from 'next/link';
 import { API_DOMAIN } from '@/services';
+
+import style from './smallProducts.module.sass';
 
 interface SmallProductPropsArr {
   products: { id: number; image: string }[];
@@ -55,7 +55,7 @@ const SmallProducts: FC<SmallProductPropsArr> = ({ products, setIsOpen, size }) 
                   <div
                     key={id}
                     className={size === 'big' ? style.card : style.card__small}
-                    style={{ backgroundImage: `url(${API_DOMAIN + image})` }}></div>
+                    style={image ? { backgroundImage: `url(${API_DOMAIN + image})` } : {}}></div>
                 </Link>
               )
             ) : (

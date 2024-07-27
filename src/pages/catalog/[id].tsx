@@ -1,10 +1,12 @@
 import { GetServerSideProps, NextPage } from 'next';
 import { CatalogService, FilterService } from '@/services/catalog.service';
 import { IProductArr } from '@/interfaces/products.interface';
-import CatalogPage from '@/components/screens/catalog/CatalogPage';
+
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
+
+import CatalogPage from '@/components/screens/catalog/CatalogPage';
 
 const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
   const [products, setProducts] = useState<IProductArr>(data && data.items ? data.items : []);
