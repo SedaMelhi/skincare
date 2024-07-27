@@ -51,7 +51,7 @@ const Text: FC<{
       ]);
   });
   const addFavorite = () => {
-    const res = favoriteService.addFavorite(activeScu.id);
+    const res = favoriteService.addFavorite(Number(product.id));
     // res.then((data) => console.log(data));
   };
   const [activeColor, setActiveColor] = useState<string>(colors[0] ? colors[0].id : '0');

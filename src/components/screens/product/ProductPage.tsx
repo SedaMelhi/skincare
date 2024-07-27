@@ -1,19 +1,19 @@
-import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import { FC, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 
-import Layout from '@/components/layout/Layout';
-import Breadcrumbs from '@/components/other/breadcrumbs/breadcrumbs';
-import Slider from './slider/slider';
-import TabPanel from './tabPanel/tabPanel';
-import Text from './text/Text';
-import HitsSwiper from '@/components/screens/home/hits/hitsSwiper/hitsSwiper';
-import { CatalogService } from '@/services/catalog.service';
-import { IProduct, IScu } from '@/interfaces/products.interface';
+import Layout from "@/components/layout/Layout";
+import Breadcrumbs from "@/components/other/breadcrumbs/breadcrumbs";
+import Slider from "./slider/slider";
+import TabPanel from "./tabPanel/tabPanel";
+import Text from "./text/Text";
+import HitsSwiper from "@/components/screens/home/hits/hitsSwiper/hitsSwiper";
+import { CatalogService } from "@/services/catalog.service";
+import { IProduct, IScu } from "@/interfaces/products.interface";
 
-import askSvg from './../../../../public/ask.svg';
+import askSvg from "./../../../../public/ask.svg";
 
-import style from './product.module.sass';
+import style from "./product.module.sass";
 
 const ProductPage: FC<{ data: IProduct }> = ({ data }) => {
   const hits = useSelector((state: any) => state.hits.hits);
@@ -22,13 +22,17 @@ const ProductPage: FC<{ data: IProduct }> = ({ data }) => {
   const scu: IScu[] | null = product.scu ? Object.values(product.scu) : null;
   const router = useRouter();
 
+  console.log(data);
+
   const [activeScu, setActiveScu] = useState<IScu | null>(null);
 
   useEffect(() => {
     let temp: string[] = [];
     if (product) {
       if (activeScu) {
-        activeScu.photos && activeScu.photos.length > 0 && temp.push(...activeScu.photos);
+        activeScu.photos &&
+          activeScu.photos.length > 0 &&
+          temp.push(...activeScu.photos);
       }
       temp = temp.filter((item) => item !== null);
       if (temp.length === 0) {
@@ -55,14 +59,19 @@ const ProductPage: FC<{ data: IProduct }> = ({ data }) => {
       <div className={`wrap ${style.wrap}`}>
         <Breadcrumbs
           arr={[
-            { text: 'Каталог', link: '/catalog/' + product.sectionCode },
-            { text: 'Волосы', link: '/catalog/' + product.sectionCode },
-            { text: product.name, link: '/product/' + product.id },
+            { text: "Каталог", link: "/catalog/" + product.sectionCode },
+            { text: "Волосы", link: "/catalog/" + product.sectionCode },
+            { text: product.name, link: "/product/" + product.id },
           ]}
         />
         <section className={style.product}>
           <Slider detailPhoto={images} />
-          <Text product={product} scu={scu} setActiveScu={setActiveScu} activeScu={activeScu} />
+          <Text
+            product={product}
+            scu={scu}
+            setActiveScu={setActiveScu}
+            activeScu={activeScu}
+          />
         </section>
         <div className={style.quenstion__wrap}>
           <div className={style.quenstion}>

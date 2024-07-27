@@ -7,7 +7,6 @@ import { favoriteService, userInfoService } from "@/services/profile.service";
 import { useEffect, useState } from "react";
 import { IUserData } from "@/components/screens/profile/profilePage";
 import ProfileTitle from "@/components/screens/profile/profileTitle/Title";
-import Tab from "@/components/other/tab/tab";
 import CardProduct from "@/components/other/cardProduct/cardProduct";
 import { useRouter } from "next/router";
 
@@ -37,7 +36,6 @@ const Favorite: NextPage = () => {
   const handleStockChange = (inStock: number) => {
     console.log(`inStock parameter changed to: ${inStock}`);
     console.log(favorites);
-    // Ваша логика здесь
   };
 
   return (
@@ -53,7 +51,7 @@ const Favorite: NextPage = () => {
           </div>
           <div className={style.width}>
             <ProfileTitle title="фавориты" link={true} />
-            <div className={style.tabs}>
+            {/* <div className={style.tabs}>
               <Tab
                 text="в наличии"
                 link="?inStock=1"
@@ -64,7 +62,7 @@ const Favorite: NextPage = () => {
                 link="?inStock=0"
                 active={inStock === "0"}
               />
-            </div>
+            </div> */}
             <div className={style.cards}>
               <div className={style.card}>
                 <CardProduct available={true} />

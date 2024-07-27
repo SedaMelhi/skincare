@@ -22,7 +22,7 @@ export const userInfoService = {
     return data;
   },
   async getPoints(): Promise<any> {
-    const { data } = await axios.post('/user.php', {
+    const { data } = await axios.post('/v1/user.php', {
       type: 'getPoint',
       token: localStorage.getItem('token'),
     });
@@ -93,14 +93,14 @@ export const orderListService = {
 
 export const addCertificateService = {
   async addCertificate(): Promise<any> {
-    const { data } = await axios.post('/user.php', {
+    const { data } = await axios.post('/v1/user.php', {
       type: 'addCertificate',
       token: localStorage.getItem('token'),
     });
     return data;
   },
   async getCertificates(): Promise<any> {
-    const { data } = await axios.post('/user.php', {
+    const { data } = await axios.post('/v1/user.php', {
       type: 'getCertificates',
       token: localStorage.getItem('token'),
     });
