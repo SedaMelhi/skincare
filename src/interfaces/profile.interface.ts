@@ -2,10 +2,11 @@ export interface IOrderItem {
   id: string;
   name: string;
   price: number;
+  dateDelivery: string;
   deliveryPrice: string;
   allPrice: string;
   status: string;
-  address: null;
+  address: string;
   items: { [key: string]: IProductOrder };
 }
 export interface IProductOrder {

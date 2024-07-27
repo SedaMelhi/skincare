@@ -58,11 +58,8 @@ const RegistrationPage: FC = () => {
           password
         );
         if (data.status === "ok") {
-          const token = await getTokenService.getToken(phone, password);
-          localStorage.setItem("token", token);
-          if (token) {
-            router.push("/authorization/numberconfirmed");
-          }
+          sessionStorage.setItem("id", data.id);
+          router.push("/authorization/confirmed");
         } else {
           setServerErr(data.MESSAGE.replace(/<br>/g, " "));
         }

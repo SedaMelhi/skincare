@@ -1,17 +1,20 @@
-import { NextPage } from 'next';
-import Link from 'next/link';
+import { NextPage } from "next";
+import Link from "next/link";
 
-import Layout from '@/components/layout/Layout';
+import Layout from "@/components/layout/Layout";
 
-import style from './authorization.module.sass';
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { recoveryUserPassService, userCheckCodeService } from '@/services/auth.service';
-import CountdownTimer from '@/components/other/countdownTimer/countdownTimer';
+import style from "./authorization.module.sass";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import {
+  recoveryUserPassService,
+  userCheckCodeService,
+} from "@/services/auth.service";
+import CountdownTimer from "@/components/other/countdownTimer/countdownTimer";
 
 const SmsCode: NextPage = () => {
-  const [phoneCode, setPhoneCode] = useState('');
-  const [error, setError] = useState('');
+  const [phoneCode, setPhoneCode] = useState("");
+  const [error, setError] = useState("");
   const [endTimer, setEndTimer] = useState(false);
   const [isRestart, setIsRestart] = useState(0);
   const router = useRouter();
@@ -22,17 +25,17 @@ const SmsCode: NextPage = () => {
 
   const sendData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const userId = sessionStorage.getItem('id')!;
+    const userId = sessionStorage.getItem("id")!;
     const data = await userCheckCodeService.userCheckCode(userId, phoneCode);
-    if (data.status === 'ok') {
-      router.push('newpassword');
+    if (data.status === "ok") {
+      router.push("newpassword");
     } else {
-      setError('Код неверный.');
+      setError("Код неверный.");
     }
   };
 
   const sendCodeAgain = async () => {
-    console.log('again');
+    console.log("again");
     setEndTimer(false);
     const phone = router.query.phone as string;
     console.log(phone);
@@ -47,31 +50,45 @@ const SmsCode: NextPage = () => {
           <Link href="email" className={style.btn2}>
             Через электронную почту
           </Link>
-          <Link href="phone" className={style.btn2 + ' ' + style.btn2_active}>
+          <Link href="phone" className={style.btn2 + " " + style.btn2_active}>
             Через номер телефона
           </Link>
         </div>
-        <p className={style.subtitle + ' ' + style.subtitle_margin}>
+        <p className={style.subtitle + " " + style.subtitle_margin}>
           Проверьте ваши SMS и введите код:
         </p>
         <form action="" onSubmit={sendData}>
-          <input className={style.input_field} type="password" placeholder="Код *" required />
-          <button className={style.btn + ' ' + style.btn_margin}>подтвердить</button>
+          <input
+            className={style.input_field}
+            type="password"
+            placeholder="Код *"
+            required
+            value={phoneCode}
+            onChange={(e) => setPhoneCode(e.target.value)}
+          />
+          {error && <div className={style.error_message}>{error}</div>}
+          <button className={style.btn + " " + style.btn_margin}>
+            подтвердить
+          </button>
         </form>
-        <p className={style.cta + ' ' + style.cta_margin}>
-          Не получили SMS? <Link href="#">Поменять номер телефона</Link> или{' '}
-          <button className={style.link_btn} disabled={!endTimer} onClick={sendCodeAgain}>
+        <p className={style.cta + " " + style.cta_margin}>
+          Не получили SMS? <Link href="phone">Поменять номер телефона</Link> или{" "}
+          <button
+            className={style.link_btn}
+            disabled={!endTimer}
+            onClick={sendCodeAgain}
+          >
             Отправить повторно
-          </button>{' '}
+          </button>{" "}
           {!endTimer && (
             <>
-              (через :{' '}
+              (через :{" "}
               <CountdownTimer
                 changeEndState={changeTimerEnd}
                 initialMinutes={0}
                 initialSeconds={10}
                 isRestart={isRestart}
-              />{' '}
+              />{" "}
               секунд)
             </>
           )}

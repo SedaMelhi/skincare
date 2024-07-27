@@ -1,10 +1,13 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { setIsAddressOpen, setType } from "@/redux/addressSlice/addressSlice";
+
 
 import Layout from "@/components/layout/Layout";
 import ProfileTitle from "../profile/profileTitle/Title";
 import ProfileAside from "../profile/profileAside/profileAside";
+
 import Footer from "@/components/layout/footer/footer";
 import Tab from "@/components/other/tab/tab";
 import InfoBlock from "./infoBlock/infoBlock";
@@ -21,7 +24,6 @@ import { IUserData } from "../profile/profilePage";
 import { userInfoService } from "@/services/profile.service";
 
 const MapsPage: FC = () => {
-  const [activeEl, setActiveEl] = useState(0);
   const [activeTab, setActiveTab] = useState(1);
   const dispatch = useDispatch();
   const [address, setAddress] = useState<{ id: number; addressDetail: any }[]>(
@@ -123,30 +125,18 @@ const MapsPage: FC = () => {
                 </div>
               ))}
 
-            <div className={style.btn} onClick={handleAddAddress}>
+
+            <div
+              className={style.btn}
+              onClick={() => dispatch(setIsAddressOpen(true))}
+            >
+
               <Button
                 text="добавить новый адрес"
                 height="44px"
                 fontSize="14px"
               />
-            </div>
-            <div className={style.pay}>
-              <ProfileTitle title="способ оплаты" link={false} />
-              <div className={style.items}>
-                <PayCard activeEl={activeEl} setActiveEl={setActiveEl} />
-                <BasicPayCard
-                  activeEl={activeEl}
-                  setActiveEl={setActiveEl}
-                  number={1}
-                  image={plusSvg.src}
-                />
-                <BasicPayCard
-                  activeEl={activeEl}
-                  setActiveEl={setActiveEl}
-                  number={2}
-                  image={sbpPng.src}
-                />
-              </div>
+
             </div>
           </div>
         </div>
