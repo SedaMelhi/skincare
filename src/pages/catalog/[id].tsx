@@ -1,28 +1,21 @@
-import { GetServerSideProps, NextPage } from "next";
-import { CatalogService, FilterService } from "@/services/catalog.service";
-import { IProductArr } from "@/interfaces/products.interface";
-import CatalogPage from "@/components/screens/catalog/CatalogPage";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { GetServerSideProps, NextPage } from 'next';
+import { CatalogService, FilterService } from '@/services/catalog.service';
+import { IProductArr } from '@/interfaces/products.interface';
+
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
+
+import CatalogPage from '@/components/screens/catalog/CatalogPage';
 
 const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
-  const [products, setProducts] = useState<IProductArr>(
-    data && data.items ? data.items : []
-  );
-  const [initialProducts, setInitialProducts] = useState<IProductArr>(
-    data && data.items ? data.items : []
-  );
+  const [products, setProducts] = useState<IProductArr>(data && data.items ? data.items : []);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [fetching, setFetching] = useState(false);
-  const [hasMoreData, setHasMoreData] = useState(
-    data.items.length < data.count
-  ); // чтобы скролл не подгружал если нет данных по фильтру 
-  const checkboxFilters = useSelector(
-    (state: any) => state.catalog.checkboxFilters
-  );
-  const discountFilter = useSelector(
-    (state: any) => state.catalog.discountFilter
-  );
+  const dispatch = useDispatch();
+  const checkboxFilters = useSelector((state: any) => state.catalog.checkboxFilters);
+  const discountFilter = useSelector((state: any) => state.catalog.discountFilter);
   const min_price = useSelector((state: any) => state.catalog.discountFilter);
   const max_price = useSelector((state: any) => state.catalog.discountFilter);
 
@@ -35,42 +28,36 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
     if (
       scrolledToEnd &&
       products.length < data.count &&
-      hasMoreData &&
-      !fetching
+      !fetching &&
+      !Object.values(checkboxFilters).some((item: any) => item.length !== 0)
     ) {
       setFetching(true);
     }
   };
 
   const getData = async () => {
-    if (!hasMoreData) return; // Останавливаем выполнение, если больше нечего загружать
-
-    const newPage = currentPage + 1;
-    const response = await CatalogService.getCatalog({
-      type: "getItemsList",
-      offset: 12 * currentPage,
-      limit: 12,
-      sectionId: id,
-    });
-
-    if (response.items && response.items.length > 0) {
-      setProducts((prevProducts) => [...prevProducts, ...response.items]);
-      setCurrentPage(newPage);
-      if (response.items.length < 12) {
-        setHasMoreData(false);
+    if (!Object.values(checkboxFilters).some((item: any) => item.length !== 0)) {
+      const newPage = currentPage + 1;
+      const response = await CatalogService.getCatalog({
+        type: 'getItemsList',
+        offset: 12 * currentPage,
+        limit: 12,
+        sectionId: id,
+      });
+      if (response.items && response.items.length > 0) {
+        setProducts((prevProducts) => [...prevProducts, ...response.items]);
+        setCurrentPage(newPage);
       }
-    } else {
-      setHasMoreData(false);
     }
     setFetching(false);
   };
 
   useEffect(() => {
-    document.addEventListener("scroll", scrollHandler);
+    document.addEventListener('scroll', scrollHandler);
     return function () {
-      document.removeEventListener("scroll", scrollHandler);
+      document.removeEventListener('scroll', scrollHandler);
     };
-  }, [products, data.count, hasMoreData]);
+  }, [products]);
 
   useEffect(() => {
     if (
@@ -80,16 +67,11 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
       setProducts(
         data.items
           ? data.items.length > 8
-            ? [
-                ...data.items.slice(0, 8),
-                { id: "circle" },
-                ...data.items.slice(8),
-              ]
-            : [...data.items, { id: "circle" }]
-          : []
+            ? [...data.items.slice(0, 8), { id: 'circle' }, ...data.items.slice(8)]
+            : [...data.items, { id: 'circle' }]
+          : [],
       );
       setCurrentPage(1);
-      setHasMoreData(data.items.length < data.count); // Сбрасываем состояние при обновлении фильтров
     }
   }, [id, data.items, checkboxFilters]);
 
@@ -100,33 +82,28 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
   }, [fetching]);
 
   useEffect(() => {
-    if (
-      Object.values(checkboxFilters).some((item: any) => item.length !== 0) ||
-      discountFilter
-    ) {
-      FilterService.getData(
-        id,
-        discountFilter,
-        "popular",
-        checkboxFilters
-      ).then((res) => {
+    if (Object.values(checkboxFilters).length > 0) {
+      FilterService.getData(id, discountFilter, 'popular', checkboxFilters).then((res) => {
+        setCurrentPage(0);
         setProducts(res.items);
-        setHasMoreData(res.items.length < res.count); // Сбрасываем состояние при обновлении фильтров
+        console.log(res.items);
       });
-    } else {
-      setProducts(initialProducts);
-      setHasMoreData(initialProducts.length < data.count); // Сбрасываем состояние при обновлении фильтров
     }
   }, [checkboxFilters, discountFilter]);
 
-  return (
-    <CatalogPage products={products} count={data.count} fetching={fetching} />
-  );
+  useEffect(() => {
+    setProducts([]);
+    setCurrentPage(0);
+
+    dispatch(setCheckboxFilters({}));
+  }, [id]);
+
+  return <CatalogPage products={products} count={data.count} fetching={fetching} />;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const data = await CatalogService.getCatalog({
-    type: "getItemsList",
+    type: 'getItemsList',
     offset: 0,
     limit: 12,
     sectionId: context.params && context.params.id,

@@ -26,13 +26,13 @@ interface IWorkTimeList {
   time: string;
 }
 
-interface ICity {
+export interface ICity {
   name: string;
   coordinates: number[];
   code: number;
 }
 
-interface IAddressObj {
+export interface IAddressObj {
   code: string;
   name: string;
   uuid: string;

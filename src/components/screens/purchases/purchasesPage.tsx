@@ -14,6 +14,7 @@ const PurchasesPage: FC = () => {
       }
     });
   }, []);
+  console.log(data);
 
   return (
     <>

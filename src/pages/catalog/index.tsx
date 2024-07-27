@@ -35,8 +35,6 @@ const Catalog: NextPage = () => {
       dispatch(setCheckboxFilters({ S1: [router.query.brandId] }));
     } else if (router.query.search) {
       const value: string = typeof router.query.search === 'string' ? router.query.search : '';
-      console.log(value);
-
       fetch(API_URL + 'catalogue/index.php', {
         method: 'POST',
         body: JSON.stringify({
@@ -68,8 +66,7 @@ const Catalog: NextPage = () => {
     }
   }, [fetching]);
   useEffect(() => {
-    console.log(router.query.brandId);
-
+    dispatch(setCheckboxFilters({}));
     setProducts([]);
     setCurrentPage(0);
     setFetching(true);

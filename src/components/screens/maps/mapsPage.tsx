@@ -1,13 +1,22 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setIsAddressOpen } from "@/redux/addressSlice/addressSlice";
+
+import { setIsAddressOpen, setType } from "@/redux/addressSlice/addressSlice";
+
 
 import Layout from "@/components/layout/Layout";
 import ProfileTitle from "../profile/profileTitle/Title";
 import ProfileAside from "../profile/profileAside/profileAside";
+
+import Footer from "@/components/layout/footer/footer";
 import Tab from "@/components/other/tab/tab";
 import InfoBlock from "./infoBlock/infoBlock";
 import Button from "@/components/other/button/button";
+import PayCard from "./payCard/payCard";
+import BasicPayCard from "./basicPayCard/basicPayCard";
+
+import sbpPng from "./../../../../public/certificate/сбп.png";
+import plusSvg from "./../../../../public/certificate/plus.svg";
 
 import style from "./maps.module.sass";
 import { API_URL } from "@/services";
@@ -42,13 +51,21 @@ const MapsPage: FC = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res)
         setAddress(res["3"]);
       });
   };
   useEffect(() => {
     getNewAddress();
   }, [activeTab]);
+
+  const handleAddAddress = () => {
+    if (activeTab === 0) {
+      dispatch(setType("point"));
+    } else {
+      dispatch(setType("courier"));
+    }
+    dispatch(setIsAddressOpen(true));
+  };
 
   return (
     <Layout title={"Адреса"}>
@@ -95,7 +112,7 @@ const MapsPage: FC = () => {
                       ", " +
                       addressDetail.street +
                       (addressDetail.entrance
-                        ? ", подъез: " + addressDetail.entrance
+                        ? ", подъезд: " + addressDetail.entrance
                         : "") +
                       (addressDetail.floor
                         ? ", этаж: " + addressDetail.floor
@@ -108,15 +125,18 @@ const MapsPage: FC = () => {
                 </div>
               ))}
 
+
             <div
               className={style.btn}
               onClick={() => dispatch(setIsAddressOpen(true))}
             >
+
               <Button
                 text="добавить новый адрес"
                 height="44px"
                 fontSize="14px"
               />
+
             </div>
           </div>
         </div>

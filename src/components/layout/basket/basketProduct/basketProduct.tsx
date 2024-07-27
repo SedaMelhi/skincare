@@ -29,11 +29,11 @@ const BasketProduct: FC<IbasketData> = ({
   setPricesObj,
 }) => {
   const [activeScu, setActiveScu] = useState(
-    parentItem?.SCU.filter(({ id, value }) => id === scuId),
+    parentItem?.SCU?.filter(({ id, value }) => id === scuId),
   );
   const uniqueColors: any = {};
   const [uniqueScuColor, setUniqueScuColor] = useState<(IShade | false)[]>(
-    parentItem?.SCU.map((item) => {
+    parentItem?.SCU?.map((item) => {
       if (item.shade && !uniqueColors[item.shade.NAME] && activeScu[0].value === item.value) {
         uniqueColors[item.shade.NAME] = true;
         return item.shade;
@@ -43,7 +43,7 @@ const BasketProduct: FC<IbasketData> = ({
   );
   const uniqueScuValue: string[] = Array.from(
     new Set(
-      parentItem?.SCU.map(({ value, shade }) =>
+      parentItem?.SCU?.map(({ value, shade }) =>
         shade?.ID === activeScu[0].shade?.ID ? value : '',
       ),
     ),
@@ -86,8 +86,6 @@ const BasketProduct: FC<IbasketData> = ({
       if (res.status === 'ok') {
         const data = getCartService.getCart();
         data.then((res) => {
-          console.log(res);
-
           setPricesObj && setPricesObj(res.basket);
           setBasketArr && setBasketArr(Object.values(res.cartItems));
         });
@@ -108,6 +106,7 @@ const BasketProduct: FC<IbasketData> = ({
       });
     }
   };
+
   return (
     <div className={style.row} key={scuId}>
       <div className={style.top}>
@@ -129,7 +128,7 @@ const BasketProduct: FC<IbasketData> = ({
                 <div className={style.title}>{name}</div>
               </Link>
               <div className={style.colors}>
-                {uniqueScuColor.map(
+                {uniqueScuColor?.map(
                   (item) =>
                     item && (
                       <div className={style.color} key={item.ID}>
@@ -156,18 +155,22 @@ const BasketProduct: FC<IbasketData> = ({
                     ),
                 )}
               </div>
-              <div className={style.sizes}>
-                {uniqueScuValue.map((value, i) => (
-                  <div
-                    className={
-                      style.size + ' ' + (activeScu[0].value === value ? style.active : '')
-                    }
-                    key={i}
-                    onClick={() => handleSizeClick(value, cartId)}>
-                    {value}
-                  </div>
-                ))}
-              </div>
+              {uniqueScuValue[0] ? (
+                <div className={style.sizes}>
+                  {uniqueScuValue?.map((value, i) => (
+                    <div
+                      className={
+                        style.size + ' ' + (activeScu[0].value === value ? style.active : '')
+                      }
+                      key={i}
+                      onClick={() => handleSizeClick(value, cartId)}>
+                      {value}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                ''
+              )}
             </div>
 
             <div>
