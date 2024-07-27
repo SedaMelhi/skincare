@@ -4,12 +4,10 @@ import Link from 'next/link';
 import { IProductOrder } from '@/interfaces/profile.interface';
 import { API_DOMAIN } from '@/services';
 
-import image from "./../../../../public/about/1.png";
-
 
 import style from "./productLine.module.sass";
-import { IProductOrder } from "@/interfaces/profile.interface";
-import { API_DOMAIN } from "@/services";
+
+
 
 
 const ProductLine: FC<{ products: IProductOrder[] }> = ({ products }) => {
