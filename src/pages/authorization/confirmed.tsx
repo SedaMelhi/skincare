@@ -61,7 +61,7 @@ const Confirmed: NextPage = () => {
               className={style.input_field}
               type="password"
               placeholder="Код *"
-              maxLength={4}
+              maxLength={6}
               required
               value={phoneCode}
               onChange={(e) => setPhoneCode(e.target.value)}
