@@ -46,7 +46,7 @@ const Window: FC<PropsWithChildren<WindowProps>> = ({
     const dataArr = getCartService.getCart();
 
     dataArr.then((res) => {
-      console.log(res);
+     
 
       dispatch(setReduxBasketArr(Object.values(res.cartItems)));
       dispatch(setIsAddNewItem(true));

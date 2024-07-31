@@ -17,11 +17,11 @@ interface SetsProps {
   runningLine: RunningLineArray;
   sets: any;
 }
-//console.log(sets);
+
 
 const Sets: FC<SetsProps> = ({ isVisible, runningLine, sets }) => {
   return (
-    <section className={style.sets__wrap}>
+    <section className={style.sets__wrap + ' sets'}>
       <PinkMarquee isVisible={isVisible} runningLine={runningLine} />
       <div className={style.sets}>
         <h2 className={style.title}>сеты</h2>

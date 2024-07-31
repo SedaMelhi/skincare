@@ -42,14 +42,12 @@ const Journal: NextPage<{ data: any; mainItem: any; categoryList: IJournalCatLis
       limit: 12,
       categoryId: activeCatList || null,
     });
-    console.log(data);
 
     if (data.items && fetching) {
       setItems([...items, ...data.items]);
       setCurrentPage(currentPage + 1);
       setFetching(false);
     } else if (data.items) {
-      console.log(data.items);
       setCount(+data.count);
       setItems([...data.items]);
     }

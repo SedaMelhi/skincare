@@ -86,7 +86,6 @@ const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
       FilterService.getData(id, discountFilter, 'popular', checkboxFilters).then((res) => {
         setCurrentPage(0);
         setProducts(res.items);
-        console.log(res.items);
       });
     }
   }, [checkboxFilters, discountFilter]);

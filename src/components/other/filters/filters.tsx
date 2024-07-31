@@ -27,8 +27,6 @@ const Filters: FC = () => {
   //     Object.keys(filters)
   //       .filter((item) => item[0] === 'S')
   //       .forEach((item) => {
-  //         console.log(checkboxFilters[item]);
-
   //         newFilters[item] = checkboxFilters[item] || [];
   //       });
   //     dispatch(setCheckboxFilters(newFilters));

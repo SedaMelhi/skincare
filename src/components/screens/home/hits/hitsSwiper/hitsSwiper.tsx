@@ -33,8 +33,8 @@ const HitsSwiper: FC<HitsSwiperProps> = ({ slidesPerView, hits }) => {
       spaceBetween={20}
       modules={[Navigation]}
       navigation={{
-        nextEl: '.next',
-        prevEl: '.prev',
+        nextEl: '.next-hits',
+        prevEl: '.prev-hits',
         enabled: true,
       }}
       breakpoints={{
