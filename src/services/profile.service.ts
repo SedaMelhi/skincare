@@ -92,10 +92,12 @@ export const orderListService = {
 };
 
 export const addCertificateService = {
-  async addCertificate(): Promise<any> {
-    const { data } = await axios.post('/v1/user.php', {
-      type: 'addCertificate',
-      token: localStorage.getItem('token'),
+  async addCertificate(pin: number, number: string): Promise<any> {
+    const { data } = await axios.post("/v1/user.php", {
+      type: "addCertificate",
+      token: localStorage.getItem("token"),
+      pin,
+      number,
     });
     return data;
   },

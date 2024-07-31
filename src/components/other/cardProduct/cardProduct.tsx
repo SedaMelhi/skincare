@@ -18,6 +18,7 @@ interface CardProductProps {
   sectionCode?: string;
   sectionName?: string;
   smallPhoto?: string;
+  newInStock?: boolean;
 }
 
 const CardProduct: FC<CardProductProps> = ({
@@ -29,6 +30,7 @@ const CardProduct: FC<CardProductProps> = ({
   sectionCode,
   sectionName,
   smallPhoto,
+  newInStock
 }) => {
   
   const sizes: string[] = [];
@@ -56,12 +58,13 @@ const CardProduct: FC<CardProductProps> = ({
 
       {available ? (
         <div className={style.price}>
-          {scu ? parseFloat(Object.values(scu)[0].price).toString() : ''} ₽{' '}
+          {scu ? parseFloat(Object.values(scu)[0].price.basePrice).toString() : ''} ₽{' '}
           {/* <span className={style.price__old}>2 234 ₽</span> */}
         </div>
       ) : (
         <div className={style.text}>Нет в наличии</div>
       )}
+      {newInStock ? <div className={style.inStock}>Снова в наличии</div> : ""}
     </Link>
   );
 };
