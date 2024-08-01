@@ -8,12 +8,13 @@ import { addCertificateService } from "@/services/profile.service";
 
 const AddCertificateModal: FC = () => {
   const [pin, setPin] = useState<number>();
-  const [certificateNumber, setCertificateNumber] = useState<number>();
+  const [certificateNumber, setCertificateNumber] = useState<string>();
 
   const sendData = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(pin, certificateNumber);
-    await addCertificateService.addCertificate(5048, '5765-8824-2293-7728');
+    if (pin && certificateNumber) {
+      await addCertificateService.addCertificate(pin, certificateNumber);
+    }
   };
 
   return (
@@ -45,16 +46,16 @@ const AddCertificateModal: FC = () => {
           action=""
           onSubmit={sendData}
         >
-          <input
-            value={pin}
-            onChange={(event) => setPin(Number(event.target.value))}
-            placeholder="Код сертификата *"
-          />
-          <input
+          <Input
             value={certificateNumber}
             onChange={(event) =>
-              setCertificateNumber(Number(event.target.value))
+              setCertificateNumber(event.target.value)
             }
+            placeholder="Код сертификата *"
+          />
+          <Input
+            value={pin}
+            onChange={(event) => setPin(Number(event.target.value))}
             placeholder="ПИН-код *"
           />
           <Button text={"Добавить"} />

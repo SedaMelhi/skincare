@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import { setIsAddressOpen, setType } from "@/redux/addressSlice/addressSlice";
 
-
 import Layout from "@/components/layout/Layout";
 import ProfileTitle from "../profile/profileTitle/Title";
 import ProfileAside from "../profile/profileAside/profileAside";
@@ -51,7 +50,9 @@ const MapsPage: FC = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        setAddress(res["3"]);
+        if (res) {
+          setAddress(res["3"]);
+        }
       });
   };
   useEffect(() => {
@@ -125,18 +126,15 @@ const MapsPage: FC = () => {
                 </div>
               ))}
 
-
             <div
               className={style.btn}
               onClick={() => dispatch(setIsAddressOpen(true))}
             >
-
               <Button
                 text="добавить новый адрес"
                 height="44px"
                 fontSize="14px"
               />
-
             </div>
           </div>
         </div>

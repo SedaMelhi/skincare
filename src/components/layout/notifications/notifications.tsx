@@ -38,7 +38,7 @@ const Notifications: FC = () => {
     dispatch(setIsNotifications(false));
   };
 
-  if (!data || isLoading) {
+  if (isLoading) {
     return <></>;
   }
 
@@ -58,49 +58,69 @@ const Notifications: FC = () => {
         <div className={style.basket__wrap}>
           <div className={style.empty} onClick={closeBasket}></div>
           <div className={style.basket}>
-            <div className={style.padding}>
-              <div className={style.header}>
-                <div className={style.close}>
-                  <img src={closeSvg.src} alt="" onClick={closeBasket} />
-                </div>
-                <div className={style.bag}>
-                  <img src={notificationsSvg.src} alt="" />
-                  <div className={style.bag__text}>
-                    уведомления <span>({data.length})</span>
+            {data ? (
+              <div className={style.padding}>
+                <div className={style.header}>
+                  <div className={style.close}>
+                    <img src={closeSvg.src} alt="" onClick={closeBasket} />
+                  </div>
+                  <div className={style.bag}>
+                    <img src={notificationsSvg.src} alt="" />
+                    <div className={style.bag__text}>
+                      уведомления <span>({data.length})</span>
+                    </div>
                   </div>
                 </div>
+                <div className={style.content}>
+                  {[...data.reverse()].map((notification) =>
+                    notification.type === NotificationTypesEnum.AddPoints ? (
+                      <AddPoints
+                        notification={notification}
+                        key={`${notification.type}${notification.dateTime}`}
+                      />
+                    ) : notification.type ===
+                      NotificationTypesEnum.ExpirationPoints ? (
+                      <ExpirationPoints
+                        notification={notification}
+                        key={`${notification.type}${notification.dateTime}`}
+                      />
+                    ) : notification.type === NotificationTypesEnum.Product ? (
+                      <Product
+                        notification={notification}
+                        key={notification.id}
+                      />
+                    ) : notification.type === NotificationTypesEnum.Order ? (
+                      <Order
+                        notification={notification}
+                        key={notification.id}
+                      />
+                    ) : notification.type === NotificationTypesEnum.Delivery ? (
+                      <Delivery
+                        notification={notification}
+                        key={notification.id}
+                      />
+                    ) : (
+                      ""
+                    )
+                  )}
+                </div>
               </div>
-              <div className={style.content}>
-                {[...data.reverse()].map((notification) =>
-                  notification.type === NotificationTypesEnum.AddPoints ? (
-                    <AddPoints
-                      notification={notification}
-                      key={`${notification.type}${notification.dateTime}`}
-                    />
-                  ) : notification.type ===
-                    NotificationTypesEnum.ExpirationPoints ? (
-                    <ExpirationPoints
-                      notification={notification}
-                      key={`${notification.type}${notification.dateTime}`}
-                    />
-                  ) : notification.type === NotificationTypesEnum.Product ? (
-                    <Product
-                      notification={notification}
-                      key={notification.id}
-                    />
-                  ) : notification.type === NotificationTypesEnum.Order ? (
-                    <Order notification={notification} key={notification.id} />
-                  ) : notification.type === NotificationTypesEnum.Delivery ? (
-                    <Delivery
-                      notification={notification}
-                      key={notification.id}
-                    />
-                  ) : (
-                    ""
-                  )
-                )}
+            ) : (
+              <div className={style.padding}>
+                <div className={style.header}>
+                  <div className={style.close}>
+                    <img src={closeSvg.src} alt="" onClick={closeBasket} />
+                  </div>
+                  <div className={style.bag}>
+                    <img src={notificationsSvg.src} alt="" />
+                    <div className={style.bag__text}>
+                      уведомления <span>(0)</span>
+                    </div>
+                  </div>
+                </div>
+                <p>Уведомления отсутствуют</p>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
