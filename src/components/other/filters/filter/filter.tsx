@@ -1,17 +1,20 @@
 import { FC, useEffect, useState } from 'react';
 import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
 import minusSvg from './../../../../../public/catalog/minus.svg';
-
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 
 import style from './filter.module.sass';
+
 
 const Filter: FC<{
   name: any;
   items: { name: string; id: string }[];
   id: string;
 }> = ({ name, items, id }) => {
-  const [show, setShow] = useState(false);
+  const [renderItems, setRenderItems] = useState(items.filter((item, i) => i < 3));
+  const [isShow, setIsShow] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const [firstLoad, setFirstLoad] = useState(true);
   const checkboxFilters = useSelector((state: any) => state.catalog.checkboxFilters);
   const dispatch = useDispatch();
@@ -39,21 +42,29 @@ const Filter: FC<{
   };
   return (
     <div className={firstLoad ? style.load : ''}>
-      <input type="checkbox" className={style.title__input} id={name} />
-      <label className={style.title} htmlFor={name} onClick={() => setShow(true)}>
-        <span>{name} </span>
-        <div className={style.sign}>
-          <img src={minusSvg.src} alt="" />
-          <img src={minusSvg.src} alt="" />
-        </div>
-      </label>
-      <div className={style.params__wrap}>
-        <div className={style.params}>
-          {items.map((item, i) => (
+      <Accordion
+        className={style.accordion}
+      >
+        <AccordionSummary
+          className={style.params__wrap}
+          onClick={() => {
+            setRenderItems(items.filter((item, i) => i < 3))
+            setIsShow(false)
+            setIsOpen(prev => !prev)
+          }}>
+          <div className={style.title}>
+            <span>{name} </span>
+            <div className={style.sign}>
+              <img src={minusSvg.src} alt="" style={isOpen ? { opacity: '0' } : {}} />
+              <img src={minusSvg.src} alt="" />
+            </div>
+          </div>
+        </AccordionSummary>
+        <AccordionDetails className={style.params}>
+          {renderItems.map((item, i) => (
             <label
               className={style.item}
-              key={item.id}
-              style={i > 3 && show ? { display: 'none' } : {}}>
+              key={item.id}>
               <input
                 type="checkbox"
                 name={item.id}
@@ -66,16 +77,24 @@ const Filter: FC<{
                 onChange={() => addCheckboxFilter(item.id)}
               />
               <div className={style.input}></div>
-              {item.name}
+              <div className={style.input__text}>{item.name}</div>
             </label>
           ))}
-          <div className={style.show} onClick={() => setShow(!show)}>
+          <div className={style.renderItems} onClick={() => {
+            if (!isShow) {
+              setRenderItems(items)
+            } else {
+              setRenderItems(items.filter((item, i) => i < 3))
+            }
+
+            setIsShow(prev => !prev)
+          }}>
             <div className={style.line}></div>
-            <span>{show ? 'Показать все' : 'Скрыть'}</span>
+            <span>{!isShow ? 'Показать все' : 'Скрыть'}</span>
           </div>
-        </div>
-      </div>
-    </div>
+        </AccordionDetails>
+      </Accordion>
+    </div >
   );
 };
 
