@@ -35,10 +35,8 @@ const SmsCode: NextPage = () => {
   };
 
   const sendCodeAgain = async () => {
-    console.log("again");
     setEndTimer(false);
     const phone = router.query.phone as string;
-    console.log(phone);
     await recoveryUserPassService.recoveryUserPassPhone(phone);
     setIsRestart((prev) => prev + 1);
   };

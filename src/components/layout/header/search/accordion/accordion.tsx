@@ -55,7 +55,6 @@ const Accordion: FC<{ isOpen: boolean; setIsOpen: Dispatch<SetStateAction<boolea
       })
         .then((res) => res.json())
         .then((res: any) => {
-          console.log(res);
           setProducts(res.items);
           setCount(res.count);
         });

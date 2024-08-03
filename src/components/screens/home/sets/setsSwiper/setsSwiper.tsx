@@ -24,7 +24,6 @@ const SetsSwiper: FC<SetsSwiperProps> = ({ slidesPerView, sets }) => {
   const setsArr = sets ? Object.values(sets).splice(0, Object.values(sets).length - 1) : [];
   const addSetsToCart = (id: number) => {
     addSCUToCartService.addSCUToCart(id, 1);
-    console.log(id);
   };
   return (
     <Swiper

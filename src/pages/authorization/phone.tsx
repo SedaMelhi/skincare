@@ -23,8 +23,6 @@ const Phone: NextPage = () => {
     event.preventDefault();
 
     const data = await recoveryUserPassService.recoveryUserPassPhone(phone);
-
-    console.log(data);
     if (data.status === "ok") {
       sessionStorage.setItem("id", data.id);
       router.push(`smscode?phone=${phone}`);

@@ -9,6 +9,7 @@ import CountProducts from '@/components/other/countProducts/countProducts';
 import Filters from '@/components/other/filters/filters';
 import Sort from '@/components/other/sort/sort';
 import Products from '@/components/other/products/products';
+import Load from '@/components/other/load/load';
 
 import { IProductArr } from '@/interfaces/products.interface';
 
@@ -22,13 +23,19 @@ const CatalogPage: FC<{
   fetching: boolean;
   value?: string;
   brand?: string;
+  all?: boolean;
 }> = ({ products, count, fetching, value, brand }) => {
   const [name, setName] = useState<string>('');
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
 
   useEffect(() => {
-    setName(catalog ? catalog.filter(({ ID }) => ID == router.query.id)[0]?.NAME : '');
+    if (router.query.brandId) {
+      setName(router.query.brandName + '')
+    } else {
+      setName(catalog ? catalog.filter(({ ID }) => ID == router.query.id)[0]?.NAME || 'все' : '');
+    }
+
   }, [catalog, router, products]);
 
   return (
@@ -44,16 +51,16 @@ const CatalogPage: FC<{
                 ) : brand ? (
                   <Breadcrumbs
                     arr={[
-                      { text: 'Каталог', link: 'catalog' },
-                      { text: 'Бренды', link: 'catalog' },
+                      { text: 'Каталог', link: '/catalog' },
+                      { text: 'Бренды', link: '/catalog' },
                       { text: brand, link: '' },
                     ]}
                   />
                 ) : (
                   <Breadcrumbs
                     arr={[
-                      { text: 'Каталог', link: 'catalog' },
-                      { text: name, link: '/catalog/1' },
+                      { text: 'Каталог', link: '/catalog' },
+                      { text: name, link: '/' },
                     ]}
                   />
                 )}
@@ -79,7 +86,15 @@ const CatalogPage: FC<{
         </div>
         <div className={style.wrap}>
           <Filters />
-          {products && products.length > 0 && <Products products={products} fetching={fetching} />}
+          <div className={style.products}>
+            {products && products.length > 0 && <Products products={products} fetching={fetching} />}
+            {
+              fetching && <div className={style.load}>
+                <Load />
+              </div>
+            }
+          </div>
+
         </div>
       </div>
     </Layout>

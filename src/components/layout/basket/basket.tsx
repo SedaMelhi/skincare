@@ -35,7 +35,7 @@ const Basket: FC = () => {
   const handleBtnClick = () => {
     router.push('/placing');
   };
-  console.log(basketArr);
+ 
 
   useEffect(() => {
     if (localStorage.getItem('saleUserId')) {

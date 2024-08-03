@@ -21,17 +21,22 @@ const Filter: FC<{
 
   const addCheckboxFilter = (i: string) => {
     if (checkboxFilters[id]) {
+      let params =  checkboxFilters[id].some((item: any) => item === i)
+      ? { ...checkboxFilters, [id]: checkboxFilters[id].filter((item: any) => item !== i) }
+      : { ...checkboxFilters, [id]: [...checkboxFilters[id], i] }
+      if(params[id].length === 0){
+        delete params[id]
+      }
       dispatch(
         setCheckboxFilters(
-          checkboxFilters[id].some((item: any) => item === i)
-            ? { ...checkboxFilters, [id]: checkboxFilters[id].filter((item: any) => item !== i) }
-            : { ...checkboxFilters, [id]: [...checkboxFilters[id], i] },
+         params
         ),
       );
     } else {
       dispatch(setCheckboxFilters({ ...checkboxFilters, [id]: [i] }));
     }
   };
+
 
   return (
     <div className={firstLoad ? style.load : ''}>

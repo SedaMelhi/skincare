@@ -1,14 +1,15 @@
 import { FC, useState } from 'react';
 
 import { ContactsArray } from '@/interfaces/contact.interface';
+import { useSelector } from 'react-redux';
+import Link from 'next/link';
+import FooterInfoModal from './modals/footerInfoModal';
 
 import arrow from './../../../../public/arrow.svg';
 import logo from './../../../../public/logo.svg';
 
 import style from './footer.module.sass';
-import { useSelector } from 'react-redux';
-import Link from 'next/link';
-import FooterInfoModal from './modals/footerInfoModal';
+
 interface RootState {
   footer: {
     footerData: ContactsArray;
@@ -51,7 +52,7 @@ const Footer: FC = () => {
                 <Link href="/catalog/1" className={style.subtitle}>
                   Каталог <img src={arrow.src} />
                 </Link>
-                <div className={style.item}>Акции</div>
+                <div className={style.item}>Скидки</div>
                 <div className={style.item}>Новинки</div>
                 <div className={style.item}>Бренды</div>
               </div>
@@ -91,10 +92,14 @@ const Footer: FC = () => {
             <Link href={'/'}>
               <img src={logo.src} alt="" className={style.logo} />
             </Link>
+            <div> <div className={style.seryonse}>Сайт разработан в студии  <Link href={'https://seryonse.ru/'}>SERYONSE</Link> </div>
             <div className={style.end__text}>
+              
+            
               <p className={style.text}>Политика обработки персональных данных</p>
               <p className={style.text}>© 2023 — Skincare Agents</p>
-            </div>
+            </div></div>
+           
           </div>
         </div>
       </div>

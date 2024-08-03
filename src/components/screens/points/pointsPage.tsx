@@ -28,7 +28,7 @@ const PointsPage: FC = () => {
 
   useEffect(() => {
     userInfoService.getUserInfo().then(setUserDataServer);
-    addCertificateService.getCertificates().then(console.log);
+    addCertificateService.getCertificates().then();
   }, []);
 
   return (

@@ -59,11 +59,8 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({
   };
 
   useEffect(() => {
-    console.log(isRestart);
-
     if (isRestart) {
       handleRestart();
-      console.log(isRestart);
     }
   }, [isRestart]);
 

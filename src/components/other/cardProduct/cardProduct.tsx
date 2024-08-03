@@ -32,6 +32,8 @@ const CardProduct: FC<CardProductProps> = ({
   smallPhoto,
   newInStock
 }) => {
+  const values: string[] = scu ? Array.from(new Set(Object.values(scu).map(item => item.value))) : []
+
   
   const sizes: string[] = [];
   const prices: number[] = [];
@@ -53,12 +55,19 @@ const CardProduct: FC<CardProductProps> = ({
               : {}
           }></div>
         <h3 className={style.description}>{name}</h3>
-        <div className={style.size}>{scu && Object.values(scu)[0].value}</div>
+        <div className={style.values}>
+          {
+            values.map((item, i) => <div className={style.size} key={item+i}>{item}</div>)
+          }
+        </div>
+        
+        
       </div>
 
       {available ? (
         <div className={style.price}>
-          {scu ? parseFloat(Object.values(scu)[0].price.basePrice).toString() : ''} ₽{' '}
+           {scu && Object.values(scu)[0] ? parseFloat(Object.values(scu)[0].price).toString() : ''} ₽{' '}
+
           {/* <span className={style.price__old}>2 234 ₽</span> */}
         </div>
       ) : (

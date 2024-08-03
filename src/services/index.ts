@@ -42,7 +42,7 @@ export const PromoBlockService = {
 
 export const NewProductsService = {
   async getProductsService(): Promise<NewProducts> {
-    const { data } = await axios.post('/main.php', { type: 'getNewItems', count: 4 });
+    const { data } = await axios.post('v1/main.php', { type: 'getNewItems', count: 9 });
     return data;
   },
 };
@@ -69,7 +69,7 @@ export const JournalService = {
 
 export const HitsService = {
   async getHitsService(): Promise<any> {
-    const { data } = await axios.post('/main.php', { type: 'getHits', count: 3 });
+    const { data } = await axios.post('/main.php', { type: 'getHits', count: 100 });
     return data;
   },
 };

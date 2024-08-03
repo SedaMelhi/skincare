@@ -649,6 +649,11 @@
   dependencies:
     "@babel/runtime" "^7.21.0"
 
+"debounce@^2.1.0":
+  "integrity" "sha512-OkL3+0pPWCqoBc/nhO9u6TIQNTK44fnBnzuVtJAbp13Naxw9R6u21x+8tVTka87AhDZ3htqZ2pSSsZl9fqL2Wg=="
+  "resolved" "https://registry.npmjs.org/debounce/-/debounce-2.1.0.tgz"
+  "version" "2.1.0"
+
 "debug@2.6.9":
   "integrity" "sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-2.6.9.tgz"

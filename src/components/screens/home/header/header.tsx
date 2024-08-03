@@ -72,14 +72,14 @@ const Header: FC<{ slider: MainSliderArray; runningLine: RunningLineArray }> = (
                             <p className={style.description} data-swiper-parallax="-100%">
                               {secondText}
                             </p>
-                            <div className={style.link__wrap}>
-                              <Link href="/" className={style.link}>
+                            <Link href={url} className={style.link__wrap}>
+                              <div className={style.link}>
                                 смотреть
-                              </Link>
+                              </div>
                               <div className={style.circle}>
                                 <img src="./arrowCircle.svg" alt="" />
                               </div>
-                            </div>
+                            </Link>
                           </div>
                         </div>
                         <div className={style.mainImg__wrap}>

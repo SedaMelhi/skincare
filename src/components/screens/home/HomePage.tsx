@@ -36,6 +36,8 @@ const HomePage: FC<{
   const sticker = useRef<HTMLDivElement | null>(null);
   const img = useRef<HTMLImageElement | null>(null);
   const rotate = useRef(0);
+
+  
   useEffect(() => {
     const checkVisibility = () => {
       if (section.current) {

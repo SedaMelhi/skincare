@@ -1,7 +1,7 @@
 .catalog
     padding-top: 32px
     @media (min-width: 1200px)
-        padding-top: 56px 
+        padding-top: 56px
 
 .empty
     display: none
@@ -9,6 +9,14 @@
         display: flex
         width: 303px
         flex-shrink: 0
+
+.load
+    width: 100%
+    display: flex
+    padding-top: 80px
+    justify-content: center
+    img
+        width: 130px
 
 .top
     display: flex
@@ -19,7 +27,6 @@
         justify-content: space-between
         @media (min-width: 1200px)
             gap: 32px
-            
 
 .wrap
     display: flex
@@ -29,11 +36,11 @@
 .width
     width: 100%
     @media (min-width: 1200px)
-        width: 1015px   
+        width: 1015px
 
 .flex
     display: flex
-    justify-content: space-between 
+    justify-content: space-between
     align-items: center
     width: 100%
 .subtitle
@@ -54,34 +61,40 @@
 
 .params
     display: flex
-    justify-content: space-between  
-    gap: 32px 
+    justify-content: space-between
+    gap: 32px
 
 .sort
     @media (min-width: 1200px)
         width: 1015px
 
 .filter_wrap
-  display: flex
-  align-items: center
-  gap: 4px
-  width: 303px
-  @media (min-width: 1200px)
-    gap: 8px
-    flex-shrink: 0
+    display: flex
+    align-items: center
+    gap: 4px
+    width: 303px
+    @media (min-width: 1200px)
+        gap: 8px
+        flex-shrink: 0
 
 .text
-  display: none
-  color: var(--grey-900)
-  font-size: 14px
-  line-height: normal
-  text-transform: uppercase
-  cursor: pointer
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-  & + img
+    display: none
+    color: var(--grey-900)
+    font-size: 14px
+    line-height: normal
+    text-transform: uppercase
     cursor: pointer
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-    position: relative
-    top: -2px
-  @media (min-width: 768px)
-    display: inline
+    & + img
+        cursor: pointer
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+        position: relative
+        top: -2px
+    @media (min-width: 768px)
+        display: inline
+
+.products
+    width: 100%
+    display: flex
+    justify-content: center
+    flex-direction: column
