@@ -15,6 +15,14 @@ import {
   userInfoService,
 } from "@/services/profile.service";
 
+export type CertificateType = {
+  id: string;
+  date: string;
+  name: string;
+  picture: string;
+  price: string;
+};
+
 const PointsPage: FC = () => {
   const [userDataServer, setUserDataServer] = useState<IUserData>({
     birthday: "",
@@ -25,10 +33,13 @@ const PointsPage: FC = () => {
     secondName: "",
     userId: 0,
   });
+  const [certificates, setCertificates] = useState<CertificateType[]>([]);
 
   useEffect(() => {
     userInfoService.getUserInfo().then(setUserDataServer);
-    addCertificateService.getCertificates().then(console.log);
+    addCertificateService.getCertificates().then((result) => {
+      setCertificates(Object.values(result));
+    });
   }, []);
 
   return (
@@ -49,7 +60,9 @@ const PointsPage: FC = () => {
             <ProfileTitle title="баллы" link={false} />
             <PointsCard />
             <ProfileTitle title="подарочные сертификаты" link={false} />
-            {/* <CertificateCard /> */}
+            {certificates.map((certificate) => (
+              <CertificateCard certificate={certificate} />
+            ))}
             <AddCertificate />
           </div>
         </div>
