@@ -14,29 +14,20 @@ import style from './filters.module.sass';
 const Filters: FC = () => {
   const [filters, setFilters] = useState<any>(null);
   const [checkbox, setCheckbox] = useState('null');
-  const checkboxFilters = useSelector((state: any) => state.catalog.checkboxFilters);
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
     const res = FilterService.getFilterItems(router.query.id);
     res.then((res) => setFilters(res));
   }, []);
-  // useEffect(() => {
-  //   if (filters) {
-  //     const newFilters: any = {};
-  //     Object.keys(filters)
-  //       .filter((item) => item[0] === 'S')
-  //       .forEach((item) => {
-  //         newFilters[item] = checkboxFilters[item] || [];
-  //       });
-  //     dispatch(setCheckboxFilters(newFilters));
-  //   }
-  // }, [filters, router.query.id]);
+
 
   useEffect(() => {
     dispatch(setDiscountFilter(checkbox));
   }, [checkbox]);
 
+  console.log();
+  
   return (
     <aside className={style.aside}>
       <div className={style.line}>

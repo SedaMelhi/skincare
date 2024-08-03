@@ -31,39 +31,39 @@ const Products: FC<{ products: IProductArr; fetching: boolean }> = ({
         <div className={style.products}>
           {products.length > 0
             ? products.map((item, i) => {
-                if (item.id !== "circle") {
-                  if (
-                    bigProductCount === 0 ||
-                    (bigProductCount === 1 && smallProductCount === 5) ||
-                    (bigProductCount === 2 && smallProductCount === 6)
-                  ) {
-                    if (bigProductCount === 2 && smallProductCount === 6) {
-                      bigProductCount = 1;
-                    } else {
-                      bigProductCount++;
-                    }
-                    smallProductCount = 0;
-                    return (
-                      <Product
-                        item={item}
-                        classValue="card_big"
-                        key={`${item.id}-${i}`}
-                      />
-                    );
+              if (item.id !== "circle") {
+                if (
+                  bigProductCount === 0 ||
+                  (bigProductCount === 1 && smallProductCount === 5) ||
+                  (bigProductCount === 2 && smallProductCount === 6)
+                ) {
+                  if (bigProductCount === 2 && smallProductCount === 6) {
+                    bigProductCount = 1;
+                  } else {
+                    bigProductCount++;
                   }
-                  smallProductCount++;
+                  smallProductCount = 0;
                   return (
                     <Product
                       item={item}
-                      classValue="card"
+                      classValue="card_big"
                       key={`${item.id}-${i}`}
                     />
                   );
-                } else {
-                  smallProductCount++;
-                  return <Circle key={`circle-${i}`} />;
                 }
-              })
+                smallProductCount++;
+                return (
+                  <Product
+                    item={item}
+                    classValue="card"
+                    key={`${item.id}-${i}`}
+                  />
+                );
+              } else {
+                smallProductCount++;
+                return <Circle key={`circle-${i}`} />;
+              }
+            })
             : "Данных нет"}
         </div>
       </div>
@@ -72,46 +72,46 @@ const Products: FC<{ products: IProductArr; fetching: boolean }> = ({
         <div className={style.products}>
           {products.length > 0
             ? products.map((item, i) => {
-                if (item.id !== "circle") {
-                  if (
-                    mBigProductCount === 0 ||
-                    (mBigProductCount === 1 && mSmallProductCount === 4)
-                  ) {
-                    if (mBigProductCount === 1 && mSmallProductCount === 4) {
-                      mBigProductCount = 1;
-                      mSmallProductCount = 0;
-                    } else {
-                      mBigProductCount++;
-                    }
-                    return (
-                      <Product
-                        item={item}
-                        classValue="card_big"
-                        key={`${item.id}-${i}`}
-                      />
-                    );
+              if (item.id !== "circle") {
+                if (
+                  mBigProductCount === 0 ||
+                  (mBigProductCount === 1 && mSmallProductCount === 4)
+                ) {
+                  if (mBigProductCount === 1 && mSmallProductCount === 4) {
+                    mBigProductCount = 1;
+                    mSmallProductCount = 0;
+                  } else {
+                    mBigProductCount++;
                   }
-                  mSmallProductCount++;
                   return (
                     <Product
                       item={item}
-                      classValue="card"
+                      classValue="card_big"
                       key={`${item.id}-${i}`}
                     />
                   );
-                } else {
-                  mSmallProductCount = 0;
-                  return <Circle key={`circle-${i}`} />;
                 }
-              })
+                mSmallProductCount++;
+                return (
+                  <Product
+                    item={item}
+                    classValue="card"
+                    key={`${item.id}-${i}`}
+                  />
+                );
+              } else {
+                mSmallProductCount = 0;
+                return <Circle key={`circle-${i}`} />;
+              }
+            })
             : "Данных нет"}
         </div>
       </div>
-      {fetching && (
+      {/* {fetching && (
         <div className={style.load}>
           <Load />
         </div>
-      )}
+      )} */}
     </div>
   );
 };

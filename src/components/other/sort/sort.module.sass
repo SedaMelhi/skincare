@@ -1,6 +1,7 @@
 .wrap
     display: flex
     align-items: center
+    position: relative
     gap: 4px
     @media (min-width: 1200px)
         gap: 16px
@@ -18,3 +19,53 @@
 .img
     cursor: pointer
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+
+.items
+    padding: 24px 40px 24px 16px
+    border: 1px solid var(--grey-300)
+    background-color: var(--grey-25)
+    border-radius: 16px
+    position: absolute
+    top: 30px
+    z-index: 2
+    display: flex
+    flex-direction: column
+    gap: 16px
+    font-size: 16px
+    transition: .3s
+.open
+    opacity: 1
+
+.close
+    opacity: 0
+
+    pointer-events: none
+.item
+    display: flex
+    align-items: center
+    gap: 16px
+    input
+        width: 24px
+        height: 24px
+        background: var(--grey-900)
+        color: var(--grey-900)
+        opacity: 0
+        position: absolute
+
+.circle
+    border: 1px solid var(--grey-900)
+    width: 24px
+    height: 24px
+    border-radius: 50%
+    position: relative
+
+.active
+    &::before
+        content: ''
+        position: absolute
+        width: 16px
+        height: 16px
+        background: var(--grey-900)
+        top: 3px
+        left: 3px
+        border-radius: 50%
