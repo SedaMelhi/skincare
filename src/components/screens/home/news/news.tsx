@@ -11,8 +11,6 @@ import style from './News.module.sass';
 
 const News: FC<NewProducts | any> = ({ newProducts, title = true }) => {
   const products = Object.values(newProducts).splice(0, Object.values(newProducts).length - 1);
-  console.log(products);
-  
   return (
     <section>
       <div className={style.news} style={title ? {} : { margin: 0 }}>

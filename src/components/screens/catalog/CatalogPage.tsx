@@ -26,6 +26,7 @@ const CatalogPage: FC<{
   all?: boolean;
 }> = ({ products, count, fetching, value, brand }) => {
   const [name, setName] = useState<string>('');
+  const [isOpenFilters, setIsOpenFilters] = useState(false)
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
 
@@ -76,7 +77,7 @@ const CatalogPage: FC<{
         </div>
 
         <div className={style.params}>
-          <div className={style.filter_wrap}>
+          <div className={style.filter_wrap} onClick={() => setIsOpenFilters(prev => !prev)}>
             <span className={style.text}>фильтры</span>
             <img src={filtersSvg.src} alt="" />
           </div>
@@ -85,9 +86,10 @@ const CatalogPage: FC<{
           </div>
         </div>
         <div className={style.wrap}>
-          <Filters />
+          <Filters isOpenFiltersMobile={isOpenFilters} setIsOpenFiltersMobile={setIsOpenFilters} />
           <div className={style.products}>
             {products && products.length > 0 && <Products products={products} fetching={fetching} />}
+            {products.length === 0 ? <div className={style.otstup}></div> : ''}
             {
               fetching && <div className={style.load}>
                 <Load />

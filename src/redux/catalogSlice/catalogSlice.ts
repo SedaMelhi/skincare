@@ -6,6 +6,7 @@ export const catalogSlice = createSlice({
     catalogProducts: [],
     checkboxFilters: {},
     price: null,
+    reset: false,
     discountFilter: "null",
     sort: 'popular',
   },
@@ -25,8 +26,11 @@ export const catalogSlice = createSlice({
     setPrice: (state, { payload }) => {
       state.price = payload;
     },
+    setReset: (state, { payload }) => {
+      state.reset = payload;
+    },
   },
 });
 
-export const { setCheckboxFilters, setDiscountFilter, setSort, setPrice, setCatalogProducts } = catalogSlice.actions;
+export const { setCheckboxFilters, setDiscountFilter, setSort, setPrice, setCatalogProducts, setReset } = catalogSlice.actions;
 export default catalogSlice.reducer;

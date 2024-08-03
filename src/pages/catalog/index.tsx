@@ -32,14 +32,12 @@ const Catalog: NextPage = () => {
       e.target.documentElement.scrollHeight -
       (e.target.documentElement.scrollTop + window.innerHeight) <
       difference;
-    console.log(scrolledToEnd, products.length, count);
     if (
       scrolledToEnd && products.length < count
     ) {
       setFetching(true);
     }
   };
-  console.log('count', count);
   const getData = async () => {
     if (router.query.brandId) {
       const response = await FilterService.getData({
@@ -139,7 +137,6 @@ const Catalog: NextPage = () => {
       document.removeEventListener("scroll", scrollHandler);
     };
   }, [count, products])
-  console.log(price);
 
   useEffect(() => {
     if (Object.keys(checkboxFilters).length > 0 || sort || price || discountFilter !== 'null') {
@@ -156,7 +153,7 @@ const Catalog: NextPage = () => {
     return uniqueIds.size < ids.length; // Если размер множества меньше размера массива, значит есть дубликаты
   };
   useEffect(() => {
-    console.log(hasDuplicateIds(products));
+    console.log('duplicate', hasDuplicateIds(products));
   }, [products])
 
 

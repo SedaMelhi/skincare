@@ -2,8 +2,9 @@ import { FC, useEffect, useState } from 'react';
 import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
 import minusSvg from './../../../../../public/catalog/minus.svg';
 
-import style from './filter.module.sass';
 import { useDispatch, useSelector } from 'react-redux';
+
+import style from './filter.module.sass';
 
 const Filter: FC<{
   name: any;
@@ -21,23 +22,21 @@ const Filter: FC<{
 
   const addCheckboxFilter = (i: string) => {
     if (checkboxFilters[id]) {
-      let params =  checkboxFilters[id].some((item: any) => item === i)
-      ? { ...checkboxFilters, [id]: checkboxFilters[id].filter((item: any) => item !== i) }
-      : { ...checkboxFilters, [id]: [...checkboxFilters[id], i] }
-      if(params[id].length === 0){
+      let params = checkboxFilters[id].some((item: any) => item === i)
+        ? { ...checkboxFilters, [id]: checkboxFilters[id].filter((item: any) => item !== i) }
+        : { ...checkboxFilters, [id]: [...checkboxFilters[id], i] }
+      if (params[id].length === 0) {
         delete params[id]
       }
       dispatch(
         setCheckboxFilters(
-         params
+          params
         ),
       );
     } else {
       dispatch(setCheckboxFilters({ ...checkboxFilters, [id]: [i] }));
     }
   };
-
-
   return (
     <div className={firstLoad ? style.load : ''}>
       <input type="checkbox" className={style.title__input} id={name} />

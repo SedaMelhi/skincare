@@ -34,7 +34,6 @@ const CatalogCategory: NextPage = () => {
       e.target.documentElement.scrollHeight -
       (e.target.documentElement.scrollTop + window.innerHeight) <
       difference;
-    console.log(scrolledToEnd, products.length, count);
     if (
       scrolledToEnd && products.length < count
     ) {
@@ -42,7 +41,7 @@ const CatalogCategory: NextPage = () => {
     }
   };
 
-  console.log('count', count);
+
   const getData = async () => {
     if (router.query.id) {
       const response = await FilterService.getData({
@@ -120,7 +119,7 @@ const CatalogCategory: NextPage = () => {
   };
 
   useEffect(() => {
-    console.log(hasDuplicateIds(products));
+    console.log('duplicate', hasDuplicateIds(products));
   }, [products])
 
   return <CatalogPage products={products} count={count} fetching={fetching} />;

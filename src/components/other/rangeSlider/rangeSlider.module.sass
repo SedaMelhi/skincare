@@ -4,12 +4,20 @@
     align-items: center
     margin-top: 8px
     width: 303px
-
+    @media (max-width: 370px)
+        width: 270px
+        & + div
+            max-width: 230px!important
+    @media (max-width: 335px)
+        width: 250px
+        & + div
+            max-width: 220px!important
 .rail
     background-color: var(--grey-300)
     height: 2px
     box-sizing: border-box
-    
+.root
+    width: 100%
 .slider
     margin-left: 13px
     margin-top: 8px
@@ -25,7 +33,7 @@
     height: 18px
     border-radius: 0
     background: var(--grey-25)
-    border:1px solid var(--grey-700)
+    border: 1px solid var(--grey-700)
     transform: rotate(45deg) translateX(-13px)
     box-shadow: none
     color: red
@@ -35,5 +43,3 @@
         box-shadow: none
     &:active
         box-shadow: none
-    
-    
