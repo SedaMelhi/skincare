@@ -9,6 +9,47 @@ import { IUserData } from "@/components/screens/profile/profilePage";
 import ProfileTitle from "@/components/screens/profile/profileTitle/Title";
 import CardProduct from "@/components/other/cardProduct/cardProduct";
 import { useRouter } from "next/router";
+import { IScu } from "@/interfaces/products.interface";
+
+interface OriginalObject {
+  [key: number]: FavoriteItemType;
+  newInStock: number;
+}
+
+interface TransformedObject {
+  favorites: FavoriteItemType[];
+  newInStock: number;
+}
+
+function transformObject(obj: OriginalObject): TransformedObject {
+  const newObject: TransformedObject = {
+    favorites: [],
+    newInStock: obj.newInStock,
+  };
+
+  for (const key in obj) {
+    if (!isNaN(Number(key))) {
+      newObject.favorites.push(obj[key]);
+    }
+  }
+
+  newObject.favorites = newObject.favorites.sort((a, b) => (a.inStock === b.inStock) ? 0 : a.inStock ? -1 : 1);
+
+  return newObject;
+}
+
+export type FavoriteItemType = {
+  can_buy: boolean;
+  causeMarkdown: null;
+  id: string;
+  inStock: boolean;
+  name: string;
+  offer: string[];
+  parent_id: number;
+  picture: string;
+  price: string;
+  scu: IScu;
+};
 
 const Favorite: NextPage = () => {
   const [userDataServer, setUserDataServer] = useState<IUserData>({
@@ -22,11 +63,16 @@ const Favorite: NextPage = () => {
   });
   const router = useRouter();
   const { inStock } = router.query;
-  const [favorites, setFavorites] = useState();
+  const [favorites, setFavorites] = useState<TransformedObject>({
+    favorites: [],
+    newInStock: 0,
+  });
 
   useEffect(() => {
     userInfoService.getUserInfo().then(setUserDataServer);
-    favoriteService.getFavorite().then(setFavorites);
+    favoriteService
+      .getFavorite()
+      .then((data: OriginalObject) => setFavorites(transformObject(data)));
   }, []);
 
   useEffect(() => {
@@ -51,22 +97,28 @@ const Favorite: NextPage = () => {
           </div>
           <div className={style.width}>
             <ProfileTitle title="фавориты" link={true} />
-            {/* <div className={style.tabs}>
-              <Tab
-                text="в наличии"
-                link="?inStock=1"
-                active={inStock === "1"}
-              />
-              <Tab
-                text="лист ожидания"
-                link="?inStock=0"
-                active={inStock === "0"}
-              />
-            </div> */}
-            <div className={style.cards}>
-              <div className={style.card}>
-                <CardProduct available={true} />
+            {favorites.newInStock ? (
+              <div className={style.text}>
+                СНОВА В НАЛИЧИИ <span>{favorites.newInStock}</span>
               </div>
+            ) : (
+              ""
+            )}
+
+            <div className={style.cards}>
+              {favorites.favorites.map((item) => (
+                <div className={style.card}>
+                  <CardProduct
+                    key={item.id}
+                    available={item.can_buy}
+                    id={String(item.parent_id)}
+                    name={item.name}
+                    scu={item.scu}
+                    smallPhoto={item.picture}
+                    newInStock={item.inStock}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

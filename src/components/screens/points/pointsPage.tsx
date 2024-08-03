@@ -49,7 +49,7 @@ const PointsPage: FC = () => {
             <ProfileTitle title="баллы" link={false} />
             <PointsCard />
             <ProfileTitle title="подарочные сертификаты" link={false} />
-            <CertificateCard />
+            {/* <CertificateCard /> */}
             <AddCertificate />
           </div>
         </div>
