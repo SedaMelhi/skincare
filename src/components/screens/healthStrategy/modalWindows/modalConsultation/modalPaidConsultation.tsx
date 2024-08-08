@@ -15,20 +15,7 @@ const ModalConsultation: FC<ModalConsultationProps> = ({
   setModalPayActive,
   buttonText,
 }) => {
-  const [isModalPayOpen, setIsModalPayOpen] = React.useState(false);
-  const [isModalSuccessfulRegistrationOpen, setIsModalSuccessfulRegistrationOpen] =
-    React.useState(false);
-
-  const handleButtonClick = () => {
-    setActive(false);
-    setModalPayActive(true);
-  };
-
-  const handleRegistrationButtonClick = () => {
-    setActive(false);
-    setIsModalPayOpen(true);
-  };
-
+  const [isVisible, setIsVisible] = useState(false);
   return (
     <div
       className={active ? `${style.active} ${style.modal}` : style.modal}
@@ -38,50 +25,12 @@ const ModalConsultation: FC<ModalConsultationProps> = ({
         onClick={(e) => {
           e.stopPropagation();
         }}>
-        <div className={style.close} onClick={() => setActive(false)}>
-          <img alt="close" src={'./certificate/close.png'} className={style.closeImg} />
-        </div>
-        <BitrixForm />
-        {/* <div className={style.title}>данные</div>
-        <form>
-          <input className={style.name} type="text" id="nameInput" name="name" placeholder="Имя*" />
-          <input
-            className={style.tel}
-            type="text"
-            id="tel"
-            name="tel"
-            placeholder="Номер телефона*"
-          />
-          <div className={style.subtitle}>С вами связаться через:</div>
-          <div className={style.chackbox__main}>
-            <div className={style.chackbox__telegram}>
-              <img src="./skinSolution/telegram.svg" className={style.chackbox__telegramImg} />
-              <label htmlFor="telegram" className={style.chackbox__telegramText}>
-                Telegram
-              </label>
-              <input className={style.chackbox} type="checkbox" id="telegram" />
-            </div>
-            <div className={style.chackbox__whatsapp}>
-              <img src="./skinSolution/whatsapp.svg" className={style.chackbox__whatsappImg} />
-              <label htmlFor="whatsapp" className={style.chackbox__whatsappText}>
-                Whatsapp
-              </label>
-              <input className={style.chackbox} type="checkbox" id="whatsapp" />
-            </div>
+        {isVisible && (
+          <div className={style.close} onClick={() => setActive(false)}>
+            <img alt="close" src={'./certificate/close.png'} className={style.closeImg} />
           </div>
-        </form>
-
-        <div className={style.button__main}>
-          <button
-            className={style.button}
-            onClick={(event) => {
-              event.preventDefault();
-              setActive(false);
-              setModalPayActive(true);
-            }}>
-            {buttonText}
-          </button>
-        </div> */}
+        )}
+        <BitrixForm setIsVisible={setIsVisible} data_b24_form="click/14/9beldz" link='https://cdn-ru.bitrix24.ru/b26885834/crm/form/loader_14.js?' />
       </div>
     </div>
   );

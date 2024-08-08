@@ -1,16 +1,25 @@
-import React, { FC } from 'react';
+import React, { FC } from "react";
 
-import ModalPaidConsultation from '@/components/screens/skinSolution/modalWindows/modalConsultation/modalPaidConsultation';
-import ModalPay from '@/components/screens/skinSolution/modalWindows/modalConsultation/modalPay/modalPay';
-import ModalSuccessfulRegistration from '@/components/screens/skinSolution/modalWindows/modalConsultation/ModalSuccessfulRegistration/ModalSuccessfulRegistration';
+import ModalPaidConsultation from "@/components/screens/skinSolution/modalWindows/modalConsultation/modalPaidConsultation";
+import ModalPay from "@/components/screens/healthStrategy/modalWindows/modalConsultation/modalPay/modalPay";
+import ModalSuccessfulRegistration from "@/components/screens/healthStrategy/modalWindows/modalConsultation/ModalSuccessfulRegistration/ModalSuccessfulRegistration";
 
-import style from './DescriptionRecord.module.sass';
+import style from "./DescriptionRecord.module.sass";
 
-const DescriptionRecord: FC = () => {
-  const [isModalConsultationOpen, setIsModalConsultationOpen] = React.useState(false);
-  const [isModalPayOpen, setIsModalPayOpen] = React.useState(false);
-  const [isModalSuccessfulRegistrationOpen, setIsModalSuccessfulRegistrationOpen] =
+const DescriptionRecord: FC<{
+  title: string;
+  subtitle?: string;
+  text: string[];
+  data_b24_form: string;
+  link: string;
+}> = ({ title, subtitle, text, data_b24_form, link }) => {
+  const [isModalConsultationOpen, setIsModalConsultationOpen] =
     React.useState(false);
+  const [isModalPayOpen, setIsModalPayOpen] = React.useState(false);
+  const [
+    isModalSuccessfulRegistrationOpen,
+    setIsModalSuccessfulRegistrationOpen,
+  ] = React.useState(false);
 
   return (
     <div>
@@ -23,27 +32,14 @@ const DescriptionRecord: FC = () => {
           <div className={style.left}>
             <div className={style.block}></div>
             <div>
-              <div className={style.title}>
-                Программa
-                <br /> health <br /> strategy
-              </div>
-              <div className={style.subtitle}>
-                {'>'} C превентивным
-                <br /> врачом-эндокринологом
-              </div>
+              <div className={style.title}>{title}</div>
+              <div className={style.subtitle}>{subtitle}</div>
             </div>
           </div>
           <div className={style.right}>
             <div className={style.text}>
-              <div>
-                Это целостная работа с организмом,которая затрагивает все органы и системы, начиная
-                с пищеварительной и заканчивая эндокринной системой.
-              </div>
-              <div>
-                При соблюдении рекомендаций специалиста вы сможете избавиться не только от того, что
-                вас беспокоило изначально, но и улучшить качество вашей жизни в долгосрочной
-                перспективе.
-              </div>
+              <div>{text[0]}</div>
+              <div>{text[1]}</div>
             </div>
             <div className={style.btn}>
               <button
@@ -51,7 +47,8 @@ const DescriptionRecord: FC = () => {
                 onClick={(event) => {
                   event.preventDefault();
                   setIsModalConsultationOpen(true);
-                }}>
+                }}
+              >
                 Записаться
               </button>
 
@@ -61,13 +58,17 @@ const DescriptionRecord: FC = () => {
                   setActive={setIsModalConsultationOpen}
                   setModalPayActive={setIsModalPayOpen}
                   buttonText="Оплатить"
+                  data_b24_form={data_b24_form}
+                  link={link}
                 />
               )}
               {isModalPayOpen && (
                 <ModalPay
                   active={isModalPayOpen}
                   setActive={setIsModalPayOpen}
-                  setModalSuccessfulRegistrationActive={setIsModalSuccessfulRegistrationOpen}
+                  setModalSuccessfulRegistrationActive={
+                    setIsModalSuccessfulRegistrationOpen
+                  }
                 />
               )}
               {isModalSuccessfulRegistrationOpen && (

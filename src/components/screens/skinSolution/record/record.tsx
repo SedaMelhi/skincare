@@ -1,15 +1,18 @@
-import React, { FC } from 'react';
-import ModalPaidConsultation from '@/components/screens/skinSolution/modalWindows/modalConsultation/modalPaidConsultation';
-import ModalPay from '@/components/screens/skinSolution/modalWindows/modalConsultation/modalPay/modalPay';
-import ModalSuccessfulRegistration from '@/components/screens/skinSolution/modalWindows/modalConsultation/ModalSuccessfulRegistration/ModalSuccessfulRegistration';
+import React, { FC } from "react";
+import ModalPaidConsultation from "@/components/screens/skinSolution/modalWindows/modalConsultation/modalPaidConsultation";
+import ModalPay from "@/components/screens/skinSolution/modalWindows/modalConsultation/modalPay/modalPay";
+import ModalSuccessfulRegistration from "@/components/screens/skinSolution/modalWindows/modalConsultation/ModalSuccessfulRegistration/ModalSuccessfulRegistration";
 
-import style from './Record.module.sass';
+import style from "./Record.module.sass";
 
 const Record: FC = () => {
-  const [isModalConsultationOpen, setIsModalConsultationOpen] = React.useState(false);
-  const [isModalPayOpen, setIsModalPayOpen] = React.useState(false);
-  const [isModalSuccessfulRegistrationOpen, setIsModalSuccessfulRegistrationOpen] =
+  const [isModalConsultationOpen, setIsModalConsultationOpen] =
     React.useState(false);
+  const [isModalPayOpen, setIsModalPayOpen] = React.useState(false);
+  const [
+    isModalSuccessfulRegistrationOpen,
+    setIsModalSuccessfulRegistrationOpen,
+  ] = React.useState(false);
 
   return (
     <div className="wrap">
@@ -22,14 +25,17 @@ const Record: FC = () => {
           <div className={style.line}></div>
         </div>
 
-        <h3 className={style.label}>Начните ваш путь к здоровой коже сейчас!</h3>
+        <h3 className={style.label}>
+          Начните ваш путь к здоровой коже сейчас!
+        </h3>
         <div className={style.btn__main}>
           <button
             className={style.btn}
             onClick={(event) => {
               event.preventDefault();
               setIsModalConsultationOpen(true);
-            }}>
+            }}
+          >
             записаться
           </button>
           {isModalConsultationOpen && (
@@ -38,13 +44,17 @@ const Record: FC = () => {
               setActive={setIsModalConsultationOpen}
               setModalPayActive={setIsModalPayOpen}
               buttonText="Оплатить"
+              data_b24_form="inline/14/9beldz"
+              link="https://cdn-ru.bitrix24.ru/b26885834/crm/form/loader_14.js?"
             />
           )}
           {isModalPayOpen && (
             <ModalPay
               active={isModalPayOpen}
               setActive={setIsModalPayOpen}
-              setModalSuccessfulRegistrationActive={setIsModalSuccessfulRegistrationOpen}
+              setModalSuccessfulRegistrationActive={
+                setIsModalSuccessfulRegistrationOpen
+              }
             />
           )}
           {isModalSuccessfulRegistrationOpen && (

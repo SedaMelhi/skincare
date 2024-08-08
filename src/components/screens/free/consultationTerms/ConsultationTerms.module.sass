@@ -1,5 +1,6 @@
 .wrap
   max-width: 1136px
+  position: relative
   margin: 0 auto
   padding: 0 16px
   box-sizing: content-box
@@ -8,79 +9,126 @@
   @media ( min-width: 1200px )
     padding: 0 40px
 
+.flex
+  display: flex
+
+.block
+  padding-left: 0px
+  @media (min-width: 1200px)
+    padding-left: 110px
+
 .mainTitle
   display: flex
   justify-content: space-between
+  bottom: -10px
+  position: relative
+  @media (min-width: 420px)
+    bottom: -20px
+  @media (min-width: 768px)
+    bottom: -25px
   @media (min-width: 1200px)
-    position: relative
-
+    bottom: 0
 .title
   color: var(--grey-900)
-  font-size: 26px
+  font-size: 18px
   font-weight: 400
-  line-height: 31.2px
+  line-height: 1.1
+  width: 220px
   text-transform: uppercase
+  @media (min-width: 360px)
+    font-size: 22px
+  @media (min-width: 420px)
+    font-size: 26px
   @media (min-width: 768px)
     font-size: 48px
     line-height: 49.92px
+    width: 500px
   @media (min-width: 1200px)
     font-size: 56px
     line-height: 64.96px
-    margin-left: 160px
+    width: 100%
 
-.priceMain
-  margin-top: -15px
-  display: flex
-  flex-direction: column
-  align-items: end
-  @media (min-width: 768px)
-    flex-direction: row
-    align-items: center
-  @media (min-width: 1200px)
-    flex-direction: column
-    position: absolute
-    right: -25px
-    gap: 10px
-    align-items: start
-    top: 50px
-
-
-.price
-  color: var(--grey-900)
-  font-size: 16px
-  font-weight: 400
-  line-height: 18px
-  text-transform: uppercase
-  margin-right: 0
-  @media (min-width: 768px)
-    font-size: 24px
-    line-height: 31.2px
-
-
-.sum
-  color: var(--indigo-900)
-  font-size: 24px
-  font-weight: 400
-  line-height: 31.92px
-  font-style: italic
-  width: 93px
-  text-align: end
-  @media (min-width: 768px)
-    font-size: 48px
-    width: 160px
 .bg
   background-color: var(--purple-100)
   border-radius: 20px
   padding: 38px 20px
-  margin: -23px 20px 32px 20px
+  width: calc(100% - 32px)
+  margin: 0 auto
   @media (min-width: 768px)
-    padding: 30px 30px
-    margin: -23px 64px 43px 64px
+    padding: 48px 56px 39px
+    max-width: calc(100% - 120px)
   @media (min-width: 1200px)
-    margin-top: -30px
-    padding: 30px 46px 39px 30px
+    max-width: 700px
+  @media (min-width: 1325px)
+    max-width: 800px
+  @media ( min-width: 1450px )
     max-width: 862px
-    margin-left: 120px
+
+.priceMain
+  display: flex
+  flex-direction: column
+  align-items: end
+  position: absolute
+  top: 0px
+  align-items: flex-end
+  right: 16px
+  @media (min-width: 360px)
+    top: 10px
+  @media (min-width: 768px)
+    top: 40px
+    right: 24px
+    align-items: center
+    flex-direction: row
+  @media (min-width: 1200px)
+    flex-direction: column
+    align-items: start
+    right: 0px
+    top: 65px
+  @media (min-width: 1325px)
+    gap: 10px
+    right: -60px
+  @media (min-width: 1400px)
+    gap: 10px
+    right: -80px
+  @media ( min-width: 1450px )
+    right: -120px
+  @media ( min-width: 1530px )
+    right: -140px
+
+.price
+  color: var(--grey-900)
+  font-size: 12px
+  font-weight: 400
+  line-height: 18px
+  text-transform: uppercase
+  margin-right: 0
+  @media (min-width: 360px)
+    font-size: 14px
+  @media (min-width: 420px)
+    font-size: 16px
+  @media (min-width: 768px)
+    font-size: 18px
+    line-height: 22px
+  @media (min-width: 850px)
+    font-size: 24px
+    line-height: 31.2px
+
+.sum
+  color: var(--indigo-900)
+  font-size: 16px
+  font-weight: 400
+  text-transform: uppercase
+  font-style: italic
+  text-align: end
+  @media (min-width: 360px)
+    font-size: 20px
+  @media (min-width: 420px)
+    font-size: 24px
+  @media (min-width: 768px)
+    font-size: 32px
+  @media (min-width: 850px)
+    font-size: 48px
+
 .list
   display: inline
 .text
@@ -88,17 +136,14 @@
   font-size: 16px
   line-height: 24px
   margin-left: 20px
-  @media (min-width: 768px)
-    margin-left: 56px
   @media (min-width: 1200px)
     margin-top: 10px
-
-
 
 .container
   display: flex
   flex-direction: column
   align-items: center
+  margin-top: 32px
   @media (min-width: 1200px)
     align-items: start
 .titleBtn

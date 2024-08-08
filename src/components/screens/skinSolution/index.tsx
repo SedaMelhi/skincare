@@ -1,26 +1,35 @@
-import { FC } from 'react';
-import Layout from '@/components/layout/Layout';
-import DescriptionRecord from '@/components/screens/skinSolution/descriptionRecord/descriptionRecord';
-import Care from '@/components/screens/skinSolution/care/care';
-import Reviews from '@/components/screens/skinSolution/reviews/Reviews';
-import Faq from '@/components/screens/skinSolution/faq/Faq';
-import Record from '@/components/screens/skinSolution/record/record';
-import PaidRecordingConsultation from '@/components/screens/skinSolution/paidRecordingConsultation/paidRecordingConsultation';
-import SwatchLine from '@/components/screens/skinSolution/swatchLine/swatchLine';
-import CareSkinSolution from '@/components/screens/skinSolution/careSkinSolution/careSkinSolution';
-import ConsultationTerms from '@/components/screens/skinSolution/consultationTerms/consultationTerms';
-import AboutUsPage from '@/components/screens/aboutUs/aboutUsPage';
-import OurAgents from '@/components/screens/skinSolution/ourAgents/ourAgents';
-import OtherServices from '@/components/screens/skinSolution/otherServices/otherServices';
-import BeforeAndAfter from '@/components/screens/skinSolution/beforeAndAfter/beforeAndAfter';
+import { FC } from "react";
+import Layout from "@/components/layout/Layout";
+import DescriptionRecord from "@/components/screens/skinSolution/descriptionRecord/descriptionRecord";
+import PaidRecordingConsultation from "@/components/screens/skinSolution/paidRecordingConsultation/paidRecordingConsultation";
+import SwatchLine from "@/components/screens/skinSolution/swatchLine/swatchLine";
+import CareSkinSolution from "@/components/screens/skinSolution/careSkinSolution/careSkinSolution";
+import ConsultationTerms from "@/components/screens/skinSolution/consultationTerms/consultationTerms";
+import BeforeAndAfter from "@/components/screens/healthStrategy/beforeAndAfter/beforeAndAfter";
+import OurAgents from "@/components/screens/healthStrategy/ourAgents/ourAgents";
+import Care from "@/components/screens/healthStrategy/care/care";
+import Reviews from "@/components/screens/skinSolution/reviews/Reviews";
+import Faq from "@/components/screens/skinSolution/faq/Faq";
 
-import style from './index.module.sass';
+import Record from "@/components/screens/skinSolution/record/record";
+
+import OtherServices from "@/components/screens/skinSolution/otherServices/otherServices";
+
+import style from "./index.module.sass";
 
 const SkinSolutionPage: FC = () => {
   return (
     <Layout title="платная запись">
       <div>
-        <DescriptionRecord />
+        <DescriptionRecord
+          title="Skin Solution, глубокий подход."
+          text={[
+            "Skin Solution объединяет экспертизу врача эндокринолога и косметолога",
+            "Здесь вы получите профессиональную помощь в решении проблем с кожей и нутриционные рекомендации для достижения здоровья изнутри.",
+          ]}
+          data_b24_form="inline/14/9beldz"
+          link="https://cdn-ru.bitrix24.ru/b26885834/crm/form/loader_14.js?"
+        />
       </div>
       <div className={style.recording}>
         <PaidRecordingConsultation />
