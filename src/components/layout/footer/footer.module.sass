@@ -34,6 +34,10 @@
         width: 24px
         margin-top: -2px
 
+    &:hover
+        cursor: pointer
+        opacity: 0.8
+
 .menu
     display: flex
     flex-wrap: wrap
@@ -70,11 +74,16 @@
         &:nth-child(4)
             order: 4
 
+.address
+    .item
+        cursor: default
+
 .item
     margin-bottom: 12px
     display: flex
     align-items: center
     gap: 8px
+    cursor: pointer
     img
         width: 24px
         
@@ -103,9 +112,29 @@
         justify-content: space-between
         align-items: flex-end
     &__text
-        @media (min-width: 1200px)
+        display: flex
+        flex-direction: column
+        justify-contnet: flex-end
+
+        .seryonse
+            padding-bottom: 26px
+            border-bottom: 1px solid #DBD5DE
+            text-decoration: underline
+            cursor: pointer
+            &:hover
+                opacity: 0.8
+        &__bottom
+            padding-top: 26px
+            @media (min-width: 1200px)
+                display: flex
+                gap: 82px
+        
+        &__documents
             display: flex
-            gap: 82px
+            flex-direction: column
+            gap: 12px
+            .text:hover
+                opacity: 0.8
 
 .seryonse
     padding-bottom: 26px

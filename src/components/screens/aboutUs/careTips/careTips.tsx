@@ -23,8 +23,8 @@ const CareTips: FC = () => {
                 </div>
 
                 <div className={style.imgMain}>
-                    <div className={style.img1}></div>
-                    <div className={style.img2}></div>
+                    <img src='./aboutUs/about1.JPG' className={style.img1} />
+                    <img src='./aboutUs/about2.JPG' className={style.img2} />
                 </div>
             </div>
         </div>
