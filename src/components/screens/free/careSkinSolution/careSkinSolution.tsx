@@ -13,21 +13,20 @@ const CareSkinSolution: FC = () => {
           <div className={style.titleMain}>
             <div className={style.star}></div>
             <h2 className={style.title}>
-              Консультация health
-              <br /> strategy: Забота <br />
+              Бесплатная
+              <br /> консультация: Забота <br />
               на высшем уровне
             </h2>
           </div>
         </div>
-        <div className={style.text}>Консультация Health Strategy включает:</div>
+        <div className={style.text}>Бесплатная консультация включает:</div>
         <div className={style.lists}>
           <div className={style.list}>
             <div>
               <div className={style.list__star}></div>
             </div>
             <p className={style.list__text}>
-              Cбор жалоб и анамнеза (заполнение анкеты), изучение мной Вашей
-              истории болезни
+              Готовые назначение от врача-эндокринолога и косметолога-эстетиста
             </p>
           </div>
           <div className={style.list}>
@@ -35,7 +34,7 @@ const CareSkinSolution: FC = () => {
               <div className={style.list__star}></div>
             </div>
             <p className={style.list__text}>
-              Cоставление списка анализов по итогам жалоб и анамнеза
+              Сбор полного анамнеза и разбор результатов обследования
             </p>
           </div>
           <div className={style.list}>
@@ -43,7 +42,7 @@ const CareSkinSolution: FC = () => {
               <div className={style.list__star}></div>
             </div>
             <p className={style.list__text}>
-              Полная дешифровка полученных результатов исследований и анализов
+              Индивидуальные рекомендации по питанию и нутритивной поддержки
             </p>
           </div>
           <div className={style.list}>
@@ -51,8 +50,8 @@ const CareSkinSolution: FC = () => {
               <div className={style.list__star}></div>
             </div>
             <p className={style.list__text}>
-              Составление схемы ( расписанная программа, рассчитаны на 3-4
-              месяца по времени)
+              Сопровождение напротяжении четырёх недель с момента получения
+              рекомендации
             </p>
           </div>
           <div className={style.list}>
@@ -60,27 +59,20 @@ const CareSkinSolution: FC = () => {
               <div className={style.list__star}></div>
             </div>
             <p className={style.list__text}>
-              Расписанный прием биодобавок,витаминов и минералов, рекомендации
-              (касаемо здоровья, коррекция/модификация образа жизни)
+              Еженедельные ответы на вопросы в указанные дни
             </p>
           </div>
           <div className={style.list}>
             <div>
               <div className={style.list__star}></div>
             </div>
-            <p className={style.list__text}>
-              Индивидуальные рекомендации по продуктам питания
-            </p>
+            <p className={style.list__text}>2 созвона с экспертами</p>
           </div>
           <div className={style.list}>
             <div>
               <div className={style.list__star}></div>
             </div>
-            <p className={style.list__text}>
-              {" "}
-              В консультацию входит меню питания, с подробными доступными
-              рецептами{" "}
-            </p>
+            <p className={style.list__text}>Чеклист модификации образа жизни</p>
           </div>
         </div>
       </div>
