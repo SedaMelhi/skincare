@@ -24,7 +24,7 @@ const ShopSkinCare: FC = () => {
 
                 </div>
                 <div className={style.imgMain}>
-                    <div className={style.img}></div>
+                    <img src='./aboutUs/about3.JPG'  className={style.img} />
                 </div>
             </div>
         </div>

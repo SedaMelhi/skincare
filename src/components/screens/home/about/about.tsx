@@ -15,10 +15,10 @@ const About: FC = () => {
         </div>
         <div className={style.images}>
           <div>
-            <img src="./about/1.png" alt="" className={style.img__one} />
+            <img src="./about/about1.JPG" alt="" className={style.img__one} />
           </div>
           <div>
-            <img src="./about/2.png" alt="" className={style.img__two} />
+            <img src="./about/about2.JPG" alt="" className={style.img__two} />
           </div>
         </div>
         <div className={style.title}>
@@ -28,7 +28,7 @@ const About: FC = () => {
           <div>так и внутренней.</div>
         </div>
         <div>
-          <img src="./about/3.png" alt="" className={style.img__three} />
+          <img src="./about/about3.JPG" alt="" className={style.img__three} />
         </div>
       </div>
       <div className={style.btn}>
