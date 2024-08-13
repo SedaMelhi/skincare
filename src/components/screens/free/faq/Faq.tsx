@@ -1,51 +1,45 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState } from "react";
 
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 
-import iconExpand from '@/../public/paidRecording/plus.png';
-import iconCollapse from '@/../public/paidRecording/minus.svg';
+import iconExpand from "@/../public/paidRecording/plus.png";
+import iconCollapse from "@/../public/paidRecording/minus.svg";
 
-import style from './Faq.module.sass';
+import style from "./Faq.module.sass";
 
 const Faq: FC = () => {
   const faqData = [
     {
-      id: '0',
-      question: 'Что такое Skin Solution и для кого она предназначена?',
+      id: "0",
+      question: "Все ли прописанные средства из схемы понадобятся?",
       answer:
-        'Skin Solution - это премиум программа, объединяющая экспертизу врача эндокринолога и косметолога. Она предназначена для тех, кто хочет решить проблемы с кожей, такие как акне, розацея, атопический дерматит, и получить комплексные рекомендации по уходу и питанию.',
+        "Каждое средство из схемы подбирается так, чтобы в комбинации с другими оно не только не конфликтовало, но и усиливало действие других средств, так схема ухода дает максимально выраженный результат.",
     },
     {
-      id: '1',
-      question: 'кто врачи?',
+      id: "1",
+      question: "Когда можно ждать результат?",
       answer:
-        'Skin Solution - это премиум программа, объединяющая экспертизу врача эндокринолога и косметолога. Она предназначена для тех, кто хочет решить проблемы с кожей, такие как акне, розацея, атопический дерматит, и получить комплексные рекомендации по уходу и питанию.',
+        "При регулярном использовании и полного соблюдения схемы первые изменения можно наблюдать в течение двух месяцев",
     },
     {
-      id: '2',
-      question: 'Какие выгоды в Skin Solution?',
+      id: "2",
+      question: "Надолго ли хватает средств?",
       answer:
-        'Skin Solution - это премиум программа, объединяющая экспертизу врача эндокринолога и косметолога. Она предназначена для тех, кто хочет решить проблемы с кожей, такие как акне, розацея, атопический дерматит, и получить комплексные рекомендации по уходу и питанию.',
+        "Расход средств у каждого индивидуальный и зависит от частоты использования, количества нанесения, объема средства и его текстуры.",
     },
     {
-      id: '3',
-      question: 'Как проходит консультация?',
+      id: "3",
+      question: "Стоимость консультации?",
       answer:
-        'Skin Solution - это премиум программа, объединяющая экспертизу врача эндокринолога и косметолога. Она предназначена для тех, кто хочет решить проблемы с кожей, такие как акне, розацея, атопический дерматит, и получить комплексные рекомендации по уходу и питанию.',
+        "Консультация бесплатная, так как средства подбираются из нашего магазина.",
     },
     {
-      id: '4',
-      question: 'что она включAет?',
+      id: "4",
+      question: "Можно ли подобрать уход с ограниченным бюджетом?",
       answer:
-        'Skin Solution - это премиум программа, объединяющая экспертизу врача эндокринолога и косметолога. Она предназначена для тех, кто хочет решить проблемы с кожей, такие как акне, розацея, атопический дерматит, и получить комплексные рекомендации по уходу и питанию.',
-    },
-    {
-      id: '5',
-      question: 'Какие результаты можно ожидать?',
-      answer:
-        'Skin Solution - это премиум программа, объединяющая экспертизу врача эндокринолога и косметолога. Она предназначена для тех, кто хочет решить проблемы с кожей, такие как акне, розацея, атопический дерматит, и получить комплексные рекомендации по уходу и питанию.',
+        "Агенты Скинкерь всегда стараются уложиться в бюджет клиента, чтобы он мог сразу же подключить продукты в свою Бьюти-рутину.",
     },
   ];
   const [isExpanded, setIsExpanded] = useState<number | null>(null);
@@ -78,15 +72,21 @@ const Faq: FC = () => {
                   key={index}
                   expanded={isExpanded === index}
                   onChange={() => handleToggle(index)}
-                  className={style.border}>
+                  className={style.border}
+                >
                   <AccordionSummary
                     expandIcon={
                       <img
-                        src={isExpanded === index ? iconCollapse.src : iconExpand.src}
+                        src={
+                          isExpanded === index
+                            ? iconCollapse.src
+                            : iconExpand.src
+                        }
                         alt=""
                         className={style.border__input}
                       />
-                    }>
+                    }
+                  >
                     <h3 className={style.border__title}>{faq.question}</h3>
                   </AccordionSummary>
                   <AccordionDetails>

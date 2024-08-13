@@ -17,7 +17,7 @@ const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue 
     : null;
 
   const price: number = item.minPrice;
-
+      
   return (
     <div className={style[classValue]} key={item.id}>
       {item.pins && (

@@ -87,7 +87,7 @@ const Experts: FC = () => {
                           <Button text="Узнать подробнее" link={url} />
                         </div>
                       </div>
-                      <div className={style.right}></div>
+                      <div className={style.right + ' ' + style[`image${i+1}`]}></div>
                     </div>
                   </div>
                 </SwiperSlide>

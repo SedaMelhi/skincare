@@ -1,117 +1,145 @@
-import { GetServerSideProps, NextPage } from 'next';
-import { CatalogService, FilterService } from '@/services/catalog.service';
-import { IProductArr } from '@/interfaces/products.interface';
+import { GetServerSideProps, NextPage } from "next";
+import { CatalogService, FilterService } from "@/services/catalog.service";
+import { IProductArr } from "@/interfaces/products.interface";
+import debounce from "debounce";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCatalogProducts,
+  setCheckboxFilters,
+  setSort,
+} from "@/redux/catalogSlice/catalogSlice";
 
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
+import CatalogPage from "@/components/screens/catalog/CatalogPage";
+import { useRouter } from "next/router";
 
-import CatalogPage from '@/components/screens/catalog/CatalogPage';
-
-const Catalog: NextPage<{ data: any; id: string | null }> = ({ data, id }) => {
-  const [products, setProducts] = useState<IProductArr>(data && data.items ? data.items : []);
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const [fetching, setFetching] = useState(false);
+const CatalogCategory: NextPage = () => {
+  const [products, setProducts] = useState<any>([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [fetching, setFetching] = useState(true);
   const dispatch = useDispatch();
-  const checkboxFilters = useSelector((state: any) => state.catalog.checkboxFilters);
-  const discountFilter = useSelector((state: any) => state.catalog.discountFilter);
-  const min_price = useSelector((state: any) => state.catalog.discountFilter);
-  const max_price = useSelector((state: any) => state.catalog.discountFilter);
-
+  const checkboxFilters = useSelector(
+    (state: any) => state.catalog.checkboxFilters
+  );
+  const sort = useSelector((state: any) => state.catalog.sort);
+  const discountFilter = useSelector(
+    (state: any) => state.catalog.discountFilter
+  );
+  const price = useSelector((state: any) => state.catalog.price);
+  const [count, setCount] = useState(0);
+  const router = useRouter()
   const scrollHandler = (e: any) => {
     const difference = window.innerWidth >= 1200 ? 650 : 1200;
     const scrolledToEnd =
       e.target.documentElement.scrollHeight -
-        (e.target.documentElement.scrollTop + window.innerHeight) <
+      (e.target.documentElement.scrollTop + window.innerHeight) <
       difference;
     if (
-      scrolledToEnd &&
-      products.length < data.count &&
-      !fetching &&
-      !Object.values(checkboxFilters).some((item: any) => item.length !== 0)
+      scrolledToEnd && products.length < count
     ) {
       setFetching(true);
     }
   };
 
+
   const getData = async () => {
-    if (!Object.values(checkboxFilters).some((item: any) => item.length !== 0)) {
-      const newPage = currentPage + 1;
-      const response = await CatalogService.getCatalog({
-        type: 'getItemsList',
+    if (router.query.id) {
+      const response = await FilterService.getData({
+        id: router.query.id,
+        discount: discountFilter,
+        sort: sort,
+        filters: checkboxFilters,
+        priceMin: price ? price[0] : '',
+        priceMax: price ? price[1] : '',
         offset: 12 * currentPage,
         limit: 12,
-        sectionId: id,
       });
       if (response.items && response.items.length > 0) {
-        setProducts((prevProducts) => [...prevProducts, ...response.items]);
-        setCurrentPage(newPage);
+        if (currentPage === 0) {
+          setProducts(response.items.length > 8
+            ? [...response.items.filter((item: any, i: number) => i < 8), { id: "circle" }, ...response.items.filter((item: any, i: number) => i >= 8)]
+            : [...response.items, { id: "circle" }]
+          );
+        } else {
+          setProducts((prevProducts: any) => [...prevProducts, ...response.items]);
+        }
+        setCurrentPage(currentPage + 1);
       }
+      setFetching(false);
     }
-    setFetching(false);
+
   };
-
-  useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
-    return function () {
-      document.removeEventListener('scroll', scrollHandler);
-    };
-  }, [products]);
-
-  useEffect(() => {
-    if (
-      !checkboxFilters ||
-      Object.values(checkboxFilters).every((item: any) => item.length === 0)
-    ) {
-      setProducts(
-        data.items
-          ? data.items.length > 8
-            ? [...data.items.slice(0, 8), { id: 'circle' }, ...data.items.slice(8)]
-            : [...data.items, { id: 'circle' }]
-          : [],
-      );
-      setCurrentPage(1);
+  const getProductCount = async () => {
+    if (router.query.id) {
+      const response = await FilterService.getData({
+        id: router.query.id,
+        discount: discountFilter,
+        sort: sort,
+        filters: checkboxFilters,
+        priceMin: price ? price[0] : '',
+        priceMax: price ? price[1] : ''
+      });
+      setCount(response.items.length)
     }
-  }, [id, data.items, checkboxFilters]);
+  }
 
+  useEffect(() => {
+    setCurrentPage(0)
+    setProducts([])
+    setFetching(true)
+    if (currentPage === 0) {
+      getData()
+    }
+    getProductCount()
+  }, [router.query.id])
   useEffect(() => {
     if (fetching) {
       getData();
     }
   }, [fetching]);
-
   useEffect(() => {
-    if (Object.values(checkboxFilters).length > 0) {
-      FilterService.getData(id, discountFilter, 'popular', checkboxFilters).then((res) => {
-        setCurrentPage(0);
-        setProducts(res.items);
-        console.log(res.items);
-      });
+    document.addEventListener("scroll", scrollHandler);
+    return function () {
+      document.removeEventListener("scroll", scrollHandler);
+    };
+  }, [count, products])
+  useEffect(() => {
+    if (Object.keys(checkboxFilters).length > 0 || sort || price || discountFilter !== 'null') {
+      setProducts([])
+      setCurrentPage(0)
+      getProductCount()
+      setFetching(true)
     }
-  }, [checkboxFilters, discountFilter]);
+  }, [checkboxFilters, sort, price, discountFilter]);
+
+  const hasDuplicateIds = (arr: any) => {
+    const ids = arr.map((item: any) => item.id); // Извлекаем все id из объектов
+    const uniqueIds = new Set(ids); // Создаем множество уникальных id
+    return uniqueIds.size < ids.length; // Если размер множества меньше размера массива, значит есть дубликаты
+  };
 
   useEffect(() => {
-    setProducts([]);
-    setCurrentPage(0);
+    console.log('duplicate', hasDuplicateIds(products));
+  }, [products])
 
-    dispatch(setCheckboxFilters({}));
-  }, [id]);
-
-  return <CatalogPage products={products} count={data.count} fetching={fetching} />;
+  return <CatalogPage products={products} count={count} fetching={fetching} />;
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const data = await CatalogService.getCatalog({
-    type: 'getItemsList',
-    offset: 0,
-    limit: 12,
-    sectionId: context.params && context.params.id,
-  });
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const data = await FilterService.getData({
+//     id: context.params && context.params.id,
+//     discount: null,
+//     sort: "popular",
+//     filters: {},
+//     priceMin: "",
+//     priceMax: "",
+//     offset: 0,
+//     limit: 12,
+//   });
 
-  return {
-    props: { data, id: context.params ? context.params.id : null },
-  };
-};
+//   return {
+//     props: { data, id: context.params ? context.params.id : null },
+//   };
+// };
 
-export default Catalog;
+export default CatalogCategory;

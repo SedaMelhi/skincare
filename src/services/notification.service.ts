@@ -9,7 +9,6 @@ export const getNotificationsService = {
         token,
       }
     );
-    console.log("getNotifications", data);
     return data;
   },
 };

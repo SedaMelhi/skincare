@@ -1,16 +1,16 @@
-import { FC } from 'react';
+import { FC } from "react";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
-import 'swiper/css';
-import 'swiper/css/pagination';
-import style from './BeforeAndAfter.module.sass';
+import "swiper/css";
+import "swiper/css/pagination";
+import style from "./BeforeAndAfter.module.sass";
 
 const BeforeAndAfter: FC = () => {
   return (
     <div className="beforeAndAfter">
-      <h2 className={style.title + ' ' + style.wrap}>ваша кожа</h2>
+      <h2 className={style.title + " " + style.wrap}>ваша кожа</h2>
       <div className={style.swiper_wrap}>
         <Swiper
           className={style.swiper}
@@ -54,7 +54,8 @@ const BeforeAndAfter: FC = () => {
               spaceBetween: 104,
               slidesPerView: 1.6,
             },
-          }}>
+          }}
+        >
           <SwiperSlide className={style.slide}>
             <div className={style.container}>
               <div className={style.before}>
@@ -64,9 +65,15 @@ const BeforeAndAfter: FC = () => {
               <div className={style.after}>
                 <div className={style.after__img1}></div>
                 <div className={style.after__textMain}>
-                  <img src="./paidRecording/star.png" className={style.after__star} />
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
                   <div className={style.after__text}>и после</div>
-                  <img src="./paidRecording/star.png" className={style.after__star} />
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
                 </div>
               </div>
             </div>
@@ -80,9 +87,15 @@ const BeforeAndAfter: FC = () => {
               <div className={style.after}>
                 <div className={style.after__img2}></div>
                 <div className={style.after__textMain}>
-                  <img src="./paidRecording/star.png" className={style.after__star} />
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
                   <div className={style.after__text}>и после</div>
-                  <img src="./paidRecording/star.png" className={style.after__star} />
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
                 </div>
               </div>
             </div>
@@ -96,9 +109,37 @@ const BeforeAndAfter: FC = () => {
               <div className={style.after}>
                 <div className={style.after__img3}></div>
                 <div className={style.after__textMain}>
-                  <img src="./paidRecording/star.png" className={style.after__star} />
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
                   <div className={style.after__text}>и после</div>
-                  <img src="./paidRecording/star.png" className={style.after__star} />
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
+                </div>
+              </div>
+            </div>
+          </SwiperSlide>
+          <SwiperSlide className={style.slide}>
+            <div className={style.container}>
+              <div className={style.before}>
+                <div className={style.before__img4}></div>
+                <div className={style.before__text}>до советов агентов:(</div>
+              </div>
+              <div className={style.after}>
+                <div className={style.after__img4}></div>
+                <div className={style.after__textMain}>
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
+                  <div className={style.after__text}>и после</div>
+                  <img
+                    src="./paidRecording/star.png"
+                    className={style.after__star}
+                  />
                 </div>
               </div>
             </div>

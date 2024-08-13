@@ -32,7 +32,6 @@ const EmailSmsCode: NextPage = () => {
   };
 
   const sendCodeAgain = async () => {
-    console.log('again');
     setEndTimer(false);
     const email = router.query.email as string;
     await recoveryUserPassService.recoveryUserPassEmail(email);

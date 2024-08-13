@@ -1,7 +1,7 @@
 .sign
-  width: 16px
-  height: 16px
-  position: relative
+    width: 16px
+    height: 16px
+    position: relative
 
 .text
     cursor: pointer
@@ -14,51 +14,52 @@
         opacity: 0
 
 .title
-  text-transform: uppercase
-  margin-top: 24px
-  display: flex
-  gap: 8px
-  align-items: center
-  cursor: pointer
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-  &__input:checked
-    & + .title 
-        .sign
-            img:nth-child(1)
-                transform: rotate(0deg)
-        & + .params__wrap
-            .params
-                animation: show .3s 1 linear forwards
-                @keyframes show
-                    0%
-                        margin-top: -100px
-                    100%
-                        margin-top: 8px
-  &__input
-    display: none
-  img
-    margin-top: -4px
-    display: block
-    position: absolute
-    top: 0
-    left: 0
-    transition: .2s 
-    &:nth-child(1)
-      transform: rotate(90deg)
-  
+    text-transform: uppercase
+    margin-top: 24px
+    display: flex
+    gap: 8px
+    align-items: center
+    cursor: pointer
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    &__input:checked
+        & + .title
+            .sign
+                img:nth-child(1)
+                    transform: rotate(0deg)
+            & + .params__wrap
+                .params
+                    animation: show .3s 1 linear forwards
+                    @keyframes show
+                        0%
+                            margin-top: -100px
+                        100%
+                            margin-top: 8px
+    &__input
+        display: none
+    img
+        margin-top: -4px
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        transition: .2s
+        &:nth-child(1)
+            transform: rotate(90deg)
+.accordion
+    background: #fff0
+    box-shadow: none
 .params
     display: flex
     flex-direction: column
     gap: 12px
-    animation: hidden .6s 1 linear forwards
-    @keyframes hidden
-        0%
-            margin-top: 8px
-        100%
-            margin-top: -100%
-            display: none
+    padding: 8px 0px!important
     &__wrap
         overflow: hidden
+        background: #fff0
+        min-height: auto!important
+        padding: 0px!important
+        & > div
+            margin: 0!important
 
 .item
     display: flex
@@ -66,7 +67,7 @@
     gap: 8px
     color: var(--grey-800)
     font-size: 14px
-    line-height: 14px
+    line-height: 19px
     input
         display: none
         &:checked + .input
@@ -93,3 +94,10 @@
     height: 1px
     background-color: var(--grey-400)
     opacity: 0.5
+
+.renderItems
+    display: flex
+    align-items: center
+    gap: 16px
+    span
+        flex-shrink: 0

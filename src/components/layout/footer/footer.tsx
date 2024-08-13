@@ -1,9 +1,13 @@
 import { FC, useEffect, useState } from "react";
 
-import { ContactsArray } from "@/interfaces/contact.interface";
 
+import { ContactsArray } from '@/interfaces/contact.interface';
+import { useSelector } from 'react-redux';
+import Link from 'next/link';
+import FooterInfoModal from './modals/footerInfoModal';
 import arrow from "./../../../../public/arrow.svg";
 import logo from "./../../../../public/logo.svg";
+
 
 import style from "./footer.module.sass";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +16,7 @@ import FooterInfoModal from "./modals/footerInfoModal";
 import { ContactsService } from "@/services/contacts.service";
 import { setFooterData } from "@/redux/footerSlice/footerSlice";
 import { useRouter } from "next/router";
+
 interface RootState {
   footer: {
     footerData: ContactsArray;
@@ -132,6 +137,7 @@ const Footer: FC = () => {
             <Link href={"/"}>
               <img src={logo.src} alt="" className={style.logo} />
             </Link>
+            <div> <div className={style.seryonse}>Сайт разработан в студии  <Link href={'https://seryonse.ru/'}>SERYONSE</Link> </div>
             <div className={style.end__text}>
               <Link href={'https://www.instagram.com/seryon.se?igsh=ODJycGFtamN2MWcw'} target="_blank" className={style.seryonse}>
                 Сайт разработан в branding & web студии SERYONSE

@@ -1,26 +1,34 @@
-import { FC } from 'react';
-import Layout from '@/components/layout/Layout';
-import DescriptionRecord from '@/components/screens/skinSolution/descriptionRecord/descriptionRecord';
-import Care from '@/components/screens/skinSolution/care/care';
-import Reviews from '@/components/screens/skinSolution/reviews/Reviews';
-import Faq from '@/components/screens/skinSolution/faq/Faq';
-import Record from '@/components/screens/skinSolution/record/record';
-import PaidRecordingConsultation from '@/components/screens/skinSolution/paidRecordingConsultation/paidRecordingConsultation';
-import SwatchLine from '@/components/screens/skinSolution/swatchLine/swatchLine';
-import CareSkinSolution from '@/components/screens/skinSolution/careSkinSolution/careSkinSolution';
-import ConsultationTerms from '@/components/screens/skinSolution/consultationTerms/consultationTerms';
-import AboutUsPage from '@/components/screens/aboutUs/aboutUsPage';
-import OurAgents from '@/components/screens/skinSolution/ourAgents/ourAgents';
-import OtherServices from '@/components/screens/skinSolution/otherServices/otherServices';
-import BeforeAndAfter from '@/components/screens/skinSolution/beforeAndAfter/beforeAndAfter';
+import { FC } from "react";
+import Layout from "@/components/layout/Layout";
+import DescriptionRecord from "@/components/screens/skinSolution/descriptionRecord/descriptionRecord";
+import Care from "@/components/screens/healthStrategy/care/care";
+import Reviews from "@/components/screens/healthStrategy/reviews/Reviews";
+import Faq from "@/components/screens/healthStrategy/faq/Faq";
+import Record from "@/components/screens/healthStrategy/record/record";
+import PaidRecordingConsultation from "@/components/screens/healthStrategy/paidRecordingConsultation/paidRecordingConsultation";
+import SwatchLine from "@/components/screens/healthStrategy/swatchLine/swatchLine";
+import CareSkinSolution from "@/components/screens/healthStrategy/careSkinSolution/careSkinSolution";
+import ConsultationTerms from "@/components/screens/healthStrategy/consultationTerms/consultationTerms";
+import OurAgents from "@/components/screens/healthStrategy/ourAgents/ourAgents";
+import OtherServices from "@/components/screens/healthStrategy/otherServices/otherServices";
+import BeforeAndAfter from "@/components/screens/healthStrategy/beforeAndAfter/beforeAndAfter";
 
-import style from './index.module.sass';
+import style from "./index.module.sass";
 
 const HealthStrategyPage: FC = () => {
   return (
     <Layout title="платная запись">
       <div>
-        <DescriptionRecord />
+        <DescriptionRecord
+          title="Программa health strategy"
+          subtitle="> C превентивным врачом-эндокринологом"
+          text={[
+            "Это целостная работа с организмом,которая затрагивает все органы и системы, начиная с пищеварительной и заканчивая эндокринной системой.",
+            "При соблюдении рекомендаций специалиста вы сможете избавиться не только от того, что вас беспокоило изначально, но и улучшить качество вашей жизни в долгосрочной перспективе.",
+          ]}
+          data_b24_form="inline/12/hldxpa"
+          link="https://cdn-ru.bitrix24.ru/b26885834/crm/form/loader_12.js?"
+        />
       </div>
       <div className={style.recording}>
         <PaidRecordingConsultation />

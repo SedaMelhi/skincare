@@ -9,7 +9,11 @@ import arrow from './../../../../../../public/arr.svg';
 import arrowLeft from './../../../../../../public/arrowLeft.svg';
 import pinkHurt from './../../../../../../public/pinkHurt.svg';
 
+import { useDispatch } from 'react-redux';
+import { setCheckboxFilters, setDiscountFilter, setPrice, setSort } from '@/redux/catalogSlice/catalogSlice';
+
 import style from './mobileMenu.module.sass';
+import Link from 'next/link';
 
 interface MobileMenuProps {
   items: CatalogItems;
@@ -22,7 +26,6 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen, brands, brandsCou
   const [menu, setMenu] = useState<CatalogItems | undefined>(items);
   const [title, setTitle] = useState<string>('');
   const router = useRouter();
-
   useEffect(() => {
     setMenu(items);
   }, [items]);
@@ -30,18 +33,32 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen, brands, brandsCou
     setMenu(arr);
     setTitle(name);
   };
-
   const changeLink = (id: string): void => {
-    setMenuOpen(false);
+    reset()
     router.push('/catalog/' + id);
   };
 
+  const dispatch = useDispatch();
+  const handleBrandClick = (id: string, name: string) => {
+    reset()
+    router.push('/catalog?brandId=' + id + '&brandName=' + name);
+  };
+  const reset = () => {
+    setMenuOpen(false);
+    dispatch(setCheckboxFilters({}))
+    dispatch(setPrice(null))
+    dispatch(setSort(''))
+    dispatch(setDiscountFilter('null'))
+  }
   return (
     <div className={style.menu}>
       {!title && (
-        <div className={style.level1} onClick={() => changeLink('')}>
+        <Link
+          href={'/catalog/?all=true'}
+          className={style.level1}
+          onClick={() => setMenuOpen((prev) => !prev)}>
           <div className={style.name}>ВСЕ</div>
-        </div>
+        </Link>
       )}
 
       {title && (
@@ -73,7 +90,7 @@ const MobileMenu: FC<MobileMenuProps> = ({ items, setMenuOpen, brands, brandsCou
 
               {brands[key].map(({ id, name }) => (
                 <div className={style.brands__item}>
-                  <div onClick={() => changeLink(id)}>{name}</div>
+                  <div onClick={() => handleBrandClick(id, name)}>{name}</div>
                 </div>
               ))}
             </div>

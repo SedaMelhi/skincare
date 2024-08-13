@@ -1,7 +1,7 @@
 .catalog
     padding-top: 32px
     @media (min-width: 1200px)
-        padding-top: 56px 
+        padding-top: 56px
 
 .empty
     display: none
@@ -19,22 +19,24 @@
         justify-content: space-between
         @media (min-width: 1200px)
             gap: 32px
-            
 
 .wrap
+    position: relative
     display: flex
     justify-content: space-between
-    gap: 32px
+    @media (min-width: 1200px)
+        gap: 32px
 
 .width
     width: 100%
     @media (min-width: 1200px)
-        width: 1015px   
+        width: 1015px
 
 .flex
     display: flex
-    justify-content: space-between 
+    justify-content: space-between
     align-items: center
+    gap: 50px
     width: 100%
 .subtitle
     font-size: 14px
@@ -54,34 +56,57 @@
 
 .params
     display: flex
-    justify-content: space-between  
-    gap: 32px 
+    justify-content: space-between
+    gap: 32px
+    position: relative
+    @media (min-width: 1200px)
+        position: static
 
 .sort
     @media (min-width: 1200px)
         width: 1015px
 
 .filter_wrap
-  display: flex
-  align-items: center
-  gap: 4px
-  width: 303px
-  @media (min-width: 1200px)
-    gap: 8px
-    flex-shrink: 0
+    display: flex
+    align-items: center
+    gap: 4px
+    width: 303px
+    @media (min-width: 1200px)
+        pointer-events: none
+        gap: 8px
+        flex-shrink: 0
 
 .text
-  display: none
-  color: var(--grey-900)
-  font-size: 14px
-  line-height: normal
-  text-transform: uppercase
-  cursor: pointer
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-  & + img
+    display: none
+    color: var(--grey-900)
+    font-size: 14px
+    line-height: normal
+    text-transform: uppercase
     cursor: pointer
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
-    position: relative
-    top: -2px
-  @media (min-width: 768px)
-    display: inline
+    & + img
+        cursor: pointer
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+        position: relative
+        top: -2px
+    @media (min-width: 768px)
+        display: inline
+.filters_pc
+    display: none
+    @media (min-width: 1200px)
+        display: block
+.filters_mobile
+    display: block
+    @media (min-width: 1200px)
+        display: none
+.products
+    width: 100%
+.otstup
+    padding-top: 70px
+.load
+    width: 100%
+    display: flex
+    padding-top: 80px
+    justify-content: center
+    img
+        width: 130px

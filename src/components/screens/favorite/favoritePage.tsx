@@ -27,7 +27,7 @@ const FavoritePage: FC = () => {
 
   useEffect(() => {
     const res = favoriteService.getFavorite();
-    res.then((data) => console.log(data));
+    
   }, []);
 
   return (

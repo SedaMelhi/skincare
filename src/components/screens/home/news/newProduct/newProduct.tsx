@@ -15,7 +15,7 @@ const NewProduct: FC<any> = ({ item }) => {
             ? `url(https://b.skincareagents.com${item.smallPhoto ? item.smallPhoto : notPhoto.src})`
             : `url(${notPhoto.src})`,
         }}></div>
-      <h3 className={style.subtitle}>SKIN&LAB</h3>
+      <h3 className={style.subtitle}>{item.brand}</h3>
       <p className={style.description}>{item.name}</p>
       <div className={style.price}>{item.scu && Object.values(item.scu)[0] && parseFloat(scu[0].price).toString()} ₽</div>
     </Link>

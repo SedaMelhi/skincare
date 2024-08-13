@@ -63,8 +63,6 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-
         setValue(res);
       });
   };
@@ -125,7 +123,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   useEffect(() => {
     dispatch(setAddress({ city, street, apartment, intercom, entrance, floor }));
   }, [city, street, apartment, intercom, entrance, floor]);
-  console.log(city, street);
+ 
 
   return (
     <form className={style.form}>

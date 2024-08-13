@@ -9,6 +9,7 @@ import CountProducts from '@/components/other/countProducts/countProducts';
 import Filters from '@/components/other/filters/filters';
 import Sort from '@/components/other/sort/sort';
 import Products from '@/components/other/products/products';
+import Load from '@/components/other/load/load';
 
 import { IProductArr } from '@/interfaces/products.interface';
 
@@ -22,13 +23,20 @@ const CatalogPage: FC<{
   fetching: boolean;
   value?: string;
   brand?: string;
+  all?: boolean;
 }> = ({ products, count, fetching, value, brand }) => {
   const [name, setName] = useState<string>('');
+  const [isOpenFilters, setIsOpenFilters] = useState(false)
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
 
   useEffect(() => {
-    setName(catalog ? catalog.filter(({ ID }) => ID == router.query.id)[0]?.NAME : '');
+    if (router.query.brandId) {
+      setName(router.query.brandName + '')
+    } else {
+      setName(catalog ? catalog.filter(({ ID }) => ID == router.query.id)[0]?.NAME || 'все' : '');
+    }
+
   }, [catalog, router, products]);
 
   return (
@@ -44,16 +52,16 @@ const CatalogPage: FC<{
                 ) : brand ? (
                   <Breadcrumbs
                     arr={[
-                      { text: 'Каталог', link: 'catalog' },
-                      { text: 'Бренды', link: 'catalog' },
+                      { text: 'Каталог', link: '/catalog' },
+                      { text: 'Бренды', link: '/catalog' },
                       { text: brand, link: '' },
                     ]}
                   />
                 ) : (
                   <Breadcrumbs
                     arr={[
-                      { text: 'Каталог', link: 'catalog' },
-                      { text: name, link: '/catalog/1' },
+                      { text: 'Каталог', link: '/catalog' },
+                      { text: name, link: '/' },
                     ]}
                   />
                 )}
@@ -69,7 +77,7 @@ const CatalogPage: FC<{
         </div>
 
         <div className={style.params}>
-          <div className={style.filter_wrap}>
+          <div className={style.filter_wrap} onClick={() => setIsOpenFilters(prev => !prev)}>
             <span className={style.text}>фильтры</span>
             <img src={filtersSvg.src} alt="" />
           </div>
@@ -78,8 +86,17 @@ const CatalogPage: FC<{
           </div>
         </div>
         <div className={style.wrap}>
-          <Filters />
-          {products && products.length > 0 && <Products products={products} fetching={fetching} />}
+          <Filters isOpenFiltersMobile={isOpenFilters} setIsOpenFiltersMobile={setIsOpenFilters} />
+          <div className={style.products}>
+            {products && products.length > 0 && <Products products={products} fetching={fetching} />}
+            {products.length === 0 ? <div className={style.otstup}></div> : ''}
+            {
+              fetching && <div className={style.load}>
+                <Load />
+              </div>
+            }
+          </div>
+
         </div>
       </div>
     </Layout>

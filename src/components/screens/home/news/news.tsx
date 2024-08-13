@@ -11,7 +11,6 @@ import style from './News.module.sass';
 
 const News: FC<NewProducts | any> = ({ newProducts, title = true }) => {
   const products = Object.values(newProducts).splice(0, Object.values(newProducts).length - 1);
-
   return (
     <section>
       <div className={style.news} style={title ? {} : { margin: 0 }}>
@@ -26,8 +25,8 @@ const News: FC<NewProducts | any> = ({ newProducts, title = true }) => {
             spaceBetween={57.5}
             modules={[Navigation]}
             navigation={{
-              nextEl: '.next',
-              prevEl: '.prev',
+              nextEl: '.next-news',
+              prevEl: '.prev-news',
               enabled: true,
             }}
             breakpoints={{
@@ -58,7 +57,7 @@ const News: FC<NewProducts | any> = ({ newProducts, title = true }) => {
       </div>
       {title ? (
         <div className={style.arrows}>
-          <Arrows next="next" prev="prev" />
+          <Arrows next="next-news" prev="prev-news" />
         </div>
       ) : (
         ''

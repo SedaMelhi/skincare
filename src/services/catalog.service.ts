@@ -38,13 +38,17 @@ export const FilterService = {
     const { data } = await axios.post<any>('v1/catalog.php', params);
     return data;
   },
-  async getData(id: any, discount: any, sort: any, key: IFilters): Promise<any> {
+  async getData({id, discount, sort,  filters, priceMin, priceMax, offset, limit}:any): Promise<any> {
     const params = {
       type: 'useFilter',
       sectionId: id,
       sort: sort || 'popular',
       discount: discount || 'Y',
-      ...key,
+      priceMin: '' || priceMin, 
+      priceMax: '' || priceMax,
+      offset, 
+      limit,
+      ...filters,
     };
     const { data } = await axios.post<any>('v1/catalog.php', params);
     return data;

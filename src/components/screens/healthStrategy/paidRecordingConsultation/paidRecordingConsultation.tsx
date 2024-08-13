@@ -20,7 +20,7 @@ const PaidRecordingConsultation: FC = () => {
               <span>1</span>
             </div>
             <p className={style.border__text}>
-              Bы устали пробовать средства и не видеть результат{' '}
+              Yстали от шаблонных назначений и не видите результата
             </p>
           </div>
           <div className={style.border}>
@@ -28,7 +28,7 @@ const PaidRecordingConsultation: FC = () => {
               <span>2</span>
             </div>
             <p className={style.border__text}>
-              Yстали от шаблонных назначений, хотите грамотно подобранный уход
+              Бросаете всё на полпути
             </p>
           </div>
           <div className={style.border}>
@@ -36,8 +36,7 @@ const PaidRecordingConsultation: FC = () => {
               <span>3</span>
             </div>
             <p className={style.border__text}>
-              Xотите найти истинную причину ваших проблем с кожей (окне, розацеа, атопический
-              дерматит)
+              Хотите найти истинную причину ваших проблем с кожей, состоянием здоровья в целом
             </p>
           </div>
         </div>
@@ -47,7 +46,7 @@ const PaidRecordingConsultation: FC = () => {
               <span>4</span>
             </div>
             <p className={style.border__text}>
-              Hе знаете, с чего начать путь к здоровой кожи и образа жизни{' '}
+              Hе знаете, с чего начать путь к здоровому образу жизни
             </p>
           </div>
           <div className={style.border}>
@@ -56,14 +55,8 @@ const PaidRecordingConsultation: FC = () => {
             </div>
 
             <p className={style.border__text}>
-              Hе знаете, как внедрить системный подход в решение вашей проблемы
+              Hе знаете, как внедрить системный подход в решение вашей проблемы
             </p>
-          </div>
-          <div className={style.border}>
-            <div className={style.border__number}>
-              <span>6</span>
-            </div>
-            <p className={style.border__text}>Бросаете все на полпути </p>
           </div>
         </div>
       </div>

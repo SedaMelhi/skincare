@@ -138,25 +138,27 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     );
   }
 
-  products = products.flatMap((productGroup) =>
+  products = products.flatMap((productGroup) => productGroup &&
     Object.values(productGroup).filter((product: any) => product.id !== null)
   );
   // Преобразование price.basePrice в строку
   const transformPriceToString = (products: any[]) => {
     return products.map((product) => {
       const newScu: any = {};
-      for (const key in product.scu) {
-        if (
-          product.scu[key] &&
-          product.scu[key].price &&
-          typeof product.scu[key].price.basePrice === "number"
-        ) {
-          newScu[key] = {
-            ...product.scu[key],
-            price: product.scu[key].price.basePrice.toString(), // Преобразуем basePrice в строку
-          };
-        } else {
-          newScu[key] = product.scu[key];
+      if(product){
+        for (const key in product.scu) {
+          if (
+            product.scu[key] &&
+            product.scu[key].price &&
+            typeof product.scu[key].price.basePrice === "number"
+          ) {
+            newScu[key] = {
+              ...product.scu[key],
+              price: product.scu[key].price.basePrice.toString(), // Преобразуем basePrice в строку
+            };
+          } else {
+            newScu[key] = product.scu[key];
+          }
         }
       }
       return {

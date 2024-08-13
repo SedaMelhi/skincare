@@ -3,12 +3,13 @@ import Link from 'next/link';
 import { IBrands } from '../dropDownMenu';
 import { CatalogItems } from '../interface';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { setCheckboxFilters, setDiscountFilter, setPrice, setSort } from '@/redux/catalogSlice/catalogSlice';
 
 import arrow from './../../../../../../public/arr.svg';
 
 import style from './../dropDownMenu.module.sass';
-import { useDispatch } from 'react-redux';
-import { setCheckboxFilters } from '@/redux/catalogSlice/catalogSlice';
+
 
 interface PCMenuProps {
   items: CatalogItems;
@@ -21,27 +22,34 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
   const router = useRouter();
   const dispatch = useDispatch();
   const handleBrandClick = (id: string, name: string) => {
-    setMenuOpen((prev) => !prev);
-
+    reset()
     router.push('/catalog?brandId=' + id + '&brandName=' + name);
   };
+  const reset = () => {
+    setMenuOpen((prev) => !prev);
+    dispatch(setCheckboxFilters({}))
+    dispatch(setPrice(null))
+    dispatch(setSort(''))
+    dispatch(setDiscountFilter('null'))
+  }
   return (
     <div>
       {
         <div className={style.item__wrap}>
           <Link
-            href={'/catalog/'}
+            href={'/catalog/?all=true'}
             className={style.item}
             onClick={() => setMenuOpen((prev) => !prev)}>
             Все
           </Link>
-          <Link
-            href={'/catalog/'}
+          <div
             className={style.item}
-            onClick={() => setMenuOpen((prev) => !prev)}>
+            onClick={() => {
+              reset()
+            }}>
             Бренды
             <img className={style.arrow} src={arrow.src} />
-          </Link>
+          </div>
           {brandsCount >= 1 && (
             <div className={style.categories + ' ' + style.brands}>
               {Object.keys(brands).map((key) => (
@@ -67,7 +75,9 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
           <Link
             href={'/catalog/' + ID}
             className={style.item}
-            onClick={() => setMenuOpen((prev) => !prev)}>
+            onClick={() => {
+              reset()
+            }}>
             {NAME}
             {SUBCATEGORIES && SUBCATEGORIES.length >= 1 && (
               <img className={style.arrow} src={arrow.src} />
@@ -77,7 +87,9 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
             <div className={style.categories}>
               {SUBCATEGORIES.map(({ ID, NAME, SUBCATEGORIES }) => (
                 <div className={style.subitem} key={ID}>
-                  <Link href={'/catalog/' + ID} onClick={() => setMenuOpen((prev) => !prev)}>
+                  <Link href={'/catalog/' + ID} onClick={() => {
+                    reset()
+                  }}>
                     {NAME}
                     {SUBCATEGORIES && SUBCATEGORIES.length >= 1 && (
                       <img className={style.arrow} src={arrow.src} />
@@ -90,7 +102,9 @@ const PCMenu: FC<PCMenuProps> = ({ items, setMenuOpen, brands, brandsCount }) =>
                           <Link
                             href={'/catalog/' + ID}
                             className={style.item}
-                            onClick={() => setMenuOpen((prev) => !prev)}>
+                            onClick={() => {
+                              reset()
+                            }}>
                             {NAME}
                           </Link>
                         </div>
