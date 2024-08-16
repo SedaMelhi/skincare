@@ -1,18 +1,13 @@
 import { FC, useEffect, useState } from "react";
 
-
-import { ContactsArray } from '@/interfaces/contact.interface';
-import { useSelector } from 'react-redux';
-import Link from 'next/link';
-import FooterInfoModal from './modals/footerInfoModal';
+import { ContactsArray } from "@/interfaces/contact.interface";
+import Link from "next/link";
+import FooterInfoModal from "./modals/footerInfoModal";
 import arrow from "./../../../../public/arrow.svg";
 import logo from "./../../../../public/logo.svg";
 
-
 import style from "./footer.module.sass";
 import { useDispatch, useSelector } from "react-redux";
-import Link from "next/link";
-import FooterInfoModal from "./modals/footerInfoModal";
 import { ContactsService } from "@/services/contacts.service";
 import { setFooterData } from "@/redux/footerSlice/footerSlice";
 import { useRouter } from "next/router";
@@ -137,20 +132,39 @@ const Footer: FC = () => {
             <Link href={"/"}>
               <img src={logo.src} alt="" className={style.logo} />
             </Link>
-            <div> <div className={style.seryonse}>Сайт разработан в студии  <Link href={'https://seryonse.ru/'}>SERYONSE</Link> </div>
             <div className={style.end__text}>
-              <Link href={'https://www.instagram.com/seryon.se?igsh=ODJycGFtamN2MWcw'} target="_blank" className={style.seryonse}>
+              <Link
+                href={
+                  "https://www.instagram.com/seryon.se?igsh=ODJycGFtamN2MWcw"
+                }
+                target="_blank"
+                className={style.seryonse}
+              >
                 Сайт разработан в branding & web студии SERYONSE
               </Link>
               <div className={style.end__text__bottom}>
                 <div className={style.end__text__documents}>
-                  <Link href={'/documents/пользовательское_соглашение.docx'} target="_blank" className={style.text}>
+                  <Link
+                    href={"/documents/пользовательское_соглашение.docx"}
+                    target="_blank"
+                    className={style.text}
+                  >
                     Политика обработки персональных данных
                   </Link>
-                  <Link href={'/documents/политика_конфиденциальности.docx'} target="_blank" className={style.text}>
+                  <Link
+                    href={"/documents/политика_конфиденциальности.docx"}
+                    target="_blank"
+                    className={style.text}
+                  >
                     Политика конфиденциальности
                   </Link>
-                  <Link href={'/documents/оферта.docx'} target="_blank" className={style.text}>Оферта</Link>
+                  <Link
+                    href={"/documents/оферта.docx"}
+                    target="_blank"
+                    className={style.text}
+                  >
+                    Оферта
+                  </Link>
                 </div>
                 <p className={style.text}>© 2024 — Skincare Agents</p>
               </div>
