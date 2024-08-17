@@ -1,31 +1,19 @@
-import { userInfoService } from "@/services/profile.service";
+import { useUserContext } from "@/context/UserContext";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const withAuth = (WrappedComponent) => {
   return (props) => {
+    const { userData, isLoading, redirect } = useUserContext();
     const Router = useRouter();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     useEffect(() => {
-      const token = localStorage.getItem("token"); // Или ваш способ получения токена
-      if (!token) {
+      if (redirect) {
         Router.replace("/authorization"); // Перенаправление на страницу входа
-      } else {
-        const authenticateUser = async () => {
-          try {
-            await userInfoService.getUserInfo();
-            setIsAuthenticated(true); // Ваш метод для установки состояния аутентификации
-          } catch (error) {
-            Router.replace("/authorization");
-          }
-        };
-        authenticateUser();
-        // Здесь может быть дополнительная проверка валидности токена
       }
     }, [Router]);
 
-    if (!isAuthenticated) {
+    if (isLoading) {
       return null; // Или компонент загрузки
     }
 
