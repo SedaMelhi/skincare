@@ -1,8 +1,4 @@
 .input
-    &__wrap
-        position: relative
-        img
-            position: absolute
     width: 100%
     padding: 16px 4px 8px 16px
     background: transparent
@@ -11,8 +7,14 @@
     color: var(--Grey-800)
     font-size: 16px
     line-height: 125%
+    &__wrap
+        position: relative
+        img
+            position: absolute
     &_active
         border-bottom: 0.5px solid var(--Grey-900, #19171A)
+    &_err
+        border-bottom-color: var(--error-500)
     &::placeholder
         color: var(--Grey-500)
 

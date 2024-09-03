@@ -14,12 +14,14 @@ const ModalContainer: FC<{
 
   return (
     <div>
-      <div className={style.openButton} onClick={handleOpen}>{button}</div>
+      <div className={style.openButton} onClick={handleOpen}>
+        {button}
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        // aria-labelledby="modal-modal-title"
+        // aria-describedby="modal-modal-description"
       >
         <Box className={style.box}>
           {title && (

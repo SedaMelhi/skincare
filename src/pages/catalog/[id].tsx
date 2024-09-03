@@ -27,20 +27,17 @@ const CatalogCategory: NextPage = () => {
   );
   const price = useSelector((state: any) => state.catalog.price);
   const [count, setCount] = useState(0);
-  const router = useRouter()
+  const router = useRouter();
   const scrollHandler = (e: any) => {
     const difference = window.innerWidth >= 1200 ? 650 : 1200;
     const scrolledToEnd =
       e.target.documentElement.scrollHeight -
-      (e.target.documentElement.scrollTop + window.innerHeight) <
+        (e.target.documentElement.scrollTop + window.innerHeight) <
       difference;
-    if (
-      scrolledToEnd && products.length < count
-    ) {
+    if (scrolledToEnd && products.length < count) {
       setFetching(true);
     }
   };
-
 
   const getData = async () => {
     if (router.query.id) {
@@ -49,25 +46,32 @@ const CatalogCategory: NextPage = () => {
         discount: discountFilter,
         sort: sort,
         filters: checkboxFilters,
-        priceMin: price ? price[0] : '',
-        priceMax: price ? price[1] : '',
+        priceMin: price ? price[0] : "",
+        priceMax: price ? price[1] : "",
         offset: 12 * currentPage,
         limit: 12,
       });
       if (response.items && response.items.length > 0) {
         if (currentPage === 0) {
-          setProducts(response.items.length > 8
-            ? [...response.items.filter((item: any, i: number) => i < 8), { id: "circle" }, ...response.items.filter((item: any, i: number) => i >= 8)]
-            : [...response.items, { id: "circle" }]
+          setProducts(
+            response.items.length > 8
+              ? [
+                  ...response.items.filter((item: any, i: number) => i < 8),
+                  { id: "circle" },
+                  ...response.items.filter((item: any, i: number) => i >= 8),
+                ]
+              : [...response.items, { id: "circle" }]
           );
         } else {
-          setProducts((prevProducts: any) => [...prevProducts, ...response.items]);
+          setProducts((prevProducts: any) => [
+            ...prevProducts,
+            ...response.items,
+          ]);
         }
         setCurrentPage(currentPage + 1);
       }
       setFetching(false);
     }
-
   };
   const getProductCount = async () => {
     if (router.query.id) {
@@ -76,22 +80,22 @@ const CatalogCategory: NextPage = () => {
         discount: discountFilter,
         sort: sort,
         filters: checkboxFilters,
-        priceMin: price ? price[0] : '',
-        priceMax: price ? price[1] : ''
+        priceMin: price ? price[0] : "",
+        priceMax: price ? price[1] : "",
       });
-      setCount(response.items.length)
+      setCount(response.items.length);
     }
-  }
+  };
 
   useEffect(() => {
-    setCurrentPage(0)
-    setProducts([])
-    setFetching(true)
+    setCurrentPage(0);
+    setProducts([]);
+    setFetching(true);
     if (currentPage === 0) {
-      getData()
+      getData();
     }
-    getProductCount()
-  }, [router.query.id])
+    getProductCount();
+  }, [router.query.id]);
   useEffect(() => {
     if (fetching) {
       getData();
@@ -102,13 +106,18 @@ const CatalogCategory: NextPage = () => {
     return function () {
       document.removeEventListener("scroll", scrollHandler);
     };
-  }, [count, products])
+  }, [count, products]);
   useEffect(() => {
-    if (Object.keys(checkboxFilters).length > 0 || sort || price || discountFilter !== 'null') {
-      setProducts([])
-      setCurrentPage(0)
-      getProductCount()
-      setFetching(true)
+    if (
+      Object.keys(checkboxFilters).length > 0 ||
+      sort ||
+      price ||
+      discountFilter !== "null"
+    ) {
+      setProducts([]);
+      setCurrentPage(0);
+      getProductCount();
+      setFetching(true);
     }
   }, [checkboxFilters, sort, price, discountFilter]);
 
@@ -119,8 +128,8 @@ const CatalogCategory: NextPage = () => {
   };
 
   useEffect(() => {
-    console.log('duplicate', hasDuplicateIds(products));
-  }, [products])
+    console.log("duplicate", hasDuplicateIds(products));
+  }, [products]);
 
   return <CatalogPage products={products} count={count} fetching={fetching} />;
 };

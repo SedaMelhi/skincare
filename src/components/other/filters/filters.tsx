@@ -1,34 +1,41 @@
-import { FC, useEffect, useRef, useState } from 'react';
-import { StyledEngineProvider } from '@mui/material';
-import { FilterService } from '@/services/catalog.service';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCheckboxFilters, setDiscountFilter, setPrice, setReset } from '@/redux/catalogSlice/catalogSlice';
+import { FC, useEffect, useRef, useState } from "react";
+import { StyledEngineProvider } from "@mui/material";
+import { FilterService } from "@/services/catalog.service";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setCheckboxFilters,
+  setDiscountFilter,
+  setPrice,
+  setReset,
+} from "@/redux/catalogSlice/catalogSlice";
 
-import RangeSlider from '../rangeSlider/rangeSlider';
+import RangeSlider from "../rangeSlider/rangeSlider";
 
-import Filter from './filter/filter';
+import Filter from "./filter/filter";
 
-import style from './filters.module.sass';
+import style from "./filters.module.sass";
 
-const Filters: FC<{ isOpenFiltersMobile?: boolean, setIsOpenFiltersMobile?: any }> = ({ isOpenFiltersMobile, setIsOpenFiltersMobile }) => {
+const Filters: FC<{
+  isOpenFiltersMobile?: boolean;
+  setIsOpenFiltersMobile?: any;
+}> = ({ isOpenFiltersMobile, setIsOpenFiltersMobile }) => {
   const [filters, setFilters] = useState<any>(null);
-  const [checkbox, setCheckbox] = useState('null');
-  const filtersTag = useRef<HTMLDivElement | null>(null)
+  const [checkbox, setCheckbox] = useState("null");
+  const filtersTag = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
     const res = FilterService.getFilterItems(router.query.id);
     res.then((res) => setFilters(res));
-    document.addEventListener('mouseup', function (e: any) {
+    document.addEventListener("mouseup", function (e: any) {
       if (filtersTag.current) {
         if (!filtersTag.current.contains(e.target)) {
-          setIsOpenFiltersMobile(false)
+          setIsOpenFiltersMobile(false);
         }
       }
     });
   }, []);
-
 
   useEffect(() => {
     dispatch(setDiscountFilter(checkbox));
@@ -38,14 +45,19 @@ const Filters: FC<{ isOpenFiltersMobile?: boolean, setIsOpenFiltersMobile?: any 
     dispatch(setReset(true));
     dispatch(setPrice(null));
     dispatch(setCheckboxFilters({}));
-    setCheckbox('null')
-    setIsOpenFiltersMobile(false)
-  }
+    setCheckbox("null");
+    setIsOpenFiltersMobile(false);
+  };
 
   console.log(checkbox);
 
   return (
-    <aside className={style.aside + ' ' + (isOpenFiltersMobile ? style.open : style.close)} ref={filtersTag}>
+    <aside
+      className={
+        style.aside + " " + (isOpenFiltersMobile ? style.open : style.close)
+      }
+      ref={filtersTag}
+    >
       <div className={style.line}>
         <div className={style.line_sale}>
           <span>Cо скидкой</span>
@@ -54,14 +66,19 @@ const Filters: FC<{ isOpenFiltersMobile?: boolean, setIsOpenFiltersMobile?: any 
               type="checkbox"
               className={style.input}
               value={checkbox}
-              onChange={() => setCheckbox((prev) => (prev === 'null' ? 'Y' : 'null'))}
-              checked={checkbox !== 'null'}
+              onChange={() =>
+                setCheckbox((prev) => (prev === "null" ? "Y" : "null"))
+              }
+              checked={checkbox !== "null"}
             />
             <span className={`${style.slider} ${style.round}`}></span>
           </label>
-
         </div>
-        {isOpenFiltersMobile && <div className={style.resert} onClick={reset}>Cбросить</div>}
+        {isOpenFiltersMobile && (
+          <div className={style.resert} onClick={reset}>
+            Cбросить
+          </div>
+        )}
       </div>
 
       <div className={`${style.title} ${style.title_grey}`}>Цена</div>
@@ -71,7 +88,7 @@ const Filters: FC<{ isOpenFiltersMobile?: boolean, setIsOpenFiltersMobile?: any 
       </StyledEngineProvider>
       {filters &&
         Object.keys(filters)
-          .filter((item) => item[0] === 'S')
+          .filter((item) => item[0] === "S")
           .map(
             (item) =>
               filters[item] && (
@@ -81,11 +98,16 @@ const Filters: FC<{ isOpenFiltersMobile?: boolean, setIsOpenFiltersMobile?: any 
                   items={filters[item].items}
                   key={item}
                 />
-              ),
+              )
           )}
 
       <div className={style.close_btn_center}>
-        <div className={style.close_btn} onClick={() => setIsOpenFiltersMobile(false)}>применить</div>
+        <div
+          className={style.close_btn}
+          onClick={() => setIsOpenFiltersMobile(false)}
+        >
+          применить
+        </div>
       </div>
     </aside>
   );

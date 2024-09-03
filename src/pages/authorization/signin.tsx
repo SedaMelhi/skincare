@@ -39,16 +39,16 @@ const SignIn: NextPage<any> = () => {
     e.preventDefault();
     const token = await getTokenService.getToken(phoneNumber, password);
 
-    localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
     const data = await saleUserIdService.getSaleUserId(true);
-    localStorage.setItem('saleUserId', data.result);
+    localStorage.setItem("saleUserId", data.result);
 
     if (token.status) {
       setError(token.status.replace(/<br>/g, " "));
     } else if (token) {
-      setError('');
-      localStorage.setItem('token', token);
-      router.push('/profile');
+      setError("");
+      localStorage.setItem("token", token);
+      router.push("/profile");
     }
   };
   return (

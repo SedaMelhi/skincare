@@ -64,7 +64,7 @@ const Address: FC = () => {
   };
 
   useEffect(() => {
-    closeAside();
+    if (!router.query.step) closeAside();
   }, [router]);
 
   return (

@@ -1,14 +1,10 @@
 import { FC } from "react";
 
-import Link from 'next/link';
-import { IProductOrder } from '@/interfaces/profile.interface';
-import { API_DOMAIN } from '@/services';
-
+import Link from "next/link";
+import { IProductOrder } from "@/interfaces/profile.interface";
+import { API_DOMAIN } from "@/services";
 
 import style from "./productLine.module.sass";
-
-
-
 
 const ProductLine: FC<{ products: IProductOrder[] }> = ({ products }) => {
   return (
@@ -19,7 +15,12 @@ const ProductLine: FC<{ products: IProductOrder[] }> = ({ products }) => {
             <div className={style.left}>
               <div
                 className={style.image}
-                style={picture ? { backgroundImage: `url(${API_DOMAIN + picture})` } : {}}></div>
+                style={
+                  picture
+                    ? { backgroundImage: `url(${API_DOMAIN + picture})` }
+                    : {}
+                }
+              ></div>
               <div className={style.text}>
                 <div className={style.title}>{name}</div>
                 <div className={style.details}>

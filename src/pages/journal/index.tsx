@@ -1,13 +1,13 @@
-import { GetServerSideProps, NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import Layout from '@/components/layout/Layout';
-import Filter from '@/components/other/filters/filter/filter';
-import { JournalService } from '@/services/journal.service';
-import { API_DOMAIN, API_URL } from '@/services';
-import Load from '@/components/other/load/load';
+import { GetServerSideProps, NextPage } from "next";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Layout from "@/components/layout/Layout";
+import Filter from "@/components/other/filters/filter/filter";
+import { JournalService } from "@/services/journal.service";
+import { API_DOMAIN, API_URL } from "@/services";
+import Load from "@/components/other/load/load";
 
-import style from './journal.module.sass';
+import style from "./journal.module.sass";
 
 export interface IJournal {
   id: number;
@@ -25,11 +25,11 @@ export interface IJournalCatList {
   name: string;
   picture: string | null;
 }
-const Journal: NextPage<{ data: any; mainItem: any; categoryList: IJournalCatList[] }> = ({
-  data,
-  mainItem,
-  categoryList,
-}) => {
+const Journal: NextPage<{
+  data: any;
+  mainItem: any;
+  categoryList: IJournalCatList[];
+}> = ({ data, mainItem, categoryList }) => {
   const [items, setItems] = useState<IJournal[]>(data.items);
   const [main, setMain] = useState<IJournal>(data.items[0]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,9 +58,9 @@ const Journal: NextPage<{ data: any; mainItem: any; categoryList: IJournalCatLis
     }
   }, [fetching]);
   useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
+    document.addEventListener("scroll", scrollHandler);
     return function () {
-      document.removeEventListener('scroll', scrollHandler);
+      document.removeEventListener("scroll", scrollHandler);
     };
   }, [items]);
   useEffect(() => {
@@ -86,7 +86,7 @@ const Journal: NextPage<{ data: any; mainItem: any; categoryList: IJournalCatLis
           <div className={style.journal__content}>
             <div className={style.journal__img}>
               <img
-                src={main.picture ? API_DOMAIN + main.picture : '/notphoto.png'}
+                src={main.picture ? API_DOMAIN + main.picture : "/notphoto.png"}
                 alt="Product image"
               />
             </div>
@@ -119,20 +119,24 @@ const Journal: NextPage<{ data: any; mainItem: any; categoryList: IJournalCatLis
                   <li
                     className={
                       style.dropdown__item +
-                      ' ' +
-                      (id === activeCatList ? style.dropdown__item_active : '')
+                      " " +
+                      (id === activeCatList ? style.dropdown__item_active : "")
                     }
                     onClick={() => {
                       setActiveCatList(id);
                       setCurrentPage(0);
                     }}
-                    key={id}>
+                    key={id}
+                  >
                     <div
                       className={
                         style.dropdown__link +
-                        ' ' +
-                        (id === activeCatList ? style.dropdown__item_active : '')
-                      }>
+                        " " +
+                        (id === activeCatList
+                          ? style.dropdown__item_active
+                          : "")
+                      }
+                    >
                       {name}
                     </div>
                   </li>
@@ -147,45 +151,63 @@ const Journal: NextPage<{ data: any; mainItem: any; categoryList: IJournalCatLis
           </div>
           <div className={style.items}>
             <div className={style.articleColumns}>
-              {items.map(({ id, date, name, description, picture, section }, i) =>
-                (i + 1) % 4 !== 0 ? (
-                  <Link href={`/article/${id}`} className={style.articleColumn} key={id}>
-                    <div
-                      className={
-                        style.articleColumn__img +
-                        ' ' +
-                        (i % 4 === 0
-                          ? ''
-                          : i % 4 === 1
-                          ? style.articleColumn__img_second
-                          : style.articleColumn__img_third)
-                      }
-                      style={
-                        picture
-                          ? {
-                              backgroundImage: `url(${'https://b.skincareagents.com/' + picture})`,
-                            }
-                          : {}
-                      }></div>
-                    <p className={style.category}>{section.name}</p>
-                    <h3 className={style.articleColumn__title}>{name}</h3>
-                  </Link>
-                ) : (
-                  <Link href={`/article/${id}`} className={style.article2} key={id}>
-                    <div className={style.article2__imgCol}>
-                      <img
-                        src={picture ? 'https://b.skincareagents.com/' + picture : '/notphoto.png'}
-                        alt="Image"
-                        className={style.article2__img}
-                      />
-                    </div>
-                    <div className={style.article2__textCol}>
+              {items.map(
+                ({ id, date, name, description, picture, section }, i) =>
+                  (i + 1) % 4 !== 0 ? (
+                    <Link
+                      href={`/article/${id}`}
+                      className={style.articleColumn}
+                      key={id}
+                    >
+                      <div
+                        className={
+                          style.articleColumn__img +
+                          " " +
+                          (i % 4 === 0
+                            ? ""
+                            : i % 4 === 1
+                            ? style.articleColumn__img_second
+                            : style.articleColumn__img_third)
+                        }
+                        style={
+                          picture
+                            ? {
+                                backgroundImage: `url(${
+                                  "https://b.skincareagents.com/" + picture
+                                })`,
+                              }
+                            : {}
+                        }
+                      ></div>
                       <p className={style.category}>{section.name}</p>
-                      <h2 className={style.article2__title}>{name}</h2>
-                      <p className={style.article2__paragraph}>{description}</p>
-                    </div>
-                  </Link>
-                ),
+                      <h3 className={style.articleColumn__title}>{name}</h3>
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/article/${id}`}
+                      className={style.article2}
+                      key={id}
+                    >
+                      <div className={style.article2__imgCol}>
+                        <img
+                          src={
+                            picture
+                              ? "https://b.skincareagents.com/" + picture
+                              : "/notphoto.png"
+                          }
+                          alt="Image"
+                          className={style.article2__img}
+                        />
+                      </div>
+                      <div className={style.article2__textCol}>
+                        <p className={style.category}>{section.name}</p>
+                        <h2 className={style.article2__title}>{name}</h2>
+                        <p className={style.article2__paragraph}>
+                          {description}
+                        </p>
+                      </div>
+                    </Link>
+                  )
               )}
             </div>
             {fetching && (

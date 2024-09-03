@@ -1,13 +1,13 @@
-import { Dispatch, FC, SetStateAction, useCallback, useState } from 'react';
-import Link from 'next/link';
+import { Dispatch, FC, SetStateAction, useCallback, useState } from "react";
+import Link from "next/link";
 
-import CardProduct from '@/components/other/cardProduct/cardProduct';
-import Product from '@/components/other/products/product/product';
-import Button from '@/components/other/button/button';
+import CardProduct from "@/components/other/cardProduct/cardProduct";
+import Product from "@/components/other/products/product/product";
+import Button from "@/components/other/button/button";
 
-import CircleArrow from '@/components/other/circleArrow/circleArrow';
+import CircleArrow from "@/components/other/circleArrow/circleArrow";
 
-import style from './searchContent.module.sass';
+import style from "./searchContent.module.sass";
 
 const SearchContent: FC<{
   value: string;
@@ -17,14 +17,26 @@ const SearchContent: FC<{
   journalItems: any[];
   setActiveTab: Dispatch<SetStateAction<string>>;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
-}> = ({ value, count, products, setIsOpen, activeTab, setActiveTab, journalItems }) => {
+}> = ({
+  value,
+  count,
+  products,
+  setIsOpen,
+  activeTab,
+  setActiveTab,
+  journalItems,
+}) => {
   const pluralize = useCallback((n: number): string => {
     const lastDigit = n % 10;
     const lastTwoDigits = n % 100;
 
     if (lastDigit === 1 && lastTwoDigits !== 11) {
       return `${n} результат`;
-    } else if (lastDigit >= 2 && lastDigit <= 4 && !(lastTwoDigits >= 12 && lastTwoDigits <= 14)) {
+    } else if (
+      lastDigit >= 2 &&
+      lastDigit <= 4 &&
+      !(lastTwoDigits >= 12 && lastTwoDigits <= 14)
+    ) {
       return `${n} результата`;
     } else {
       return `${n} результатов`;
@@ -35,20 +47,28 @@ const SearchContent: FC<{
     <div>
       <div className={style.tabs}>
         <div
-          className={style.tab + ' ' + (activeTab === 'продукты' ? style.active : '')}
-          onClick={() => setActiveTab('продукты')}>
+          className={
+            style.tab + " " + (activeTab === "продукты" ? style.active : "")
+          }
+          onClick={() => setActiveTab("продукты")}
+        >
           продукты
         </div>
         <div
-          className={style.tab + ' ' + (activeTab === 'статьи' ? style.active : '')}
-          onClick={() => setActiveTab('статьи')}>
+          className={
+            style.tab + " " + (activeTab === "статьи" ? style.active : "")
+          }
+          onClick={() => setActiveTab("статьи")}
+        >
           статьи
         </div>
       </div>
       <div className={style.popular_wrap}>
-        <div className={style.name}>{value === '' ? 'Популярные запросы' : pluralize(count)}</div>
+        <div className={style.name}>
+          {value === "" ? "Популярные запросы" : pluralize(count)}
+        </div>
 
-        {activeTab === 'продукты' ? (
+        {activeTab === "продукты" ? (
           <div>
             <div className={style.popular}>
               {products &&
@@ -77,7 +97,11 @@ const SearchContent: FC<{
             </div>
             {products && products.length > 0 && (
               <div className={style.btn} onClick={() => setIsOpen(false)}>
-                <Button text={'Показать всё'} arrow={true} link={`/catalog?search=${value}`} />
+                <Button
+                  text={"Показать всё"}
+                  arrow={true}
+                  link={`/catalog?search=${value}`}
+                />
               </div>
             )}
           </div>
@@ -85,13 +109,19 @@ const SearchContent: FC<{
           <div className={style.journal}>
             {journalItems &&
               journalItems.map((item) => (
-                <Link href={`/article/${item.id}`} key={item.id} onClick={() => setIsOpen(false)}>
+                <Link
+                  href={`/article/${item.id}`}
+                  key={item.id}
+                  onClick={() => setIsOpen(false)}
+                >
                   <div className={style.header}>
                     <div className={style.image}></div>
-                    <div className={'wrap ' + style.header__text}>
+                    <div className={"wrap " + style.header__text}>
                       <h3 className={style.title}>
                         <div>
-                          <div className={style.subtitle}>{item.section.name}</div>
+                          <div className={style.subtitle}>
+                            {item.section.name}
+                          </div>
                           {item.name}
                         </div>
                         <div className={style.arrow}>
@@ -111,7 +141,11 @@ const SearchContent: FC<{
         )}
         {journalItems && journalItems.length > 0 && (
           <div className={style.btn} onClick={() => setIsOpen(false)}>
-            <Button text={'Показать всё'} arrow={true} link={`/journal?search=${value}`} />
+            <Button
+              text={"Показать всё"}
+              arrow={true}
+              link={`/journal?search=${value}`}
+            />
           </div>
         )}
       </div>

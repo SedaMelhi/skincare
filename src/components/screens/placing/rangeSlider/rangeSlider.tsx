@@ -1,29 +1,41 @@
-import { FC } from 'react';
+import { FC, useState } from "react";
+import { useRouter } from "next/router";
 
-import circle from './../../../../../public/circleCheckBlack.svg';
+import circle from "./../../../../../public/circleCheckBlack.svg";
 
-import style from './rangeSlider.module.sass';
+import style from "./rangeSlider.module.sass";
+import { useSelector } from "react-redux";
 
 const RangeSlider: FC<{ range: number }> = ({ range }) => {
-  const marks = [
+  const router = useRouter();
+  const [marks, setMarks] = useState([
     {
       value: 1,
-      label: 'Доставка',
+      label: "Доставка",
+      step: "one",
     },
     {
       value: 2,
-      label: 'Получатель',
+      label: "Получатель",
+      step: "two",
     },
     {
       value: 3,
-      label: 'Оплата',
+      label: "Оплата",
+      step: "three",
     },
-  ];
+  ]);
+
   return (
     <div className={style.line}>
       <div className={style.texts}>
         {marks.map(({ value, label }) => (
-          <div className={style.text + ' ' + (value < range ? style.text_active : '')} key={value}>
+          <div
+            className={
+              style.text + " " + (value < range ? style.text_active : "")
+            }
+            key={value}
+          >
             {label}
           </div>
         ))}
@@ -31,21 +43,30 @@ const RangeSlider: FC<{ range: number }> = ({ range }) => {
       <div className={style.border}>
         <div
           className={
-            style.border_line + ' ' + (range === 2 || range === 3 ? style.border_line_active : '')
-          }></div>
+            style.border_line +
+            " " +
+            (range === 2 || range === 3 ? style.border_line_active : "")
+          }
+        ></div>
         <div
-          className={style.border_line + ' ' + (range === 3 ? style.border_line_active : '')}></div>
+          className={
+            style.border_line +
+            " " +
+            (range === 3 ? style.border_line_active : "")
+          }
+        ></div>
         <div className={style.thumbs}>
-          {marks.map(({ value }) => (
+          {marks.map(({ value, step }) => (
             <div
               key={value}
               className={
                 style.thumb +
-                ' ' +
-                (value < range ? style.thumb_active : '') +
-                ' ' +
-                (value === range ? style.thumb_grey : '')
-              }>
+                " " +
+                (value < range ? style.thumb_active : "") +
+                " " +
+                (value === range ? style.thumb_grey : "")
+              }
+            >
               <img src={circle.src} alt="" />
             </div>
           ))}

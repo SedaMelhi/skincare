@@ -1,36 +1,31 @@
-import Layout from "@/components/layout/Layout";
-import { IbasketData } from "@/interfaces/basket.interface";
 import { IOrder } from "@/interfaces/order.interface";
-import { API_URL } from "@/services";
 import { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { getBasketService, getCertificate } from "@/services/order.service";
+import { useSelector } from "react-redux";
 import Link from "next/link";
-import {
-  getBasketService,
-  getCertificate,
-  getOrderInfoService,
-} from "@/services/order.service";
-import { setIsAddressOpen } from "@/redux/addressSlice/addressSlice";
-import { useDispatch, useSelector } from "react-redux";
 
+import Layout from "@/components/layout/Layout";
 import BasketRight from "./basketRight/basketRight";
 import RangeSlider from "./rangeSlider/rangeSlider";
-import Methods from "./methods/methods";
+import StepOne from "./stepOne/stepOne";
+import StepTwo from "./stepTwo/stepTwo";
+import StepThree from "./stepThree";
+
 import arrowLeft from "./../../../../public/arrow.svg";
 import close from "./../../../../public/close.svg";
-import whiteArrow from "./../../../../public/whiteArrow.svg";
 import plusSvg from "./../../../../public/plusSimple.svg";
 import arrowViolet from "./../../../../public/arrowViolet.svg";
 
 import style from "./placing.module.sass";
+import { API_URL } from "@/services";
 
 const PlacingPage: FC = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
   const address = useSelector((state: any) => state.address.isAddressOpen);
   const [basket, setBasket] = useState<IOrder>();
   // const savedAddress = useSelector((state: any) => state.address.address);
-  const [savedAddress, setSaveAddress] = useState<any>();
+
   const [isAuth, setIsAuth] = useState<any>();
   const [certificate, setCertificate] = useState<any>();
   const sendCertificate = async (e: any) => {
@@ -42,25 +37,23 @@ const PlacingPage: FC = () => {
       localStorage.getItem("saleUserId")
     );
     basket.then((res: IOrder) => setBasket(res));
-    fetch(API_URL + "v1/user.php", {
-      method: "POST",
-      body: JSON.stringify({
-        type: "getAddress",
-        token: localStorage.getItem("token"),
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res["3"]) {
-          setSaveAddress(res["3"][res["3"].length - 1]);
-        }
-      });
   }, [address]);
   useEffect(() => {
     setIsAuth(localStorage.getItem("token"));
   }, []);
-  const changeAddress = () => {};
-
+  useEffect(() => {
+    if (isAuth)
+      fetch(API_URL + "v1/sale.php", {
+        method: "POST",
+        body: JSON.stringify({
+          type: "getOrderParams",
+          saleUserId: localStorage.getItem("saleUserId"),
+          token: localStorage.getItem("token"),
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => console.log(res.user.address["3"]));
+  }, [isAuth]);
   return (
     <Layout title="Оформление заказа" nav={false}>
       <div className="wrap">
@@ -76,35 +69,25 @@ const PlacingPage: FC = () => {
         <div className={style.container}>
           <div className={style.left}>
             <div className={style.slider}>
-              <RangeSlider range={1} />
+              <RangeSlider
+                range={
+                  router.query.step === "one" || router.query.step === undefined
+                    ? 1
+                    : router.query.step === "two"
+                    ? 2
+                    : 3
+                }
+              />
             </div>
-            <div className={style.subtitle}>Доставка</div>
-            <Methods />
-            <div className={style.method + " " + style.flex_start}>
-              <div className={style.method__title}>адрес доставки</div>
-              <div className={style.box}>
-                <div className={style.address}>
-                  {savedAddress && savedAddress.addressDetail.city
-                    ? `г. ${savedAddress.addressDetail.city}, ${savedAddress.addressDetail.street}, д ${savedAddress.addressDetail.entrance}, кв./офис ${savedAddress.addressDetail.apartment}`
-                    : "не указан"}
-                </div>
-                <button
-                  className={style.btn}
-                  onClick={() => {
-                    dispatch(setIsAddressOpen(true));
-                    changeAddress();
-                  }}
-                >
-                  изменить адрес
-                </button>
-              </div>
-            </div>
-            <Link href={"/recipient"} className={style.button}>
-              продолжить
-              <div>
-                <img src={whiteArrow.src} alt="" />
-              </div>
-            </Link>
+            {router.query.step === "one" || router.query.step === undefined ? (
+              <StepOne />
+            ) : router.query.step === "two" ? (
+              <StepTwo />
+            ) : router.query.step === "three" ? (
+              <StepThree />
+            ) : (
+              ""
+            )}
           </div>
           <div className={style.right}>
             {!isAuth && (

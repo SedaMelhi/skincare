@@ -1,16 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const orderSlice = createSlice({
-  name: 'order',
+  name: "order",
   initialState: {
     order: {
-      phone: '',
-      name: '',
-      surname: '',
-      secondName: '',
-      email: '',
+      phone: "",
+      name: "",
+      surname: "",
+      secondName: "",
+      email: "",
     },
-    link: '',
+    link: "",
   },
   reducers: {
     setOrder: (state, { payload }) => {
