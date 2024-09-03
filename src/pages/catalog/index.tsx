@@ -30,7 +30,6 @@ const Catalog: NextPage = () => {
   const price = useSelector((state: any) => state.catalog.price);
   const [count, setCount] = useState(0);
   const router = useRouter();
-  const dispatch = useDispatch();
   const scrollHandler = (e: any) => {
     const difference = window.innerWidth >= 1200 ? 650 : 1200;
     const scrolledToEnd =
