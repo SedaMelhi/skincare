@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { NextPage, GetServerSideProps } from 'next';
-import { useDispatch } from 'react-redux';
-import { setFooterData } from '@/redux/footerSlice/footerSlice';
+import { useEffect } from "react";
+import { NextPage, GetServerSideProps } from "next";
+import { useDispatch } from "react-redux";
+import { setFooterData } from "@/redux/footerSlice/footerSlice";
 
-import HomePage from '@/components/screens/home/HomePage';
+import HomePage from "@/components/screens/home/HomePage";
 
 import {
   MainSliderService,
@@ -15,18 +15,18 @@ import {
   RunningVerticalLineService,
   SetsService,
   GiftsService,
-} from '@/services';
+} from "@/services";
 
-import { ContactsService } from '@/services/contacts.service';
+import { ContactsService } from "@/services/contacts.service";
 
-import { ContactsArray } from '@/interfaces/contact.interface';
-import { MainSliderArray } from '@/interfaces/mainSlider.inerface';
-import { RunningLineArray } from '@/interfaces/runningLine.interface';
-import { NewProducts } from '@/interfaces/newProducts.interface';
-import { CatalogArray } from '@/interfaces/catalog.interface';
-import { setHits } from '@/redux/hitsSlice/hitsSlice';
-import { IJournalItem } from '@/components/screens/home/jourmal/header/header';
-import { IGift } from '@/interfaces/gift.interface';
+import { ContactsArray } from "@/interfaces/contact.interface";
+import { MainSliderArray } from "@/interfaces/mainSlider.inerface";
+import { RunningLineArray } from "@/interfaces/runningLine.interface";
+import { NewProducts } from "@/interfaces/newProducts.interface";
+import { CatalogArray } from "@/interfaces/catalog.interface";
+import { setHits } from "@/redux/hitsSlice/hitsSlice";
+import { IJournalItem } from "@/components/screens/home/jourmal/header/header";
+import { IGift } from "@/interfaces/gift.interface";
 
 const Home: NextPage<{
   data: ContactsArray;
@@ -62,11 +62,17 @@ const Home: NextPage<{
     <HomePage
       slider={slider}
       runningLine={
-        runningLine.length < 6 ? [...runningLine, ...runningLine, ...runningLine] : runningLine
+        runningLine.length < 6
+          ? [...runningLine, ...runningLine, ...runningLine]
+          : runningLine
       }
       runningVerticalLine={
         runningVerticalLine.length < 6
-          ? [...runningVerticalLine, ...runningVerticalLine, ...runningVerticalLine]
+          ? [
+              ...runningVerticalLine,
+              ...runningVerticalLine,
+              ...runningVerticalLine,
+            ]
           : runningVerticalLine
       }
       newProducts={newProducts}

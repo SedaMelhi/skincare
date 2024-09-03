@@ -33,7 +33,9 @@ function transformObject(obj: OriginalObject): TransformedObject {
     }
   }
 
-  newObject.favorites = newObject.favorites.sort((a, b) => (a.inStock === b.inStock) ? 0 : a.inStock ? -1 : 1);
+  newObject.favorites = newObject.favorites.sort((a, b) =>
+    a.inStock === b.inStock ? 0 : a.inStock ? -1 : 1
+  );
 
   return newObject;
 }

@@ -22,7 +22,6 @@ const ProductPage: FC<{ data: IProduct }> = ({ data }) => {
   const scu: IScu[] | null = product.scu ? Object.values(product.scu) : null;
   const router = useRouter();
 
-
   const [activeScu, setActiveScu] = useState<IScu | null>(null);
 
   useEffect(() => {
