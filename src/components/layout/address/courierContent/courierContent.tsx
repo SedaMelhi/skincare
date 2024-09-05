@@ -7,6 +7,8 @@ import Input from "@/components/other/input/input";
 import Select from "../select/Select";
 
 import style from "./courierContent.module.sass";
+import { getAddressesService } from "@/services/cdek.service";
+import { getUserAddressService } from "@/services/profile.service";
 
 interface ICloseAside {
   closeAside: () => void;
@@ -41,7 +43,6 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   const dispatch = useDispatch();
   const [error, setError] = useState<string>("");
   const getCityData = (setValue: any) => {
-    console.log(city);
     const data = getCityService.getCity(city.name);
     data.then((res) => {
       setValue(res);
@@ -52,7 +53,6 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
     if (city.id && street.name.length > 0) {
       const data = getStreetService.getStreet(street.name, city.id);
       data.then((res) => {
-        console.log(res);
         if (res) setValue(res);
       });
     }
@@ -119,16 +119,46 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
       })
     );
   }, [street, house, apartment, intercom, entrance, floor]);
-  console.log(address);
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      const data = getUserAddressService.getAddress();
+
+      data.then((res: { "3": { [key: string]: { addressDetail: any } } }) => {
+        const addressDetail = Object.values(res["3"])[
+          Object.values(res["3"]).length - 1
+        ].addressDetail;
+
+        setAddress((prev: any) => {
+          return {
+            city: { id: true, name: addressDetail.city },
+            street: { id: true, name: addressDetail.street },
+            house: addressDetail.house,
+            apartment: addressDetail.apartment,
+            intercom: addressDetail.intercom,
+            entrance: addressDetail.entrance,
+            floor: addressDetail.floor,
+            full_address: `${addressDetail.city}, ул. ${street}${
+              entrance && ", подъезд " + entrance
+            }${apartment && ", кв./офис " + apartment}${
+              floor && ", этаж " + floor
+            }${intercom && ", домофон  " + intercom}`,
+          };
+        });
+      });
+    }
+  }, []);
 
   const saveAddress = () => {
     dispatch(
-      setAddress({
-        full_address: `${city.name}, ул. ${street.name + ", д " + house}${
-          entrance && ", подъезд " + entrance
-        }${apartment && ", кв./офис " + apartment}${
-          floor && ", этаж " + floor
-        }${intercom && ", домофон  " + intercom}`,
+      setAddress((prev: any) => {
+        return {
+          ...prev,
+          full_address: `${city.name}, ул. ${street.name + ", д " + house}${
+            entrance && ", подъезд " + entrance
+          }${apartment && ", кв./офис " + apartment}${
+            floor && ", этаж " + floor
+          }${intercom && ", домофон  " + intercom}`,
+        };
       })
     );
   };

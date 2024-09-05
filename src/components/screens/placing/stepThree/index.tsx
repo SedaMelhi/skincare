@@ -62,7 +62,7 @@ const StepThree: FC = ({}) => {
         payID: 4,
         points: null,
         certificate: null,
-        deliveryPay: 1,
+        deliveryPay: pay,
         token: localStorage.getItem("token"),
         ...full_address,
       }),
@@ -104,10 +104,10 @@ const StepThree: FC = ({}) => {
               name="pay"
               value={3}
               defaultChecked={pay === 3 ? true : false}
-              onChange={() => setPay(3)}
+              onChange={() => setPay(1)}
               className={style.radio}
             />
-            <span>Оплата при получении</span>
+            <span>Оплата доставки при получении</span>
           </label>
           <label className={style.label}>
             <input
@@ -115,10 +115,10 @@ const StepThree: FC = ({}) => {
               name="pay"
               value={4}
               defaultChecked={pay === 4 ? true : false}
-              onChange={() => setPay(4)}
+              onChange={() => setPay(0)}
               className={style.radio}
             />
-            <span>Оплата на сайте</span>
+            <span>Оплата доставки на сайте</span>
           </label>
         </div>
       </div>

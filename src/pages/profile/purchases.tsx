@@ -27,7 +27,8 @@ const Purchases: NextPage = () => {
   const [isHistory, setIsHistory] = useState(false);
 
   useEffect(() => {
-    userInfoService.getUserInfo().then(setUserDataServer);
+    if (localStorage.getItem("token"))
+      userInfoService.getUserInfo().then(setUserDataServer);
   }, []);
 
   useEffect(() => {
