@@ -332,3 +332,48 @@ input
       padding-top: 5px
       & > label
         width: 100%
+
+.catalogRange
+  .track
+    background-color: var(--grey-700)
+    border-color: var(--grey-700)
+    height: 2px
+    box-sizing: border-box
+  .thumb
+    width: 18px
+    height: 18px
+    border-radius: 0
+    background: var(--grey-25)
+    border: 1px solid var(--grey-700)
+    transform: rotate(45deg) translateX(-13px)
+    box-shadow: none
+    color: red
+    &:focus
+      box-shadow: none
+    &:hover
+      box-shadow: none
+    &:active
+      box-shadow: none
+  .rail
+    background-color: var(--grey-300)
+    height: 2px
+    box-sizing: border-box
+  .root
+    width: 100%
+
+.catalogFilter
+  .accordion
+    background: #fff0
+    box-shadow: none
+  .params
+    display: flex
+    flex-direction: column
+    gap: 12px
+    padding: 8px 0px!important
+    &__wrap
+      overflow: hidden
+      background: #fff0
+      min-height: auto!important
+      padding: 0px!important
+      & > div
+        margin: 0!important
