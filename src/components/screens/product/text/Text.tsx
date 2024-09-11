@@ -24,7 +24,7 @@ const Text: FC<{
   product: IProduct;
   scu: IScu[] | null;
   setActiveScu: any;
-  activeScu: any;
+  activeScu: IScu | null;
 }> = ({ product, scu, setActiveScu, activeScu }) => {
   const sizes: string[] = [];
   const [colors, setColors] = useState<
@@ -113,9 +113,21 @@ const Text: FC<{
     );
   }, [activeColor]);
 
+  useEffect(() => {
+    if (Number(activeScu?.quantity) > 0) {
+      setBtnText("Добавить в сумочку");
+    } else {
+      setBtnText("Добавить в лист ожидания");
+    }
+  }, [activeScu]);
+
   const addProductInCart = async () => {
+    if (!Number(activeScu)) {
+      addFavorite();
+      return;
+    }
     if (localStorage.getItem("saleUserId")) {
-      const data = await addSCUToCartService.addSCUToCart(activeScu.id, 1);
+      const data = await addSCUToCartService.addSCUToCart(activeScu!.id, 1);
       if (data.status === "ok") {
         setBtnText("добавлен");
         const dataArr = getCartService.getCart();
@@ -214,19 +226,27 @@ const Text: FC<{
       <div className={style.price}>
         {activeScu && activeScu.price && activeScu.price.discountPrice
           ? activeScu.price.discountPrice + " ₽"
-          : "цена не указана"}
+          : "НЕТ В НАЛИЧИИ"}
       </div>
       <div className={style.btns}>
-        <button className={style.btn} onClick={addProductInCart}>
+        <button
+          className={`${style.btn} ${activeScu ? "" : style.btn_light}`}
+          onClick={addProductInCart}
+        >
           {btnText}{" "}
           {btnText === "добавлен" ? <img src={checkSvg.src} alt="" /> : ""}
+          {!activeScu && (
+            <img src={saveSvg.src} alt="" className={style.save} />
+          )}
         </button>
-        <img
-          src={saveSvg.src}
-          alt=""
-          className={style.save}
-          onClick={addFavorite}
-        />
+        {activeScu && (
+          <img
+            src={saveSvg.src}
+            alt=""
+            className={style.save}
+            onClick={addFavorite}
+          />
+        )}
       </div>
 
       {/* <div className={style.select__wrap}>
