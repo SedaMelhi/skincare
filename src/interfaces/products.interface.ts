@@ -16,6 +16,7 @@ export interface IScu {
     percent: number;
   };
   photos?: string[];
+  quantity: string;
   discount?: string;
   shade?: IShade;
 }

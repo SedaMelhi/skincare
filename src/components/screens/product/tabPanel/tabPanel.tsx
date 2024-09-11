@@ -58,22 +58,22 @@ const TabPanel: FC<{ product: any }> = ({ product }) => {
     },
     {
       name: 'применение',
-      text: product.props && product.props[21].value.TEXT,
+      text: product.props && product.props[21].value?.TEXT,
       id: 1,
     },
     {
       name: 'состав',
-      text: product.props && product.props[22].value.TEXT,
+      text: product.props && product.props[22].value?.TEXT,
       id: 2,
     },
     {
       name: 'о бренде',
-      text: product.brand && product.brand.PREVIEW_TEXT,
+      text: product.brand && product.brand?.PREVIEW_TEXT,
       id: 3,
     },
     {
       name: 'дополнительно',
-      text: product.props && product.props[47].value.TEXT,
+      text: product.props && product.props[47].value?.TEXT,
       id: 4,
     },
   ];
