@@ -31,7 +31,9 @@ const Text: FC<{
     { name: string; image: string; id: string }[]
   >([]);
   const icons = [actionSvg1.src, actionSvg2.src, actionSvg3.src];
+
   const [btnText, setBtnText] = useState("Добавить в сумочку");
+  const [inStock, setInStock] = useState(true);
   const dispatch = useDispatch();
   scu?.forEach((item) => {
     !sizes.includes(item.value) && sizes.push(item.value);
@@ -115,14 +117,16 @@ const Text: FC<{
 
   useEffect(() => {
     if (Number(activeScu?.quantity) > 0) {
+      setInStock(true);
       setBtnText("Добавить в сумочку");
     } else {
+      setInStock(false);
       setBtnText("Добавить в лист ожидания");
     }
   }, [activeScu]);
 
   const addProductInCart = async () => {
-    if (!Number(activeScu)) {
+    if (!activeScu?.quantity) {
       addFavorite();
       return;
     }
@@ -215,31 +219,29 @@ const Text: FC<{
         {activeScu && activeScu.price && activeScu.price.discount ? (
           <div className={style.oldPrice}>
             <div>{activeScu.price.basePrice + " ₽"}</div>
-            {/* <div>
-            <img src={infoSvg.src} alt="" />
-          </div> */}
           </div>
         ) : (
           ""
         )}
       </div>
       <div className={style.price}>
-        {activeScu && activeScu.price && activeScu.price.discountPrice
+        {activeScu &&
+        inStock &&
+        activeScu.price &&
+        activeScu.price.discountPrice
           ? activeScu.price.discountPrice + " ₽"
           : "НЕТ В НАЛИЧИИ"}
       </div>
       <div className={style.btns}>
         <button
-          className={`${style.btn} ${activeScu ? "" : style.btn_light}`}
+          className={`${style.btn} ${inStock ? "" : style.btn_light}`}
           onClick={addProductInCart}
         >
           {btnText}{" "}
           {btnText === "добавлен" ? <img src={checkSvg.src} alt="" /> : ""}
-          {!activeScu && (
-            <img src={saveSvg.src} alt="" className={style.save} />
-          )}
+          {!inStock && <img src={saveSvg.src} alt="" className={style.save} />}
         </button>
-        {activeScu && (
+        {activeScu && inStock && (
           <img
             src={saveSvg.src}
             alt=""

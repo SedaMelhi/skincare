@@ -12,7 +12,7 @@ interface IAddress {
   full_address: string;
 }
 
-interface IAddressState {
+export interface IAddressState {
   isAddressOpen: boolean;
   type: string;
   mapData: any[];

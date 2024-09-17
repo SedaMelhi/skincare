@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from "next";
 import { CardService } from "@/services/catalog.service";
 
 import ProductPage from "@/components/screens/product/ProductPage";
+import { useEffect } from "react";
 
 const Product: NextPage<any> = ({ data }) => {
   return <ProductPage data={data} key={data && Object.keys(data)[0]} />;

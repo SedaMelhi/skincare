@@ -1,13 +1,11 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAddress } from "@/redux/addressSlice/addressSlice";
-import { getCityService, getStreetService } from "@/services/address.service";
 
 import Input from "@/components/other/input/input";
 import Select from "../select/Select";
 
 import style from "./courierContent.module.sass";
-import { getAddressesService } from "@/services/cdek.service";
 import { getUserAddressService } from "@/services/profile.service";
 
 interface ICloseAside {
@@ -16,8 +14,8 @@ interface ICloseAside {
 export interface IAddress {
   address: {
     address: {
-      city: { id: false | string; name: string };
-      street: { id: false | string; name: string };
+      city: { id: false | number; name: string };
+      street: { id: false | number; name: string };
       house: string;
       apartment: string;
       intercom: string;
@@ -29,10 +27,10 @@ export interface IAddress {
 }
 const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   const address = useSelector((state: IAddress) => state.address.address);
-  const [city, setCity] = useState<{ id: false | string; name: string }>(
+  const [city, setCity] = useState<{ id: false | number; name: string }>(
     address.city
   );
-  const [street, setStreet] = useState<{ id: false | string; name: string }>(
+  const [street, setStreet] = useState<{ id: false | number; name: string }>(
     address.street
   );
   const [house, setHouse] = useState(address.house);
@@ -40,23 +38,43 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
   const [intercom, setIntercom] = useState(address.intercom); //домофон
   const [entrance, setEntrance] = useState(address.entrance); //подъезд
   const [floor, setFloor] = useState(address.floor); //этаж
-  const dispatch = useDispatch();
   const [error, setError] = useState<string>("");
+
+  const dispatch = useDispatch();
+
   const getCityData = (setValue: any) => {
-    const data = getCityService.getCity(city.name);
-    data.then((res) => {
-      setValue(res);
-    });
+    fetch("https://b.skincareagents.com/local/api/v1/user.php", {
+      method: "POST",
+      body: JSON.stringify({
+        type: "searchCity",
+        typeId: "3",
+        city: city.name,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+
+        setValue(res);
+      });
   };
 
   const getStreetData = (setValue: any) => {
-    if (city.id && street.name.length > 0) {
-      const data = getStreetService.getStreet(street.name, city.id);
-      data.then((res) => {
-        if (res) setValue(res);
-      });
-    }
+    city.id &&
+      fetch("https://b.skincareagents.com/local/api/v1/user.php", {
+        method: "POST",
+        body: JSON.stringify({
+          type: "searchStreet",
+          street: street.name,
+          city: city.id,
+        }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          setValue(res);
+        });
   };
+
   const sendData = () => {
     fetch("https://b.skincareagents.com/local/api/v1/user.php", {
       method: "POST",
@@ -68,7 +86,8 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
           zip: "",
           country: "Россия",
           city: city.name,
-          street: street.name + ", д " + house,
+          street: street.name,
+          house: house,
           apartment,
           entrance,
           intercom,
@@ -77,19 +96,18 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
       }),
     })
       .then((res) => res.json())
-      .then((res) => {});
   };
-
   useEffect(() => {
     setCity(address.city);
-    setHouse(address.house);
     setStreet(address.street);
+    setHouse(address.house);
     setApartment(address.apartment);
     setIntercom(address.intercom);
     setEntrance(address.entrance);
     setFloor(address.floor);
     localStorage.setItem("address", JSON.stringify(address));
   }, [address]);
+
   useEffect(() => {
     if (city.id) {
       dispatch(
@@ -106,6 +124,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
       );
     }
   }, [city]);
+
   useEffect(() => {
     dispatch(
       setAddress({
@@ -119,6 +138,7 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
       })
     );
   }, [street, house, apartment, intercom, entrance, floor]);
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       const data = getUserAddressService.getAddress();
@@ -138,10 +158,12 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
             entrance: addressDetail.entrance,
             floor: addressDetail.floor,
             full_address: `${addressDetail.city}, ул. ${street}${
-              entrance && ", подъезд " + entrance
-            }${apartment && ", кв./офис " + apartment}${
-              floor && ", этаж " + floor
-            }${intercom && ", домофон  " + intercom}`,
+              house && ", дом " + house
+            }  ${entrance && ", подъезд " + entrance}${
+              apartment && ", кв./офис " + apartment
+            }${floor && ", этаж " + floor}${
+              intercom && ", домофон  " + intercom
+            }`,
           };
         });
       });
@@ -150,15 +172,12 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
 
   const saveAddress = () => {
     dispatch(
-      setAddress((prev: any) => {
-        return {
-          ...prev,
-          full_address: `${city.name}, ул. ${street.name + ", д " + house}${
-            entrance && ", подъезд " + entrance
-          }${apartment && ", кв./офис " + apartment}${
-            floor && ", этаж " + floor
-          }${intercom && ", домофон  " + intercom}`,
-        };
+      setAddress({
+        full_address: `${city.name}, ул. ${street.name + ", д " + house}${
+          entrance && ", подъезд " + entrance
+        }${apartment && ", кв./офис " + apartment}${
+          floor && ", этаж " + floor
+        }${intercom && ", домофон  " + intercom}`,
       })
     );
   };
@@ -171,17 +190,17 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
             value={city}
             setValue={setCity}
             getData={getCityData}
+            placeholder="Город"
             error={error}
             setError={setError}
-            placeholder="Город"
           />
         </div>
         <div className={style.input__line}>
           <div className={style.input}>
             <Select
               value={street}
-              setValue={setStreet}
               disabled={![city.id].every((item) => item)}
+              setValue={setStreet}
               getData={getStreetData}
               placeholder="улица"
               error={error}
@@ -214,11 +233,11 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
             <Input
               placeholder="домофон"
               value={intercom}
+              type="number"
+              isNecessary={false}
               disabled={
                 ![city.id, street.id, house, apartment].every((item) => item)
               }
-              type="number"
-              isNecessary={false}
               onChange={(e) => setIntercom(e.target.value)}
             />
           </div>
@@ -228,11 +247,11 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
             <Input
               placeholder="подъезд"
               value={entrance}
+              type="number"
+              isNecessary={false}
               disabled={
                 ![city.id, street.id, house, apartment].every((item) => item)
               }
-              type="number"
-              isNecessary={false}
               onChange={(e) => setEntrance(e.target.value)}
             />
           </div>
@@ -240,16 +259,17 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
             <Input
               placeholder="этаж"
               value={floor}
+              type="number"
+              isNecessary={false}
               disabled={
                 ![city.id, street.id, house, apartment].every((item) => item)
               }
-              type="number"
-              isNecessary={false}
               onChange={(e) => setFloor(e.target.value)}
             />
           </div>
         </div>
       </div>
+
       <button
         className={
           style.btn +

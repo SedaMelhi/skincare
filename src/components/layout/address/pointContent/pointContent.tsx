@@ -143,6 +143,7 @@ const PointContent: FC<ICloseAside> = ({
           .then((res) => {});
       }
       dispatch(setAddress({ full_address: address.address }));
+      localStorage.setItem("point", address.address);
       closeAside();
     },
     [setActiveAddress, setMapCenter]
