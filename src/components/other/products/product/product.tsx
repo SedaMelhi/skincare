@@ -9,6 +9,7 @@ import hitImg from './../../../../../public/bonus/hit.svg';
 import style from './../products.module.sass';
 
 const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue }) => {
+  console.log(item)
   const volumes: string[] = item.volumes;
   const colors: Color[] | null = item.colors
     ? item.colors.reduce((arr: Color[], current: Color) => {

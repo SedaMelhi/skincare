@@ -3,6 +3,7 @@
 import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  IAddressState,
   setAddress,
   setIsAddressOpen,
 } from "@/redux/addressSlice/addressSlice";
@@ -11,7 +12,6 @@ import Link from "next/link";
 import { getBasketService } from "@/services/order.service";
 import { API_URL } from "@/services";
 import { getUserAddressService } from "@/services/profile.service";
-import { IAddress } from "@/components/layout/address/courierContent/courierContent";
 import { useRouter } from "next/router";
 
 import whiteArrow from "./../../../../../public/whiteArrow.svg";
@@ -26,13 +26,22 @@ const StepOne: FC = () => {
   const isAddressOpen = useSelector(
     (state: any) => state.address.isAddressOpen
   );
-  const address = useSelector((state: IAddress) => state.address.address);
+
+  const address = useSelector(
+    (state: { address: IAddressState }) => state.address.address
+  );
+
+  const deliveryType = useSelector(
+    (state: { address: IAddressState }) => state.address.type
+  );
+
   const getAddress = async () => {
     const res = await getUserAddressService.getAddress();
     if (res["3"]) {
       setSaveAddress(res["3"][res["3"].length - 1]);
     }
   };
+
   useEffect(() => {
     setToken(localStorage.getItem("token"));
     const addressFromLocalStorage = localStorage.getItem("address");
@@ -40,14 +49,17 @@ const StepOne: FC = () => {
       dispatch(setAddress(JSON.parse(addressFromLocalStorage)));
     }
   }, []);
+
   useEffect(() => {
     getAddress();
   }, [isAddressOpen]);
+
   useEffect(() => {
     console.log(1);
   }, [router]);
+
   const changeAddress = () => {
-    if (address.city.id && address.street.id) {
+    if (address.full_address) {
       router.push(
         {
           pathname: router.pathname,
@@ -58,26 +70,11 @@ const StepOne: FC = () => {
       );
     }
   };
+
   useEffect(() => {
     if (savedAddress && savedAddress.addressDetail) {
       dispatch(
-        setAddress({
-          full_address: `${savedAddress.addressDetail.city}, ул. ${
-            savedAddress.addressDetail.street
-          }${
-            savedAddress.addressDetail.entrance &&
-            ", подъезд " + savedAddress.addressDetail.entrance
-          }${
-            savedAddress.addressDetail.apartment &&
-            ", кв./офис " + savedAddress.addressDetail.apartment
-          }${
-            savedAddress.addressDetail.floor &&
-            ", этаж " + savedAddress.addressDetail.floor
-          }${
-            savedAddress.addressDetail.intercom &&
-            ", домофон  " + savedAddress.addressDetail.intercom
-          }`,
-        })
+        setAddress(savedAddress.addressDetail)
       );
     }
   }, [savedAddress]);
@@ -91,7 +88,7 @@ const StepOne: FC = () => {
         <div className={style.box}>
           <div className={style.address}>
             {token
-              ? savedAddress && savedAddress.addressDetail.city
+              ? savedAddress && savedAddress.addressDetail.full_address
                 ? address.full_address
                 : "не указан"
               : address.full_address || "не указан"}
@@ -102,7 +99,9 @@ const StepOne: FC = () => {
               dispatch(setIsAddressOpen(true));
             }}
           >
-            изменить адрес
+            {deliveryType === "pickup"
+              ? "посмотреть на карте"
+              : "изменить адрес"}
           </button>
         </div>
       </div>

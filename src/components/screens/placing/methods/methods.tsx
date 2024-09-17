@@ -1,11 +1,11 @@
-import { ChangeEvent, FC, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
-import { setType } from '@/redux/addressSlice/addressSlice';
+import { ChangeEvent, FC, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { setAddress, setType } from "@/redux/addressSlice/addressSlice";
 
-import arrow from './../../../../../public/arrowLeft.svg';
+import arrow from "./../../../../../public/arrowLeft.svg";
 
-import style from './methods.module.sass';
+import style from "./methods.module.sass";
 
 interface IType {
   address: {
@@ -19,16 +19,33 @@ const Methods: FC = () => {
   const dispatch = useDispatch();
   const handleActiveChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch(setType(event.target.value));
+    if (event.target.value === "pickup") {
+      dispatch(
+        setAddress({ full_address: "Грозный, Орзамиева 8, этаж 6, офис 7" })
+      );
+    } else if (event.target.value === "courier") {
+      const addressFromLocalStorage = localStorage.getItem("address");
+      if (addressFromLocalStorage) {
+        const address = JSON.parse(addressFromLocalStorage);
+        dispatch(setAddress({ full_address: address.full_address }));
+      }
+    } else {
+      const addressFromLocalStorage = localStorage.getItem("point");
+      if (addressFromLocalStorage) {
+        dispatch(setAddress({ full_address: addressFromLocalStorage }));
+      }
+    }
   };
 
   return (
-    <div className={style.method + ' placing__accordion'}>
+    <div className={style.method + " placing__accordion"}>
       <div className={style.method__title}>способ доставки</div>
       <Accordion className={style.accordion} expanded={isOpen}>
         <AccordionSummary
           className={style.accordion__header}
           aria-controls="panel1a-content"
-          id="panel1a-header">
+          id="panel1a-header"
+        >
           <div className={style.item}>
             <label className={style.item__left} htmlFor="one">
               <div className={style.text}>
@@ -37,7 +54,7 @@ const Methods: FC = () => {
                   name="method"
                   id="one"
                   className={style.input}
-                  checked={'courier' === type}
+                  checked={"courier" === type}
                   onChange={handleActiveChange}
                   value="courier"
                 />
@@ -67,7 +84,7 @@ const Methods: FC = () => {
                     name="method"
                     id="two"
                     className={style.input}
-                    checked={'point' === type}
+                    checked={"point" === type}
                     onChange={handleActiveChange}
                     value="point"
                   />
@@ -91,7 +108,7 @@ const Methods: FC = () => {
                     name="method"
                     id="three"
                     className={style.input}
-                    checked={'pickup' === type}
+                    checked={"pickup" === type}
                     onChange={handleActiveChange}
                     value="pickup"
                   />
