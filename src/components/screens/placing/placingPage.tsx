@@ -24,23 +24,25 @@ const PlacingPage: FC = () => {
   const router = useRouter();
   const address = useSelector((state: any) => state.address.isAddressOpen);
   const [basket, setBasket] = useState<IOrder>();
-  // const savedAddress = useSelector((state: any) => state.address.address);
-
   const [isAuth, setIsAuth] = useState<any>();
   const [certificate, setCertificate] = useState<any>();
+
   const sendCertificate = async (e: any) => {
     setCertificate(e.target.value);
-    const res = await getCertificate.getBasket();
+    await getCertificate.getBasket();
   };
+
   useEffect(() => {
     const basket = getBasketService.getBasket(
       localStorage.getItem("saleUserId")
     );
     basket.then((res: IOrder) => setBasket(res));
   }, [address]);
+
   useEffect(() => {
     setIsAuth(localStorage.getItem("token"));
   }, []);
+
   useEffect(() => {
     if (isAuth)
       fetch(API_URL + "v1/sale.php", {
@@ -54,6 +56,7 @@ const PlacingPage: FC = () => {
         .then((res) => res.json())
         .then((res) => console.log(res.user.address["3"]));
   }, [isAuth]);
+
   return (
     <Layout title="Оформление заказа" nav={false}>
       <div className="wrap">
