@@ -1,22 +1,17 @@
-import { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 
 import PlacingPage from "@/components/screens/placing/placingPage";
 import {
   getAddressesService,
-  getAllAddressService,
   getCdekTokenService,
 } from "@/services/cdek.service";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   fetchAddresses,
-  setCdekToken,
   setCities,
   setMapData,
 } from "@/redux/addressSlice/addressSlice";
-import { getBasketService } from "@/services/order.service";
-import { IbasketData } from "@/interfaces/basket.interface";
-import { IOrder } from "@/interfaces/order.interface";
 import { AppDispatch, RootState } from "@/redux/store";
 
 // {"type": "Feature", "id": 0, "geometry": {"type": "Point", "coordinates": [55.831903, 37.411961]}, "properties": {"balloonContentHeader": "<font size=3><b><a target='_blank' href='https://yandex.ru'>Здесь может быть ваша ссылка</a></b></font>", "balloonContentBody": "<p>Ваше имя: <input name='login'></p><p><em>Телефон в формате 2xxx-xxx:</em>  <input></p><p><input type='submit' value='Отправить'></p>", "balloonContentFooter": "<font size=1>Информация предоставлена: </font> <strong>этим балуном</strong>", "clusterCaption": "<strong><s>Еще</s> одна</strong> метка", "hintContent": "<strong>Текст  <s>подсказки</s></strong>"}},
@@ -109,7 +104,7 @@ const Placing: NextPage<{
           .filter((item) => item.city_code === selectedCityCode)
       : [];
 
-    const cities = data.reduce<ICity[]>((acc, current) => {
+    const cities = data?.reduce<ICity[]>((acc, current) => {
       // Проверяем, есть ли город уже в массиве уникальных городов
       const cityExists = acc.find(
         (city) => city.code === current.location.city_code
@@ -138,7 +133,7 @@ const Placing: NextPage<{
   return <PlacingPage />;
 };
 
-export const getServerSideProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const cdekToken = await getCdekTokenService.getCdekToken();
   const data = await getAddressesService.getAddresses(cdekToken.access_token);
 
@@ -147,6 +142,7 @@ export const getServerSideProps: GetStaticProps = async (context) => {
       data,
       cdekToken,
     },
+    revalidate: 60,
   };
 };
 
