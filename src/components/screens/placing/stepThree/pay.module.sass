@@ -56,6 +56,8 @@
     flex-direction: column
     @media (min-width: 768px)
         flex-direction: row
+    @media (max-width: 768px)
+        width: auto
     &__title
         font-size: 14px
         width: 140px
@@ -93,6 +95,7 @@
             
 .button
     display: flex
+    width: 100%
     align-items: center
     cursor: pointer
     justify-content: center
@@ -106,6 +109,9 @@
     letter-spacing: 0.64px
     text-transform: uppercase
     margin-top: 120px
+
+    &:disabled
+        opacity: 0.6
 
 
 .promocode
@@ -138,6 +144,8 @@
     display: flex
     flex-direction: column
     gap: 20px 
+    @media (max-width: 768px)
+        width: auto
 
 .input
     width: 100%
