@@ -30,6 +30,7 @@ const StepThree: FC = ({}) => {
   const type = useSelector((state: IType) => state.address.type);
   const order = useSelector((state: any) => state.order.order);
   const address = useSelector((state: any) => state.address.address);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   useEffect(() => {
     getBasketService
       .getBasket(localStorage.getItem("saleUserId"))
@@ -75,6 +76,7 @@ const StepThree: FC = ({}) => {
       });
   };
   const sendData = () => {
+    setButtonDisabled(true);
     fetch(API_URL + "v1/sale.php", {
       method: "POST",
       body: JSON.stringify({
@@ -123,12 +125,12 @@ const StepThree: FC = ({}) => {
         </div>
       </div>
 
-      <div className={style.button} onClick={sendData}>
+      <button disabled={buttonDisabled} className={style.button} onClick={sendData}>
         оплатить
         <div>
           <img src={whiteArrow.src} alt="" />
         </div>
-      </div>
+      </button>
     </div>
   );
 };
