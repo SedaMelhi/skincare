@@ -66,14 +66,24 @@ export interface IAddressObj {
   weight_max: number;
 }
 
-const Placing: NextPage<{
-  data: IAddressObj[];
-  cdekToken: any;
-}> = ({ data, cdekToken }) => {
+const Placing: NextPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const selectedCityCode = useSelector(
     (state: RootState) => state.address.selectedCityCode
   );
+
+  const [data, setData] = useState<IAddressObj[]>();
+
+  const fetchData = async () => {
+    const response = await fetch("/api/getAddresses");
+    const data = await response.json();
+    console.log(data);
+    setData(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const yandexMapData: any = data
@@ -124,26 +134,13 @@ const Placing: NextPage<{
 
     dispatch(setMapData(yandexMapData));
     dispatch(setCities(cities));
-  }, [selectedCityCode]);
+  }, [selectedCityCode, data]);
 
   useEffect(() => {
     dispatch(fetchAddresses({ city: "Грозный", code: "" }));
   }, []);
 
   return <PlacingPage />;
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const cdekToken = await getCdekTokenService.getCdekToken();
-  const data = await getAddressesService.getAddresses(cdekToken.access_token);
-
-  return {
-    props: {
-      data,
-      cdekToken,
-    },
-    revalidate: 60,
-  };
 };
 
 export default Placing;
