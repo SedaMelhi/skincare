@@ -1,0 +1,1 @@
+systemctl status actions.runner.SedaMelhi-skincare.self-hosted
