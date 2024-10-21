@@ -14,23 +14,18 @@ import StepThree from "./stepThree";
 
 import arrowLeft from "./../../../../public/arrow.svg";
 import close from "./../../../../public/close.svg";
-import plusSvg from "./../../../../public/plusSimple.svg";
+
 import arrowViolet from "./../../../../public/arrowViolet.svg";
 
 import style from "./placing.module.sass";
 import { API_URL } from "@/services";
+import CreateDiscountBlock from "@/components/other/createDiscountBlock";
 
 const PlacingPage: FC = () => {
   const router = useRouter();
   const address = useSelector((state: any) => state.address.isAddressOpen);
   const [basket, setBasket] = useState<IOrder>();
   const [isAuth, setIsAuth] = useState<any>();
-  const [certificate, setCertificate] = useState<any>();
-
-  const sendCertificate = async (e: any) => {
-    setCertificate(e.target.value);
-    await getCertificate.getBasket();
-  };
 
   useEffect(() => {
     const basket = getBasketService.getBasket(
@@ -108,30 +103,14 @@ const PlacingPage: FC = () => {
             )}
 
             {basket && <BasketRight basket={basket} />}
-            <div className={style.message__text + " " + style.mobile}>
-              Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих покупок
-              и применять сертификат.
-            </div>
-            <div
-              className={style.promocode__wrap + " " + style.promocode__first}
-            >
-              <input
-                type="text"
-                className={style.promocode}
-                placeholder="Промокод"
-              />
-              <img src={plusSvg.src} alt="" />
-            </div>
-            <div className={style.promocode__wrap}>
-              <input
-                type="text"
-                className={style.promocode}
-                placeholder="Подарочный сертификат"
-                value={certificate}
-                onChange={sendCertificate}
-              />
-              <img src={plusSvg.src} alt="" />
-            </div>
+            {!isAuth && (
+              <div className={style.message__text + " " + style.mobile}>
+                Зарегистрируйтесь/войдите, чтобы получать кэшбек со своих
+                покупок и применять сертификат.
+              </div>
+            )}
+
+            <CreateDiscountBlock isAuth={isAuth} />
           </div>
         </div>
       </div>

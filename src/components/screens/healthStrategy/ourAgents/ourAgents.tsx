@@ -7,8 +7,7 @@ import Arrows from "@/components/other/arrows/arrows";
 import img1 from "./../../../../../public/paidRecording/certificate1.png";
 import img2 from "./../../../../../public/paidRecording/certification.png";
 import img3 from "./../../../../../public/paidRecording/certificate2.png";
-import img4 from "./../../../../../public/paidRecording/certificate3.jpg";
-import img5 from "./../../../../../public/paidRecording/certificate4.png";
+import img4 from "./../../../../../public/paidRecording/certificateZalina.jpg";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -36,11 +35,11 @@ const OurAgents: FC = () => {
               Uniprof, студент preventage
             </div>
             <div className={style.agent2}>
-              <h3 className={style.agent__name}>дидаева савдат Салмановна</h3>
+              <h3 className={style.agent__name}>Байракова Залина Максимовна</h3>
               <div className={style.agent__text}>
-                Дипломирования косметолог-эстетист, бьюти эксперт с опытом
-                работы пять лет, более 1000 проведённых пациентов с акне,
-                куперощам и другими дерматитами.
+                Сертифицированный косметик-эстетист с 2022 года. Провела
+                несколько сотен консультаций, помогла подобрать рабочие схемы
+                для пациентов с акне, куперозом и другими дерматитами
               </div>
             </div>
           </div>
@@ -74,9 +73,6 @@ const OurAgents: FC = () => {
                   </SwiperSlide>
                   <SwiperSlide className={style.img4}>
                     <img src={img4.src} alt="" />
-                  </SwiperSlide>
-                  <SwiperSlide className={style.img4}>
-                    <img src={img5.src} alt="" />
                   </SwiperSlide>
                 </Swiper>
               </div>

@@ -125,12 +125,22 @@ const StepThree: FC = ({}) => {
         </div>
       </div>
 
-      <button disabled={buttonDisabled} className={style.button} onClick={sendData}>
-        оплатить
-        <div>
-          <img src={whiteArrow.src} alt="" />
-        </div>
-      </button>
+      <div className={style.checkout_bottom}>
+        <p>
+          Внимание! Ссылка на оплату единоразовая. При обратном переходе на
+          текущую страницу корзина и ссылка на оплату обнуляются.
+        </p>
+        <button
+          disabled={buttonDisabled}
+          className={style.button}
+          onClick={sendData}
+        >
+          оплатить
+          <div>
+            <img src={whiteArrow.src} alt="" />
+          </div>
+        </button>
+      </div>
     </div>
   );
 };
