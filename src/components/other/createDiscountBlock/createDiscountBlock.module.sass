@@ -1,0 +1,24 @@
+.promocode
+    width: 100%
+    border-radius: 8px
+    border: 1px solid var(--Grey-300)
+    height: 45px
+    padding: 8px 8px 8px 16px
+    color: var(--Grey-800)
+    font-size: 14px
+    &__wrap
+        position: relative
+        margin-bottom: 8px
+        display: none
+        @media (min-width: 1200px)
+            display: block
+        img
+            position: absolute
+            top: 13px
+            right: 13px
+
+    &__first
+        margin-top: 16px
+    &::placeholder
+        color: var(--Grey-800)
+        font-size: 14px
