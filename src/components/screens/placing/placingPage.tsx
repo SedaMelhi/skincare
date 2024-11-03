@@ -49,7 +49,13 @@ const PlacingPage: FC = () => {
         }),
       })
         .then((res) => res.json())
-        .then((res) => console.log(res.user.address["3"]));
+        .then((res) => {
+          if (res && res.user && res.user.address) {
+            console.log(res.user.address["3"]);
+          } else {
+            console.log("User or address data is missing");
+          }
+        });
   }, [isAuth]);
 
   return (
