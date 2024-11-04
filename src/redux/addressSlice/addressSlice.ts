@@ -165,7 +165,15 @@ export const addressSlice = createSlice({
       state.mapData = payload;
     },
     setAddress: (state, { payload }) => {
-      state.address = { ...state.address, ...payload };
+      if (payload.address) {
+        state.address = {
+          ...state.address,
+          ...payload.address,
+          full_address: payload.full_address,
+        };
+      } else {
+        state.address = { ...state.address, ...payload };
+      }
     },
     setCities: (state, { payload }) => {
       state.cities = payload;
