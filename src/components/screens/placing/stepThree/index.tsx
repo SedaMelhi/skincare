@@ -86,14 +86,15 @@ const StepThree: FC = ({}) => {
       }),
     })
       .then((res) => res.json())
-      .then((res) =>
+      .then((res) => 
         createOrder(
-          localStorage.getItem("token") && res && res.user
+          localStorage.getItem("token") && res && res.user && res.user.address["3"]
             ? res.user.address["3"][res.user.address["3"].length - 1].id
             : ""
         )
       );
   };
+
 
   return (
     <div>

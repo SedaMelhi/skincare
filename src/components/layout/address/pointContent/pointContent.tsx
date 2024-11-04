@@ -21,6 +21,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  CircularProgress,
 } from "@mui/material";
 import ArrowAccordIcon from "../../../../../public/arrowAccord.svg";
 
@@ -69,6 +70,7 @@ const PointContent: FC<ICloseAside> = ({
   setSelectedService,
 }) => {
   const [city, setCity] = useState("");
+  const [loading, setLoading] = useState(true);
   // const [street, setStreet] = useState("S");
   // const [apartment, setApartment] = useState("A"); //квартира
   // const [intercom, setIntercom] = useState(""); //домофон
@@ -96,6 +98,12 @@ const PointContent: FC<ICloseAside> = ({
   const pochtaMapData: IMapData[] = useSelector(
     (state: any) => state.address.pochtaMapData
   );
+
+  useEffect(() => {
+    if (mapData.length > 0 && pochtaMapData.length > 0) {
+      setLoading(false);
+    }
+  }, [mapData, pochtaMapData]);
 
   const handleAccordionChange = useCallback(
     (address: IAddressObj) =>
@@ -307,6 +315,7 @@ const PointContent: FC<ICloseAside> = ({
             type="text"
             isNecessary={true}
             onChange={handleCityChange}
+            disabled={loading}
           />
           {showSuggestions &&
             (filteredCities.length > 0 || pochtaCities.length > 0) && (
@@ -350,7 +359,15 @@ const PointContent: FC<ICloseAside> = ({
           </button>
         </div>
       </div>
-      <div className={style.addresses}>{renderServicePoints()}</div>
+      <div className={style.addresses}>
+        {loading ? (
+          <div className={style.loaderContainer}>
+            <CircularProgress />
+          </div>
+        ) : (
+          renderServicePoints()
+        )}
+      </div>
     </form>
   );
 };
