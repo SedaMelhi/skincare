@@ -23,11 +23,9 @@ import { IUserData } from "../profile/profilePage";
 import { userInfoService } from "@/services/profile.service";
 
 const MapsPage: FC = () => {
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
   const dispatch = useDispatch();
-  const [address, setAddress] = useState<{ id: number; addressDetail: any }[]>(
-    []
-  );
+  const [addresses, setAddresses] = useState<{ [key: number]: { id: number; addressDetail: any; addressAll: string, typeId: string }[] }>({});
   const [userDataServer, setUserDataServer] = useState<IUserData>({
     birthday: "",
     email: "",
@@ -37,10 +35,14 @@ const MapsPage: FC = () => {
     secondName: "",
     userId: 0,
   });
+  const [isLoading, setIsLoading] = useState(false);
+
   useEffect(() => {
     userInfoService.getUserInfo().then(setUserDataServer);
   }, []);
+
   const getNewAddress = () => {
+    setIsLoading(true);
     fetch(API_URL + "v1/user.php", {
       method: "POST",
       body: JSON.stringify({
@@ -50,14 +52,20 @@ const MapsPage: FC = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log('res', res)
         if (res) {
-          setAddress(res["3"]);
+          setAddresses({
+            0: (res["1"] || []).concat(res["2"] || []),
+            1: res["3"] || [],
+          });
         }
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
+
   useEffect(() => {
     getNewAddress();
-  }, [activeTab]);
+  }, []);
 
   const handleAddAddress = () => {
     if (activeTab === 0) {
@@ -67,6 +75,8 @@ const MapsPage: FC = () => {
     }
     dispatch(setIsAddressOpen(true));
   };
+
+  console.log("АДРЕСА", addresses)
 
   return (
     <Layout title={"Адреса"}>
@@ -100,14 +110,17 @@ const MapsPage: FC = () => {
                 />
               </div>
             </div>
-            {address &&
-              address.map(({ id, addressDetail }) => (
+            {isLoading ? (
+              <div className={style.loader}>Загрузка...</div>
+            ) : (
+              addresses[activeTab] &&
+              addresses[activeTab].map(({ id, addressDetail, addressAll, typeId }) => (
                 <div className={style.address} key={id}>
                   <InfoBlock
-                    title={activeTab === 1 ? "" : "почта россии"}
+                    title={activeTab === 1 ? "" : `${typeId === "1" ? "сдэк" : "почта россии"}`}
                     id={id}
                     getNewAddress={getNewAddress}
-                    text={
+                    text={activeTab === 0 ? addressAll :
                       "г. " +
                       addressDetail.city +
                       ", " +
@@ -124,11 +137,12 @@ const MapsPage: FC = () => {
                     }
                   />
                 </div>
-              ))}
+              ))
+            )}
 
             <div
               className={style.btn}
-              onClick={() => dispatch(setIsAddressOpen(true))}
+              onClick={() => handleAddAddress()}
             >
               <Button
                 text="добавить новый адрес"

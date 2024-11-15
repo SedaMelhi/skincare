@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 import { useRouter } from "next/router";
-import { setIsAddressOpen } from "@/redux/addressSlice/addressSlice";
+import { setIsAddressOpen, setSelectedService } from "@/redux/addressSlice/addressSlice";
 
 import AsideHeader from "./asideHeader/asideHeader";
 import CourierContent from "./courierContent/courierContent";
@@ -22,6 +22,7 @@ export interface IAddressState {
 interface IType {
   address: {
     type: string;
+    selectedService: number;
   };
 }
 
@@ -43,16 +44,18 @@ export interface IAddressObj {
 }
 
 const Address: FC = () => {
-  const isAddressOpen = useSelector(
-    (state: IAddressState) => state.address.isAddressOpen
+  const { isAddressOpen, type, selectedService } = useSelector(
+    (state: IAddressState & IType) => ({
+      isAddressOpen: state.address.isAddressOpen,
+      type: state.address.type,
+      selectedService: state.address.selectedService,
+    })
   );
-  const type = useSelector((state: IType) => state.address.type);
   const dispatch = useDispatch();
   const router = useRouter();
   const [activeAddress, setActiveAddress] = useState<IAddressObj | null>(null);
   const [mapCenter, setMapCenter] = useState<number[]>([43.33417, 45.68794]);
   const [mapZoom, setMapZoom] = useState<number>(13);
-  const [selectedService, setSelectedService] = useState<number>(0);
 
   const handleSetMapCenter = (coordinates: number[], zoom: number) => {
     setMapCenter(coordinates);
@@ -61,6 +64,10 @@ const Address: FC = () => {
 
   const closeAside = () => {
     dispatch(setIsAddressOpen(false));
+  };
+
+  const handleSetSelectedService = (service: number) => {
+    dispatch(setSelectedService(service));
   };
 
   useEffect(() => {
@@ -128,7 +135,7 @@ const Address: FC = () => {
                 setActiveAddress={setActiveAddress}
                 setMapCenter={handleSetMapCenter}
                 selectedService={selectedService}
-                setSelectedService={setSelectedService}
+                setSelectedService={handleSetSelectedService}
               />
             )}
             {type === "pickup" && <PickupContent />}

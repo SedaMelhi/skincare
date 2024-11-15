@@ -22,6 +22,7 @@ export interface IAddressState {
   selectedCityCode: number;
   cdekToken: string | null;
   address: IAddress;
+  selectedService: number;
 }
 
 interface ISuggestionFeature {
@@ -73,6 +74,7 @@ interface ISuggestion {
 
 const initialState: IAddressState = {
   isAddressOpen: false,
+  selectedService: 0,
   type: 'courier',
   mapData: [],
   cities: [],
@@ -165,7 +167,15 @@ export const addressSlice = createSlice({
       state.mapData = payload;
     },
     setAddress: (state, { payload }) => {
-      state.address = { ...state.address, ...payload };
+      if (payload.address) {
+        state.address = {
+          ...state.address,
+          ...payload.address,
+          full_address: payload.full_address,
+        };
+      } else {
+        state.address = { ...state.address, ...payload };
+      }
     },
     setCities: (state, { payload }) => {
       state.cities = payload;
@@ -175,6 +185,9 @@ export const addressSlice = createSlice({
     },
     setCdekToken: (state, { payload }) => {
       state.cdekToken = payload;
+    },
+    setSelectedService: (state, { payload }) => {
+      state.selectedService = payload;
     },
   },
   extraReducers: (builder) => {
@@ -202,6 +215,7 @@ export const addressSlice = createSlice({
             { day: 7, time: suggestion.data.schedule_sun },
           ],
           address: suggestion.data.address_str,
+          code: suggestion.value,
           city_code: suggestion.data.address_kladr_id,
         }));
       })
@@ -223,6 +237,7 @@ export const {
   setMapData,
   setAddress,
   setCities,
+  setSelectedService,
   setSelectedCityCode,
   setCdekToken,
 } = addressSlice.actions;

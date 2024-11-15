@@ -73,9 +73,21 @@ const StepOne: FC = () => {
 
   useEffect(() => {
     if (savedAddress && savedAddress.addressDetail) {
-      dispatch(
-        setAddress(savedAddress.addressDetail)
-      );
+      const { city, street, house, entrance, apartment, floor, intercom } = savedAddress.addressDetail;
+      
+      if (deliveryType === 'courier') {
+        const fullAddress = `${city || 'не указан'}, ул. ${street || 'не указан'}, д ${house || 'не указан'}${
+          entrance ? `, подъезд ${entrance}` : ''
+        }${apartment ? `, кв./офис ${apartment}` : ''}${
+          floor ? `, этаж ${floor}` : ''
+        }${intercom ? `, домофон ${intercom}` : ''}`;
+
+        dispatch(
+          setAddress({ address: savedAddress.addressDetail, full_address: fullAddress })
+        );
+      } else {
+        dispatch(setAddress(savedAddress.addressDetail));
+      }
     }
   }, [savedAddress]);
 
@@ -88,7 +100,7 @@ const StepOne: FC = () => {
         <div className={style.box}>
           <div className={style.address}>
             {token
-              ? savedAddress && savedAddress.addressDetail.full_address
+              ? savedAddress && savedAddress.addressAll
                 ? address.full_address
                 : "не указан"
               : address.full_address || "не указан"}

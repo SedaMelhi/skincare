@@ -19,6 +19,7 @@ interface IUser {
 interface IType {
   address: {
     type: string;
+    selectedService: number;
   };
 }
 const StepThree: FC = ({}) => {
@@ -27,7 +28,7 @@ const StepThree: FC = ({}) => {
   const [pay, setPay] = useState(3);
   const dispatch = useDispatch();
   const router = useRouter();
-  const type = useSelector((state: IType) => state.address.type);
+  const {type, selectedService} = useSelector((state: IType) => state.address);
   const order = useSelector((state: any) => state.order.order);
   const address = useSelector((state: any) => state.address.address);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -37,6 +38,8 @@ const StepThree: FC = ({}) => {
       .then((res) => setBasket(res));
     setIsAuth(localStorage.getItem("token"));
   }, []);
+
+  const point = selectedService === 0 ? "75" : "76";
 
   const createOrder = (codeDelivery: number) => {
     let full_address = {};
@@ -56,7 +59,7 @@ const StepThree: FC = ({}) => {
           type === "courier"
             ? "65"
             : type === "point"
-            ? "76"
+            ? point
             : type === "pickup"
             ? "1"
             : null,
@@ -72,6 +75,7 @@ const StepThree: FC = ({}) => {
       .then((res) => {
         if (res && res.status === "ok") {
           router.push(res.link);
+          console.log(res)
         }
       });
   };

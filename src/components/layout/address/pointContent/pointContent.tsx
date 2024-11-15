@@ -137,19 +137,17 @@ const PointContent: FC<ICloseAside> = ({
   const handleSaveAddress = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>, address: IAddressObj) => {
       e.preventDefault();
-      if (selectedService === 0) {
         fetch("https://b.skincareagents.com/local/api/v1/user.php", {
           method: "POST",
           body: JSON.stringify({
             type: "addAddress",
             token: localStorage.getItem("token"),
-            typeId: "1",
+            typeId: selectedService === 0 ? '1' : '2',
             code: address.code,
           }),
         })
           .then((res) => res.json())
           .then((res) => {});
-      }
       dispatch(setAddress({ full_address: address.address }));
       localStorage.setItem("point", address.address);
       closeAside();

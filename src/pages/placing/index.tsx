@@ -1,10 +1,5 @@
-import { GetStaticProps, NextPage } from "next";
-
+import { NextPage } from "next";
 import PlacingPage from "@/components/screens/placing/placingPage";
-import {
-  getAddressesService,
-  getCdekTokenService,
-} from "@/services/cdek.service";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
