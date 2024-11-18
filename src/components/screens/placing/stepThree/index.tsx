@@ -74,8 +74,8 @@ const StepThree: FC = ({}) => {
       .then((res) => res.json())
       .then((res) => {
         if (res && res.status === "ok") {
-          router.push(res.link);
-          console.log(res)
+          // router.push(res.link);
+          console.log("РЕДИРЕКТ ЗАПРОС", res)
         }
       });
   };
