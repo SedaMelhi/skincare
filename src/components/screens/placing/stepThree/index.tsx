@@ -90,15 +90,29 @@ const StepThree: FC = ({}) => {
       }),
     })
       .then((res) => res.json())
-      .then((res) => 
+      .then((res) => {
+        console.log("res.user", res.user.address)
+
+        // createOrder(
+        //   localStorage.getItem("token") && res && res.user && res.user.address["3"]
+        //     ? res.user.address["3"][res.user.address["3"].length - 1].id
+        //     : ""
+        // )
+
         createOrder(
-          localStorage.getItem("token") && res && res.user && res.user.address["3"]
-            ? res.user.address["3"][res.user.address["3"].length - 1].id
+          localStorage.getItem("token") && res && res.user && res.user.address
+            ? type === "point" && point === "75"
+              ? res.user.address["1"][res.user.address["1"].length - 1].code
+              : type === "point" && point === "76"
+              ? res.user.address["2"][res.user.address["2"].length - 1].code
+              : type === "courier"
+              ? res.user.address["3"][res.user.address["3"].length - 1].id
+              : ""
             : ""
         )
+      }
       );
   };
-
 
   return (
     <div>
