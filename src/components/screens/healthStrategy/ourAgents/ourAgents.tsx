@@ -14,7 +14,11 @@ import "swiper/css/pagination";
 
 import style from "./ourAgents.module.sass";
 
-const OurAgents: FC = () => {
+type OurAgentsProps = {
+  page?: string
+}
+
+const OurAgents: FC<OurAgentsProps> = ({page}) => {
   return (
     <div className={style.circle}>
       <div className={style.circle__img}></div>
@@ -34,14 +38,14 @@ const OurAgents: FC = () => {
               переподготовку по специальности нутрициология, выпускник школы
               Uniprof, студент preventage
             </div>
-            <div className={style.agent2}>
+           {page !== 'health' && <div className={style.agent2}>
               <h3 className={style.agent__name}>Байракова Залина Максимовна</h3>
               <div className={style.agent__text}>
                 Сертифицированный косметик-эстетист с 2022 года. Провела
                 несколько сотен консультаций, помогла подобрать рабочие схемы
                 для пациентов с акне, куперозом и другими дерматитами
               </div>
-            </div>
+            </div>}
           </div>
           <div className={style.slider__wrapper}>
             <div className={style.bg__wrap}>
@@ -71,9 +75,9 @@ const OurAgents: FC = () => {
                   <SwiperSlide className={style.img3}>
                     <img src={img3.src} alt="" />
                   </SwiperSlide>
-                  <SwiperSlide className={style.img4}>
+                 {page !== 'health' && <SwiperSlide className={style.img4}>
                     <img src={img4.src} alt="" />
-                  </SwiperSlide>
+                  </SwiperSlide>}
                 </Swiper>
               </div>
             </div>
