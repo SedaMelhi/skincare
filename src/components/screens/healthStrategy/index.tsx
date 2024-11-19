@@ -1,7 +1,6 @@
 import { FC } from "react";
 import Layout from "@/components/layout/Layout";
 import DescriptionRecord from "@/components/screens/skinSolution/descriptionRecord/descriptionRecord";
-import Care from "@/components/screens/healthStrategy/care/care";
 import Reviews from "@/components/screens/healthStrategy/reviews/Reviews";
 import Faq from "@/components/screens/healthStrategy/faq/Faq";
 import Record from "@/components/screens/healthStrategy/record/record";
@@ -46,10 +45,7 @@ const HealthStrategyPage: FC = () => {
         <BeforeAndAfter />
       </div>
       <div className={style.ourAgents}>
-        <OurAgents />
-      </div>
-      <div className={style.care}>
-        <Care />
+        <OurAgents page={'health'}/>
       </div>
       <div className={style.reviews}>
         <Reviews />
