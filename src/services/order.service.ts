@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getTokenService } from "./auth.service";
 const API_URL = "https://b.skincareagents.com/local/api/";
 
 axios.defaults.baseURL = API_URL;
@@ -39,10 +40,24 @@ export const getCertificate = {
     const { data } = await axios.post("/v1/sale.php", {
       type: "createDiscount",
       typeDiscount: "certificate",
-      token: localStorage.getItem("saleUserId"),
+      token: localStorage.getItem("token"),
       value: 1,
       number,
     });
+    console.log("СЕРТИФИКАТ",data)
+
+    return data;
+  },
+};
+
+export const getPromoCode = {
+  async createDiscount(coupon: string): Promise<any> {
+    const { data } = await axios.post("/v1/sale.php", {
+      type: "addDiscount",
+      saleUserId: localStorage.getItem("saleUserId"),
+      coupon 
+    });
+    console.log("ПРОМОКОД",data)
     return data;
   },
 };
