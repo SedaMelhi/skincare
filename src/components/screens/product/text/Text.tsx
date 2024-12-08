@@ -32,6 +32,8 @@ const Text: FC<{
   >([]);
   const icons = [actionSvg1.src, actionSvg2.src, actionSvg3.src];
 
+  console.log('activeSCU', activeScu)
+
   const [btnText, setBtnText] = useState("Добавить в сумочку");
   const [inStock, setInStock] = useState(true);
   const dispatch = useDispatch();
