@@ -55,6 +55,7 @@ export const getPromoCode = {
     const { data } = await axios.post("/v1/sale.php", {
       type: "addDiscount",
       saleUserId: localStorage.getItem("saleUserId"),
+      userId: "",
       coupon 
     });
     console.log("ПРОМОКОД",data)

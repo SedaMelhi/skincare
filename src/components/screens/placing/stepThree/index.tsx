@@ -91,7 +91,7 @@ const StepThree: FC = ({}) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log("res.user", res.user.address)
+        // console.log("res.user", res.user.address)
 
         // createOrder(
         //   localStorage.getItem("token") && res && res.user && res.user.address["3"]

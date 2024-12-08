@@ -58,6 +58,8 @@ const PlacingPage: FC = () => {
         });
   }, [isAuth]);
 
+  console.log("basket",basket)
+
   return (
     <Layout title="Оформление заказа" nav={false}>
       <div className="wrap">

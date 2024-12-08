@@ -8,10 +8,14 @@ import { IOrder, IOrderBasket } from '@/interfaces/order.interface';
 import Link from 'next/link';
 
 import style from './basketRight.module.sass';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const BasketRight: FC<{ basket: IOrder | null }> = ({ basket }) => {
   const arr: IOrderBasket[] | [] = basket ? Object.values(basket.cartItems) : [];
+  const { price, discount } = useSelector((state: RootState) => state.order.pricing); 
 
+console.log(price, discount)
   return (
     <div>
       <div className={style.basket_pc}>
@@ -50,8 +54,8 @@ const BasketRight: FC<{ basket: IOrder | null }> = ({ basket }) => {
                         style={
                           picture
                             ? {
-                                backgroundImage: `url(https://b.skincareagents.com${picture})`,
-                              }
+                              backgroundImage: `url(https://b.skincareagents.com${picture})`,
+                            }
                             : {}
                         }></div>
                       <div className={style.info}>
@@ -74,6 +78,13 @@ const BasketRight: FC<{ basket: IOrder | null }> = ({ basket }) => {
 
                   <div className={style.sum}>{basket && basket.basket.price} ₽</div>
                 </div>
+                {discount && (
+                  <div className={style.line}>
+                    <div className={style.line__text}>Промокод</div>
+                    <div className={style.border}></div>
+                    <div className={style.sum}>- {discount} ₽</div>
+                  </div>
+                )}
                 {/* <div className={style.line}>
                   <div className={style.line__text}>Доставка</div>
                   <div className={style.border}></div>
@@ -81,7 +92,7 @@ const BasketRight: FC<{ basket: IOrder | null }> = ({ basket }) => {
                 </div> */}
                 <div className={style.line}>
                   <div className={style.line__text}>Итого</div>
-                  <div className={style.all__price}>{basket && basket.basket.price} ₽</div>
+                  <div className={style.all__price}>{price ? price : basket && basket.basket.price} ₽</div>
                 </div>
               </div>
             )}
