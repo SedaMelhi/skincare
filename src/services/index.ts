@@ -14,21 +14,21 @@ axios.defaults.baseURL = API_URL;
 
 export const MainSliderService = {
   async getMainSlider(): Promise<MainSliderArray> {
-    const { data } = await axios.post('/main.php', { type: 'mainSlider' });
+    const { data } = await axios.post('/v1/main.php', { type: 'mainSlider' });
     return data;
   },
 };
 
 export const RunningLineService = {
   async getRunningLine(): Promise<RunningLineArray> {
-    const { data } = await axios.post('/main.php', { type: 'runningLine', code: 3 });
+    const { data } = await axios.post('/v1/main.php', { type: 'runningLine', code: 3 });
     return data;
   },
 };
 
 export const RunningVerticalLineService = {
   async getRunningLine(): Promise<RunningLineArray> {
-    const { data } = await axios.post('/main.php', { type: 'runningLine', code: 4 });
+    const { data } = await axios.post('/v1/main.php', { type: 'runningLine', code: 4 });
     return data;
   },
 };
@@ -56,7 +56,7 @@ export const GiftsService = {
 export const JournalService = {
   
   async getJournalService(): Promise<any> {
-    const { data } = await axios.post('/main.php', { type: 'getJournal' });
+    const { data } = await axios.post('/v1/main.php', { type: 'getJournal' });
 
     const formattedData = data.map((entry: any) => ({
       ...entry,
@@ -69,14 +69,14 @@ export const JournalService = {
 
 export const HitsService = {
   async getHitsService(): Promise<any> {
-    const { data } = await axios.post('/main.php', { type: 'getHits', count: 100 });
+    const { data } = await axios.post('/v1/main.php', { type: 'getHits', count: 100 });
     return data;
   },
 };
 
 export const SetsService = {
   async getSetsService(): Promise<any> {
-    const { data } = await axios.post('/main.php', { type: 'getSets' });
+    const { data } = await axios.post('/v1/main.php', { type: 'getSets' });
     return data;
   },
 };

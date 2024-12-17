@@ -4,7 +4,7 @@ import plusSvg from "./../../../../public/plusSimple.svg";
 import plusFillSvg from "./../../../../public/plusCircle.svg";
 import { getCertificate, getPromoCode } from "@/services/order.service";
 import { useDispatch } from "react-redux";
-import { setPricing } from "@/redux/orderSlice/orderSlice";
+import { setCoupon, setPricing } from "@/redux/orderSlice/orderSlice";
 
 interface CreateDiscountBlockProps {
   isAuth: boolean;
@@ -27,6 +27,7 @@ const CreateDiscountBlock: FC<CreateDiscountBlockProps> = ({ isAuth }) => {
       setErrorMessage(response.msg);
     } else {
       dispatch(setPricing({ price: response.price, discount: response.discount }));
+      dispatch(setCoupon(promoCode))
       setErrorMessage(null);
       setPromoCode('')
     }

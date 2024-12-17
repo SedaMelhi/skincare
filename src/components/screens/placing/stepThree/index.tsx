@@ -30,6 +30,7 @@ const StepThree: FC = ({}) => {
   const router = useRouter();
   const {type, selectedService} = useSelector((state: IType) => state.address);
   const order = useSelector((state: any) => state.order.order);
+  const coupon = useSelector((state: any) => state.order.coupon)
   const address = useSelector((state: any) => state.address.address);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   useEffect(() => {
@@ -67,6 +68,7 @@ const StepThree: FC = ({}) => {
         points: null,
         certificate: null,
         deliveryPay: pay,
+        coupon,
         token: localStorage.getItem("token"),
         ...full_address,
       }),
