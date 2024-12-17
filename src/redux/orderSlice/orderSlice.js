@@ -15,6 +15,7 @@ export const orderSlice = createSlice({
       price: null,
       discount: null,
     },
+    coupon: null
   },
   reducers: {
     setOrder: (state, { payload }) => {
@@ -31,8 +32,11 @@ export const orderSlice = createSlice({
         };
       }
     },
+    setCoupon: (state, {payload}) => {
+      state.coupon = payload
+    }
   },
 });
 
-export const { setOrder, setLink, setPricing } = orderSlice.actions;
+export const { setOrder, setLink, setPricing, setCoupon } = orderSlice.actions;
 export default orderSlice.reducer;
