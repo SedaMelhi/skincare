@@ -9,7 +9,7 @@ import hitImg from './../../../../../public/bonus/hit.svg';
 import style from './../products.module.sass';
 
 const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue }) => {
-  console.log(item)
+  console.log("item",item)
   const volumes: string[] = item.volumes;
   const colors: Color[] | null = item.colors
     ? item.colors.reduce((arr: Color[], current: Color) => {
@@ -20,8 +20,7 @@ const Product: FC<{ item: IProduct; classValue: string }> = ({ item, classValue 
   const price: number = item.minPrice;
       
   return (
-    <div className={style[classValue]} key={item.id}>
-      {item.pins && (
+    <div className={`${style[classValue]} ${item?.quantity === null || Number(item.quantity) <= 0 ? style.outOfStock : ''}`} key={item.id}> {item.pins && (
         <div className={style.pin}>
           {item.pins.includes('Скидка') && <img src={discountImg.src} alt="" />}
           {item.pins.includes('Новинка') && <img src={newImg.src} alt="" />}
