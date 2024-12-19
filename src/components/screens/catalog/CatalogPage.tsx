@@ -30,6 +30,8 @@ const CatalogPage: FC<{
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
 
+  const availableProducts = products.filter(item => item.is_active === 'Y')
+
   useEffect(() => {
     if (router.query.brandId) {
       setName(router.query.brandName + "");
@@ -100,7 +102,7 @@ const CatalogPage: FC<{
           />
           <div className={style.products}>
             {products && products.length > 0 && (
-              <Products products={products} fetching={fetching} />
+              <Products products={availableProducts} fetching={fetching} />
             )}
             {products.length === 0 ? <div className={style.otstup}></div> : ""}
             {fetching && (
