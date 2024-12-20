@@ -14,6 +14,7 @@ import {
 } from "@/redux/catalogSlice/catalogSlice";
 
 import CatalogPage from "@/components/screens/catalog/CatalogPage";
+import { API_URL } from "@/services";
 
 const Catalog: NextPage = () => {
   const [products, setProducts] = useState<any>([]);
@@ -41,7 +42,35 @@ const Catalog: NextPage = () => {
     }
   };
   const getData = async () => {
-    if (router.query.brandId) {
+    const searchQuery = router.query.search || "";
+    console.log("Search Query:", searchQuery);
+
+    if (searchQuery) {
+      const response = await fetch(API_URL + 'catalogue/index.php', {
+        method: 'POST',
+        body: JSON.stringify({
+          type: 'search',
+          query: searchQuery.trim(),
+          offset: 0,
+        }),
+      });
+      const res = await response.json();
+      console.log("Response from search:", res);
+      if (res.items && res.items.length > 0) {
+        setProducts(
+          res.items.length > 8
+            ? [
+                ...res.items.filter((item: any, i: number) => i < 8),
+                { id: "circle" },
+                ...res.items.filter((item: any, i: number) => i >= 8),
+              ]
+            : [...res.items, { id: "circle" }]
+        );
+        setCurrentPage(1);
+      } else {
+        console.log("No items found.");
+      }
+    } else if (router.query.brandId) {
       const response = await FilterService.getData({
         id: "",
         discount: discountFilter,
