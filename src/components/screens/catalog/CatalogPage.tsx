@@ -30,8 +30,9 @@ const CatalogPage: FC<{
   const catalog = useSelector((state: CatalogMenu) => state.menu.menu);
   const router = useRouter();
 
-  const availableProducts = products.filter(item => item.is_active === 'Y')
-
+  const availableProducts = products.filter(item => 
+    item.is_active === 'Y' || !item.hasOwnProperty('is_active')
+  )
   useEffect(() => {
     if (router.query.brandId) {
       setName(router.query.brandName + "");
