@@ -50,7 +50,7 @@ const Catalog: NextPage = () => {
         method: 'POST',
         body: JSON.stringify({
           type: 'search',
-          query: searchQuery.trim(),
+          query: Array.isArray(searchQuery) ? searchQuery[0].trim() : searchQuery.trim(),
           offset: 0,
         }),
       });

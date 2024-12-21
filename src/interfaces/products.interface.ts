@@ -48,6 +48,7 @@ export interface IProduct {
   preDescription?: string;
   props?: any;
   scu?: IScu[];
+  quantity?: number;
 }
 
 export type IProductArr = IProduct[];
