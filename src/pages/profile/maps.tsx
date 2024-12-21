@@ -25,7 +25,6 @@ const Maps: NextPage = () => {
       const response = await fetch("/api/getAddresses");
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
         setData(data);
       }
     } catch (err) {

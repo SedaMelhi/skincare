@@ -15,7 +15,6 @@ const BasketRight: FC<{ basket: IOrder | null }> = ({ basket }) => {
   const arr: IOrderBasket[] | [] = basket ? Object.values(basket.cartItems) : [];
   const { price, discount } = useSelector((state: RootState) => state.order.pricing); 
 
-console.log(price, discount)
   return (
     <div>
       <div className={style.basket_pc}>

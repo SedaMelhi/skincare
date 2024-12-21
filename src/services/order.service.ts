@@ -58,7 +58,6 @@ export const getPromoCode = {
       userId: "",
       coupon 
     });
-    console.log("ПРОМОКОД",data)
     return data;
   },
 };
