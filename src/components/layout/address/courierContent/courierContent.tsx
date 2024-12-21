@@ -53,7 +53,6 @@ const CourierContent: FC<ICloseAside> = ({ closeAside }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
 
         setValue(res);
       });

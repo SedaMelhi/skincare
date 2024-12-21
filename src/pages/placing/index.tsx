@@ -72,7 +72,6 @@ const Placing: NextPage = () => {
   const fetchData = async () => {
     const response = await fetch("/api/getAddresses");
     const data = await response.json();
-    console.log(data);
     setData(data);
   };
 

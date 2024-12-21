@@ -21,7 +21,6 @@ export const CardService = {
       itemId: itemId,
     };
     const { data } = await axios.post<any>("v1/catalog.php", params);
-    console.log(data);
     return data;
   },
 };

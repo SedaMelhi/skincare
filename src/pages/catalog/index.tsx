@@ -43,7 +43,6 @@ const Catalog: NextPage = () => {
   };
   const getData = async () => {
     const searchQuery = router.query.search || "";
-    console.log("Search Query:", searchQuery);
 
     if (searchQuery) {
       const response = await fetch(API_URL + 'catalogue/index.php', {
@@ -55,7 +54,6 @@ const Catalog: NextPage = () => {
         }),
       });
       const res = await response.json();
-      console.log("Response from search:", res);
       if (res.items && res.items.length > 0) {
         setProducts(
           res.items.length > 8

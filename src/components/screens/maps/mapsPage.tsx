@@ -52,7 +52,6 @@ const MapsPage: FC = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log('res', res)
         if (res) {
           setAddresses({
             0: (res["1"] || []).concat(res["2"] || []),
@@ -76,7 +75,6 @@ const MapsPage: FC = () => {
     dispatch(setIsAddressOpen(true));
   };
 
-  console.log("АДРЕСА", addresses)
 
   return (
     <Layout title={"Адреса"}>

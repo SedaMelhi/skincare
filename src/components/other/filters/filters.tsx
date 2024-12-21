@@ -49,7 +49,6 @@ const Filters: FC<{
     setIsOpenFiltersMobile(false);
   };
 
-  console.log(checkbox);
 
   return (
     <aside

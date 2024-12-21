@@ -54,10 +54,6 @@ const StepOne: FC = () => {
     getAddress();
   }, [isAddressOpen]);
 
-  useEffect(() => {
-    console.log(1);
-  }, [router]);
-
   const changeAddress = () => {
     if (address.full_address) {
       router.push(
